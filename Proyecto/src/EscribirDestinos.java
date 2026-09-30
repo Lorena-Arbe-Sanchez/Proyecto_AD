@@ -5,53 +5,66 @@ import java.io.*;
 public class EscribirDestinos {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-        // TODO
+        File ficheroDestinos = new File("FicheroDestino.dat");
 
-        /*File ficheroClientes = new File("FicheroCliente.dat");
+        FileOutputStream foDestinos = new FileOutputStream(ficheroDestinos);
+        ObjectOutputStream ooDestinos = new ObjectOutputStream(foDestinos);
 
-        FileOutputStream foClientes = new FileOutputStream(ficheroClientes);
+        // TODO : Poner los enlaces de las imágenes correctas
+        Destino destino1 = new Destino(1, "Hondarribia", "España", "Ciudad costera de Gipuzkoa conocida por su casco histórico, puerto y playas.", "Costa", "Español", "Euro", "https://ejemplo.com/hondarribia.jpg");
+        Destino destino2 = new Destino(2, "Donostia", "España", "Ciudad costera conocida por la playa de La Concha, su gastronomía y su casco antiguo.", "Costa", "Español", "Euro", "https://ejemplo.com/donostia.jpg");
+        Destino destino3 = new Destino(3, "Málaga", "España", "Ciudad andaluza con playas, patrimonio histórico, museos y una amplia oferta cultural.", "Playa", "Español", "Euro", "https://ejemplo.com/malaga.jpg");
+        Destino destino4 = new Destino(4, "Madrid", "España", "Capital de España con numerosos museos, monumentos, parques y zonas comerciales.", "Urbano", "Español", "Euro", "https://ejemplo.com/madrid.jpg");
+        Destino destino5 = new Destino(5, "Hendaya", "Francia", "Localidad costera francesa situada junto a la frontera con España y conocida por su playa.", "Playa", "Francés", "Euro", "https://ejemplo.com/hendaya.jpg");
+        Destino destino6 = new Destino(6, "Deba", "España", "Localidad costera de Gipuzkoa rodeada de naturaleza, playas y acantilados.", "Naturaleza", "Español", "Euro", "https://ejemplo.com/deba.jpg");
+        Destino destino7 = new Destino(7, "Zarautz", "España", "Localidad costera de Gipuzkoa conocida por su playa, surf y ambiente turístico.", "Playa", "Español", "Euro", "https://ejemplo.com/zarautz.jpg");
+        Destino destino8 = new Destino(8, "Salou", "España", "Destino turístico de la Costa Dorada conocido por sus playas y su oferta de ocio.", "Playa", "Español", "Euro", "https://ejemplo.com/salou.jpg");
+        Destino destino9 = new Destino(9, "París", "Francia", "Capital francesa conocida por sus monumentos, museos, arquitectura y gastronomía.", "Cultural", "Francés", "Euro", "https://ejemplo.com/paris.jpg");
+        Destino destino10 = new Destino(10, "Tokio", "Japón", "Gran ciudad japonesa que combina tradición, cultura, tecnología y zonas urbanas.", "Urbano", "Japonés", "Yen", "https://ejemplo.com/tokio.jpg");
 
-        ObjectOutputStream ooClientes = new ObjectOutputStream(foClientes);
+        ooDestinos.writeObject(destino1);
+        ooDestinos.writeObject(destino2);
+        ooDestinos.writeObject(destino3);
+        ooDestinos.writeObject(destino4);
+        ooDestinos.writeObject(destino5);
+        ooDestinos.writeObject(destino6);
+        ooDestinos.writeObject(destino7);
+        ooDestinos.writeObject(destino8);
+        ooDestinos.writeObject(destino9);
+        ooDestinos.writeObject(destino10);
 
-        Cliente cliente1 = new Cliente(1, "Lorena", "Arbé", "Sánchez", 21, "12345678Z", "688111111", "lorena@gmail.com");
+        ooDestinos.close();
 
-        ooClientes.writeObject(cliente1);
+        FileInputStream fiDestinos = new FileInputStream(ficheroDestinos);
+        ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
-        ooClientes.close();
-
-        FileInputStream fiClientes = new FileInputStream(ficheroClientes);
-
-        ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
-
-        ListaClientes listaClientes = new ListaClientes();
+        ListaDestinos listaDestinos = new ListaDestinos();
 
         try {
             while (true) {
-                Cliente cliente = (Cliente) oiClientes.readObject();
-                listaClientes.anadir(cliente);
+                Destino destino = (Destino) oiDestinos.readObject();
+                listaDestinos.anadir(destino);
             }
         } catch (EOFException e) {
-            System.out.println("Todo ha ido bien. Se ha llegado al final del fichero de clientes.");
+            System.out.println("Todo ha ido bien. Se ha llegado al final del fichero de destinos.");
         }
 
-        oiClientes.close();
+        oiDestinos.close();
 
         try {
             XStream xstream = new XStream();
 
-            xstream.alias("ListaClientesTotales", ListaClientes.class);
+            xstream.alias("ListaDestinosTotales", ListaDestinos.class);
+            xstream.alias("DatosDestino", Destino.class);
+            xstream.addImplicitCollection(ListaDestinos.class, "lista");
 
-            xstream.alias("DatosCliente", Cliente.class);
-
-            xstream.addImplicitCollection(ListaClientes.class, "lista");
-
-            FileOutputStream filexml = new FileOutputStream("Clientes.xml");
-            xstream.toXML(listaClientes, filexml);
+            FileOutputStream filexml = new FileOutputStream("Destinos.xml");
+            xstream.toXML(listaDestinos, filexml);
             filexml.close();
 
             System.out.println("Fichero XML creado.");
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }
 }

@@ -5,7 +5,8 @@ public class Viaje implements Serializable {
 
     private int id;
     private int idDestino;
-    private int idHotel;
+    // Poner el ID del hotel como "Integer" para tener la opción de guardarlo como "null" si el viaje es de solo 1 día sin alojamiento
+    private Integer idHotel;
     private String origen;
     private Date fechaSalida;
     private Date fechaRegreso;
@@ -17,7 +18,7 @@ public class Viaje implements Serializable {
     public Viaje() {
     }
 
-    public Viaje(int id, int idDestino, int idHotel, String origen, Date fechaSalida, Date fechaRegreso,
+    public Viaje(int id, int idDestino, Integer idHotel, String origen, Date fechaSalida, Date fechaRegreso,
                  double precio, int plazasTotales, int plazasDisponibles, String tipoViaje) {
         this.id = id;
         this.idDestino = idDestino;
@@ -47,11 +48,11 @@ public class Viaje implements Serializable {
         this.idDestino = idDestino;
     }
 
-    public int getIdHotel() {
+    public Integer getIdHotel() {
         return idHotel;
     }
 
-    public void setIdHotel(int idHotel) {
+    public void setIdHotel(Integer idHotel) {
         this.idHotel = idHotel;
     }
 

@@ -3,10 +3,10 @@ import java.util.List;
 
 public class ListaClientes {
 
-    private List<Cliente> lista = new ArrayList<Cliente>();
+    private List<Cliente> lista;
 
     public ListaClientes() {
-
+        lista = new ArrayList<>();
     }
 
     public void anadir(Cliente cliente) {

@@ -1,0 +1,102 @@
+<ListaDestinosTotales>
+  <DatosDestino>
+    <id>1</id>
+    <ciudad>Hondarribia</ciudad>
+    <pais>España</pais>
+    <descripcion>Ciudad costera de Gipuzkoa conocida por su casco histórico, puerto y playas.</descripcion>
+    <tipoDestino>Costa</tipoDestino>
+    <idioma>Español</idioma>
+    <moneda>Euro</moneda>
+    <imagenUrl>https://ejemplo.com/hondarribia.jpg</imagenUrl>
+  </DatosDestino>
+  <DatosDestino>
+    <id>2</id>
+    <ciudad>Donostia</ciudad>
+    <pais>España</pais>
+    <descripcion>Ciudad costera conocida por la playa de La Concha, su gastronomía y su casco antiguo.</descripcion>
+    <tipoDestino>Costa</tipoDestino>
+    <idioma>Español</idioma>
+    <moneda>Euro</moneda>
+    <imagenUrl>https://ejemplo.com/donostia.jpg</imagenUrl>
+  </DatosDestino>
+  <DatosDestino>
+    <id>3</id>
+    <ciudad>Málaga</ciudad>
+    <pais>España</pais>
+    <descripcion>Ciudad andaluza con playas, patrimonio histórico, museos y una amplia oferta cultural.</descripcion>
+    <tipoDestino>Playa</tipoDestino>
+    <idioma>Español</idioma>
+    <moneda>Euro</moneda>
+    <imagenUrl>https://ejemplo.com/malaga.jpg</imagenUrl>
+  </DatosDestino>
+  <DatosDestino>
+    <id>4</id>
+    <ciudad>Madrid</ciudad>
+    <pais>España</pais>
+    <descripcion>Capital de España con numerosos museos, monumentos, parques y zonas comerciales.</descripcion>
+    <tipoDestino>Urbano</tipoDestino>
+    <idioma>Español</idioma>
+    <moneda>Euro</moneda>
+    <imagenUrl>https://ejemplo.com/madrid.jpg</imagenUrl>
+  </DatosDestino>
+  <DatosDestino>
+    <id>5</id>
+    <ciudad>Hendaya</ciudad>
+    <pais>Francia</pais>
+    <descripcion>Localidad costera francesa situada junto a la frontera con España y conocida por su playa.</descripcion>
+    <tipoDestino>Playa</tipoDestino>
+    <idioma>Francés</idioma>
+    <moneda>Euro</moneda>
+    <imagenUrl>https://ejemplo.com/hendaya.jpg</imagenUrl>
+  </DatosDestino>
+  <DatosDestino>
+    <id>6</id>
+    <ciudad>Deba</ciudad>
+    <pais>España</pais>
+    <descripcion>Localidad costera de Gipuzkoa rodeada de naturaleza, playas y acantilados.</descripcion>
+    <tipoDestino>Naturaleza</tipoDestino>
+    <idioma>Español</idioma>
+    <moneda>Euro</moneda>
+    <imagenUrl>https://ejemplo.com/deba.jpg</imagenUrl>
+  </DatosDestino>
+  <DatosDestino>
+    <id>7</id>
+    <ciudad>Zarautz</ciudad>
+    <pais>España</pais>
+    <descripcion>Localidad costera de Gipuzkoa conocida por su playa, surf y ambiente turístico.</descripcion>
+    <tipoDestino>Playa</tipoDestino>
+    <idioma>Español</idioma>
+    <moneda>Euro</moneda>
+    <imagenUrl>https://ejemplo.com/zarautz.jpg</imagenUrl>
+  </DatosDestino>
+  <DatosDestino>
+    <id>8</id>
+    <ciudad>Salou</ciudad>
+    <pais>España</pais>
+    <descripcion>Destino turístico de la Costa Dorada conocido por sus playas y su oferta de ocio.</descripcion>
+    <tipoDestino>Playa</tipoDestino>
+    <idioma>Español</idioma>
+    <moneda>Euro</moneda>
+    <imagenUrl>https://ejemplo.com/salou.jpg</imagenUrl>
+  </DatosDestino>
+  <DatosDestino>
+    <id>9</id>
+    <ciudad>París</ciudad>
+    <pais>Francia</pais>
+    <descripcion>Capital francesa conocida por sus monumentos, museos, arquitectura y gastronomía.</descripcion>
+    <tipoDestino>Cultural</tipoDestino>
+    <idioma>Francés</idioma>
+    <moneda>Euro</moneda>
+    <imagenUrl>https://ejemplo.com/paris.jpg</imagenUrl>
+  </DatosDestino>
+  <DatosDestino>
+    <id>10</id>
+    <ciudad>Tokio</ciudad>
+    <pais>Japón</pais>
+    <descripcion>Gran ciudad japonesa que combina tradición, cultura, tecnología y zonas urbanas.</descripcion>
+    <tipoDestino>Urbano</tipoDestino>
+    <idioma>Japonés</idioma>
+    <moneda>Yen</moneda>
+    <imagenUrl>https://ejemplo.com/tokio.jpg</imagenUrl>
+  </DatosDestino>
+</ListaDestinosTotales>

@@ -3,19 +3,21 @@ import java.util.List;
 
 public class ListaDestinos {
 
-    // TODO
-
-    /*private List<Cliente> lista = new ArrayList<Cliente>();
+    private List<Destino> lista;
 
     public ListaDestinos() {
-
+        lista = new ArrayList<>();
     }
 
-    public void anadir(Cliente cliente) {
-        lista.add(cliente);
+    public void anadir(Destino destino) {
+        lista.add(destino);
     }
 
-    public List<Cliente> getListaClientes() {
+    public List<Destino> getLista() {
         return lista;
-    }*/
+    }
+
+    public void setLista(List<Destino> lista) {
+        this.lista = lista;
+    }
 }

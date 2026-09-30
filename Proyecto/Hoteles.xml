@@ -1,0 +1,154 @@
+<ListaHotelesTotales>
+  <DatosHotel>
+    <id>1</id>
+    <nombre>Hotel Jauregui</nombre>
+    <estrellas>4</estrellas>
+    <direccion>Zuloaga Kalea, 5, Hondarribia</direccion>
+    <precioNoche>145.0</precioNoche>
+    <servicios>WiFi, restaurante, desayuno, parking</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>2</id>
+    <nombre>Hotel Palacio Obispo</nombre>
+    <estrellas>4</estrellas>
+    <direccion>Apezpiku Kalea, 1, Hondarribia</direccion>
+    <precioNoche>160.0</precioNoche>
+    <servicios>WiFi, restaurante, desayuno</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>3</id>
+    <nombre>Hotel Onyarbi</nombre>
+    <estrellas>2</estrellas>
+    <direccion>Axular Kalea, 1, Hondarribia</direccion>
+    <precioNoche>95.0</precioNoche>
+    <servicios>WiFi, parking</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>4</id>
+    <nombre>Hotel Arbaso</nombre>
+    <estrellas>4</estrellas>
+    <direccion>Hondarribia Kalea, 24, Donostia</direccion>
+    <precioNoche>190.0</precioNoche>
+    <servicios>WiFi, restaurante, gimnasio, bicicletas</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>5</id>
+    <nombre>Hotel Ezeiza</nombre>
+    <estrellas>2</estrellas>
+    <direccion>Avenida Satrustegi, 13, Donostia</direccion>
+    <precioNoche>105.0</precioNoche>
+    <servicios>WiFi, restaurante, parking</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>6</id>
+    <nombre>Hotel Molina Lario</nombre>
+    <estrellas>4</estrellas>
+    <direccion>Molina Lario, 20, Málaga</direccion>
+    <precioNoche>175.0</precioNoche>
+    <servicios>WiFi, piscina, restaurante, terraza</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>7</id>
+    <nombre>Hotel Soho Boutique Las Vegas</nombre>
+    <estrellas>3</estrellas>
+    <direccion>Paseo de Sancha, 22, Málaga</direccion>
+    <precioNoche>110.0</precioNoche>
+    <servicios>WiFi, piscina, desayuno, terraza</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>8</id>
+    <nombre>Hotel Regina</nombre>
+    <estrellas>4</estrellas>
+    <direccion>Alcalá, 19, Madrid</direccion>
+    <precioNoche>180.0</precioNoche>
+    <servicios>WiFi, restaurante, desayuno</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>9</id>
+    <nombre>Hotel Mediodía</nombre>
+    <estrellas>2</estrellas>
+    <direccion>Plaza del Emperador Carlos V, 8, Madrid</direccion>
+    <precioNoche>90.0</precioNoche>
+    <servicios>WiFi, desayuno, recepción 24 horas</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>10</id>
+    <nombre>Hotel Ibaia</nombre>
+    <estrellas>3</estrellas>
+    <direccion>76 Avenue des Mimosas, Hendaya</direccion>
+    <precioNoche>125.0</precioNoche>
+    <servicios>WiFi, piscina, spa, parking</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>11</id>
+    <nombre>Hotel Valencia</nombre>
+    <estrellas>2</estrellas>
+    <direccion>29 Boulevard Général Leclerc, Hendaya</direccion>
+    <precioNoche>95.0</precioNoche>
+    <servicios>WiFi, desayuno, terraza</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>12</id>
+    <nombre>Hotel Kanala</nombre>
+    <estrellas>1</estrellas>
+    <direccion>Deba, Gipuzkoa</direccion>
+    <precioNoche>75.0</precioNoche>
+    <servicios>WiFi, restaurante, parking</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>13</id>
+    <nombre>Hotel Zarauz</nombre>
+    <estrellas>3</estrellas>
+    <direccion>Nafarroa Kalea, Zarautz</direccion>
+    <precioNoche>100.0</precioNoche>
+    <servicios>WiFi, restaurante, desayuno</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>14</id>
+    <nombre>Hotel Norte</nombre>
+    <estrellas>1</estrellas>
+    <direccion>Amezti Kalea, Zarautz</direccion>
+    <precioNoche>70.0</precioNoche>
+    <servicios>WiFi, desayuno</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>15</id>
+    <nombre>Hotel California Palace</nombre>
+    <estrellas>4</estrellas>
+    <direccion>Carrer de la Ciutat de Reus, Salou</direccion>
+    <precioNoche>120.0</precioNoche>
+    <servicios>WiFi, piscina, restaurante, gimnasio</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>16</id>
+    <nombre>Hotel Jaime I</nombre>
+    <estrellas>3</estrellas>
+    <direccion>Carrer de Logronyo, Salou</direccion>
+    <precioNoche>105.0</precioNoche>
+    <servicios>WiFi, piscina, restaurante</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>17</id>
+    <nombre>ibis Paris Tour Eiffel Cambronne</nombre>
+    <estrellas>3</estrellas>
+    <direccion>2 Rue Cambronne, París</direccion>
+    <precioNoche>160.0</precioNoche>
+    <servicios>WiFi, restaurante, bar, recepción 24 horas</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>18</id>
+    <nombre>Hotel Gracery Shinjuku</nombre>
+    <estrellas>4</estrellas>
+    <direccion>Kabukicho, Shinjuku, Tokio</direccion>
+    <precioNoche>180.0</precioNoche>
+    <servicios>WiFi, restaurante, recepción 24 horas</servicios>
+  </DatosHotel>
+  <DatosHotel>
+    <id>19</id>
+    <nombre>APA Hotel Shinjuku Gyoenmae</nombre>
+    <estrellas>3</estrellas>
+    <direccion>Shinjuku, Tokio</direccion>
+    <precioNoche>110.0</precioNoche>
+    <servicios>WiFi, restaurante, baño público</servicios>
+  </DatosHotel>
+</ListaHotelesTotales>
