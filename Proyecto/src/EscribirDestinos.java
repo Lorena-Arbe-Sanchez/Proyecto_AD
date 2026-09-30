@@ -10,12 +10,12 @@ public class EscribirDestinos {
         FileOutputStream foDestinos = new FileOutputStream(ficheroDestinos);
         ObjectOutputStream ooDestinos = new ObjectOutputStream(foDestinos);
 
-        // TODO : Poner los enlaces de las imágenes correctas
-        Destino destino1 = new Destino(1, "Hondarribia", "España", "Ciudad costera de Gipuzkoa conocida por su casco histórico, puerto y playas.", "Costa", "Español", "Euro", "https://ejemplo.com/hondarribia.jpg");
-        Destino destino2 = new Destino(2, "Donostia", "España", "Ciudad costera conocida por la playa de La Concha, su gastronomía y su casco antiguo.", "Costa", "Español", "Euro", "https://ejemplo.com/donostia.jpg");
-        Destino destino3 = new Destino(3, "Málaga", "España", "Ciudad andaluza con playas, patrimonio histórico, museos y una amplia oferta cultural.", "Playa", "Español", "Euro", "https://ejemplo.com/malaga.jpg");
-        Destino destino4 = new Destino(4, "Madrid", "España", "Capital de España con numerosos museos, monumentos, parques y zonas comerciales.", "Urbano", "Español", "Euro", "https://ejemplo.com/madrid.jpg");
-        Destino destino5 = new Destino(5, "Hendaya", "Francia", "Localidad costera francesa situada junto a la frontera con España y conocida por su playa.", "Playa", "Francés", "Euro", "https://ejemplo.com/hendaya.jpg");
+        // TODO : Poner los enlaces de las imágenes correctas + Luego re-ejecutar
+        Destino destino1 = new Destino(1, "Hondarribi", "España", "Ciudad costera de Gipuzkoa conocida por su casco histórico, puerto y playas.", "Costa", "Español", "Euro", "https://drive.google.com/file/d/1-LZFONW7yx8Wd3luLYvK9Vp-0MErubqK/view?usp=drive_link");
+        Destino destino2 = new Destino(2, "Donosti", "España", "Ciudad costera conocida por la playa de La Concha, su gastronomía y su casco antiguo.", "Costa", "Español", "Euro", "https://drive.google.com/file/d/1CIJsXi46hwn2KY1qSayibvLEV0zL2uX9/view?usp=drive_link");
+        Destino destino3 = new Destino(3, "Málaga", "España", "Ciudad andaluza con playas, patrimonio histórico, museos y una amplia oferta cultural.", "Playa", "Español", "Euro", "https://drive.google.com/file/d/1SkWqIgIPyzy7q3SPmJ8O10Tr4lWYkZlZ/view?usp=drive_link");
+        Destino destino4 = new Destino(4, "Madrid", "España", "Capital de España con numerosos museos, monumentos, parques y zonas comerciales.", "Urbano", "Español", "Euro", "https://drive.google.com/file/d/1WYArYOZpqQn7Uozu3EZuOOvfAWR1qUAn/view?usp=drive_link");
+        Destino destino5 = new Destino(5, "Hendaya", "Francia", "Localidad costera francesa situada junto a la frontera con España y conocida por su playa.", "Playa", "Francés", "Euro", "https://drive.google.com/file/d/1fGNK-IvF-6rBQ_KnfV4v8wKW3H3UW1r-/view?usp=drive_link");
         Destino destino6 = new Destino(6, "Deba", "España", "Localidad costera de Gipuzkoa rodeada de naturaleza, playas y acantilados.", "Naturaleza", "Español", "Euro", "https://ejemplo.com/deba.jpg");
         Destino destino7 = new Destino(7, "Zarautz", "España", "Localidad costera de Gipuzkoa conocida por su playa, surf y ambiente turístico.", "Playa", "Español", "Euro", "https://ejemplo.com/zarautz.jpg");
         Destino destino8 = new Destino(8, "Salou", "España", "Destino turístico de la Costa Dorada conocido por sus playas y su oferta de ocio.", "Playa", "Español", "Euro", "https://ejemplo.com/salou.jpg");
