@@ -10,7 +10,7 @@ public class EscribirHoteles {
         FileOutputStream foHoteles = new FileOutputStream(ficheroHoteles);
         ObjectOutputStream ooHoteles = new ObjectOutputStream(foHoteles);
 
-        // TODO: Quitar algún hotel para que algunos destinos tengan 0, otros 1, y otros varios
+        // TODO : Quitar algún hotel para que algunos destinos tengan 0, otros 1, y otros varios
         Hotel hotel1 = new Hotel(1, "Hotel Jauregui", 4, "Zuloaga Kalea, 5, Hondarribia", 145.00, "WiFi, restaurante, desayuno, parking");
         Hotel hotel2 = new Hotel(2, "Hotel Palacio Obispo", 4, "Apezpiku Kalea, 1, Hondarribia", 160.00, "WiFi, restaurante, desayuno");
         Hotel hotel3 = new Hotel(3, "Hotel Onyarbi", 2, "Axular Kalea, 1, Hondarribia", 95.00, "WiFi, parking");

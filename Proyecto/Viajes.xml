@@ -1,0 +1,120 @@
+<ListaViajesTotales>
+  <DatosViaje>
+    <id>1</id>
+    <idDestino>1</idDestino>
+    <idHotel>1</idHotel>
+    <origen>Vitoria-Gasteiz</origen>
+    <fechaSalida>2026-10-09 22:00:00.0 UTC</fechaSalida>
+    <fechaRegreso>2026-10-11 22:00:00.0 UTC</fechaRegreso>
+    <precio>250.0</precio>
+    <plazasTotales>20</plazasTotales>
+    <plazasDisponibles>20</plazasDisponibles>
+    <tipoViaje>Escapada</tipoViaje>
+  </DatosViaje>
+  <DatosViaje>
+    <id>2</id>
+    <idDestino>2</idDestino>
+    <origen>Vitoria-Gasteiz</origen>
+    <fechaSalida>2026-10-16 22:00:00.0 UTC</fechaSalida>
+    <fechaRegreso>2026-10-16 22:00:00.0 UTC</fechaRegreso>
+    <precio>45.0</precio>
+    <plazasTotales>30</plazasTotales>
+    <plazasDisponibles>30</plazasDisponibles>
+    <tipoViaje>Excursión de un día</tipoViaje>
+  </DatosViaje>
+  <DatosViaje>
+    <id>3</id>
+    <idDestino>3</idDestino>
+    <idHotel>6</idHotel>
+    <origen>Vitoria-Gasteiz</origen>
+    <fechaSalida>2026-10-23 22:00:00.0 UTC</fechaSalida>
+    <fechaRegreso>2026-10-25 23:00:00.0 UTC</fechaRegreso>
+    <precio>320.0</precio>
+    <plazasTotales>25</plazasTotales>
+    <plazasDisponibles>25</plazasDisponibles>
+    <tipoViaje>Escapada</tipoViaje>
+  </DatosViaje>
+  <DatosViaje>
+    <id>4</id>
+    <idDestino>4</idDestino>
+    <idHotel>8</idHotel>
+    <origen>Vitoria-Gasteiz</origen>
+    <fechaSalida>2026-10-30 23:00:00.0 UTC</fechaSalida>
+    <fechaRegreso>2026-11-01 23:00:00.0 UTC</fechaRegreso>
+    <precio>350.0</precio>
+    <plazasTotales>30</plazasTotales>
+    <plazasDisponibles>30</plazasDisponibles>
+    <tipoViaje>Escapada</tipoViaje>
+  </DatosViaje>
+  <DatosViaje>
+    <id>5</id>
+    <idDestino>5</idDestino>
+    <origen>Vitoria-Gasteiz</origen>
+    <fechaSalida>2026-11-06 23:00:00.0 UTC</fechaSalida>
+    <fechaRegreso>2026-11-06 23:00:00.0 UTC</fechaRegreso>
+    <precio>55.0</precio>
+    <plazasTotales>25</plazasTotales>
+    <plazasDisponibles>25</plazasDisponibles>
+    <tipoViaje>Excursión de un día</tipoViaje>
+  </DatosViaje>
+  <DatosViaje>
+    <id>6</id>
+    <idDestino>6</idDestino>
+    <idHotel>12</idHotel>
+    <origen>Vitoria-Gasteiz</origen>
+    <fechaSalida>2026-11-13 23:00:00.0 UTC</fechaSalida>
+    <fechaRegreso>2026-11-14 23:00:00.0 UTC</fechaRegreso>
+    <precio>140.0</precio>
+    <plazasTotales>20</plazasTotales>
+    <plazasDisponibles>20</plazasDisponibles>
+    <tipoViaje>Naturaleza</tipoViaje>
+  </DatosViaje>
+  <DatosViaje>
+    <id>7</id>
+    <idDestino>7</idDestino>
+    <idHotel>13</idHotel>
+    <origen>Vitoria-Gasteiz</origen>
+    <fechaSalida>2026-11-20 23:00:00.0 UTC</fechaSalida>
+    <fechaRegreso>2026-11-21 23:00:00.0 UTC</fechaRegreso>
+    <precio>180.0</precio>
+    <plazasTotales>25</plazasTotales>
+    <plazasDisponibles>25</plazasDisponibles>
+    <tipoViaje>Playa</tipoViaje>
+  </DatosViaje>
+  <DatosViaje>
+    <id>8</id>
+    <idDestino>8</idDestino>
+    <idHotel>15</idHotel>
+    <origen>Vitoria-Gasteiz</origen>
+    <fechaSalida>2026-11-27 23:00:00.0 UTC</fechaSalida>
+    <fechaRegreso>2026-11-29 23:00:00.0 UTC</fechaRegreso>
+    <precio>280.0</precio>
+    <plazasTotales>30</plazasTotales>
+    <plazasDisponibles>30</plazasDisponibles>
+    <tipoViaje>Vacaciones</tipoViaje>
+  </DatosViaje>
+  <DatosViaje>
+    <id>9</id>
+    <idDestino>9</idDestino>
+    <idHotel>17</idHotel>
+    <origen>Vitoria-Gasteiz</origen>
+    <fechaSalida>2026-12-04 23:00:00.0 UTC</fechaSalida>
+    <fechaRegreso>2026-12-07 23:00:00.0 UTC</fechaRegreso>
+    <precio>650.0</precio>
+    <plazasTotales>20</plazasTotales>
+    <plazasDisponibles>20</plazasDisponibles>
+    <tipoViaje>Cultural</tipoViaje>
+  </DatosViaje>
+  <DatosViaje>
+    <id>10</id>
+    <idDestino>10</idDestino>
+    <idHotel>18</idHotel>
+    <origen>Vitoria-Gasteiz</origen>
+    <fechaSalida>2026-12-14 23:00:00.0 UTC</fechaSalida>
+    <fechaRegreso>2026-12-21 23:00:00.0 UTC</fechaRegreso>
+    <precio>1200.0</precio>
+    <plazasTotales>20</plazasTotales>
+    <plazasDisponibles>20</plazasDisponibles>
+    <tipoViaje>Internacional</tipoViaje>
+  </DatosViaje>
+</ListaViajesTotales>

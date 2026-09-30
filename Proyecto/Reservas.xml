@@ -1,0 +1,92 @@
+<ListaReservasTotales>
+  <DatosReserva>
+    <id>1</id>
+    <idCliente>1</idCliente>
+    <idViaje>1</idViaje>
+    <fechaReserva>2026-09-30 22:00:00.0 UTC</fechaReserva>
+    <numeroPersonas>2</numeroPersonas>
+    <precioTotal>500.0</precioTotal>
+    <estado>Confirmada</estado>
+  </DatosReserva>
+  <DatosReserva>
+    <id>2</id>
+    <idCliente>2</idCliente>
+    <idViaje>2</idViaje>
+    <fechaReserva>2026-10-04 22:00:00.0 UTC</fechaReserva>
+    <numeroPersonas>3</numeroPersonas>
+    <precioTotal>135.0</precioTotal>
+    <estado>Confirmada</estado>
+  </DatosReserva>
+  <DatosReserva>
+    <id>3</id>
+    <idCliente>3</idCliente>
+    <idViaje>3</idViaje>
+    <fechaReserva>2026-10-09 22:00:00.0 UTC</fechaReserva>
+    <numeroPersonas>1</numeroPersonas>
+    <precioTotal>320.0</precioTotal>
+    <estado>Confirmada</estado>
+  </DatosReserva>
+  <DatosReserva>
+    <id>4</id>
+    <idCliente>4</idCliente>
+    <idViaje>4</idViaje>
+    <fechaReserva>2026-10-14 22:00:00.0 UTC</fechaReserva>
+    <numeroPersonas>2</numeroPersonas>
+    <precioTotal>700.0</precioTotal>
+    <estado>Confirmada</estado>
+  </DatosReserva>
+  <DatosReserva>
+    <id>5</id>
+    <idCliente>5</idCliente>
+    <idViaje>5</idViaje>
+    <fechaReserva>2026-10-19 22:00:00.0 UTC</fechaReserva>
+    <numeroPersonas>2</numeroPersonas>
+    <precioTotal>110.0</precioTotal>
+    <estado>Confirmada</estado>
+  </DatosReserva>
+  <DatosReserva>
+    <id>6</id>
+    <idCliente>6</idCliente>
+    <idViaje>6</idViaje>
+    <fechaReserva>2026-10-24 22:00:00.0 UTC</fechaReserva>
+    <numeroPersonas>1</numeroPersonas>
+    <precioTotal>140.0</precioTotal>
+    <estado>Confirmada</estado>
+  </DatosReserva>
+  <DatosReserva>
+    <id>7</id>
+    <idCliente>7</idCliente>
+    <idViaje>7</idViaje>
+    <fechaReserva>2026-10-31 23:00:00.0 UTC</fechaReserva>
+    <numeroPersonas>4</numeroPersonas>
+    <precioTotal>720.0</precioTotal>
+    <estado>Confirmada</estado>
+  </DatosReserva>
+  <DatosReserva>
+    <id>8</id>
+    <idCliente>8</idCliente>
+    <idViaje>8</idViaje>
+    <fechaReserva>2026-11-04 23:00:00.0 UTC</fechaReserva>
+    <numeroPersonas>2</numeroPersonas>
+    <precioTotal>560.0</precioTotal>
+    <estado>Pendiente</estado>
+  </DatosReserva>
+  <DatosReserva>
+    <id>9</id>
+    <idCliente>9</idCliente>
+    <idViaje>9</idViaje>
+    <fechaReserva>2026-11-19 23:00:00.0 UTC</fechaReserva>
+    <numeroPersonas>1</numeroPersonas>
+    <precioTotal>650.0</precioTotal>
+    <estado>Confirmada</estado>
+  </DatosReserva>
+  <DatosReserva>
+    <id>10</id>
+    <idCliente>10</idCliente>
+    <idViaje>10</idViaje>
+    <fechaReserva>2026-11-30 23:00:00.0 UTC</fechaReserva>
+    <numeroPersonas>2</numeroPersonas>
+    <precioTotal>2400.0</precioTotal>
+    <estado>Pendiente</estado>
+  </DatosReserva>
+</ListaReservasTotales>
