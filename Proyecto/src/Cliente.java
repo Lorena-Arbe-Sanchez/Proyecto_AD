@@ -102,7 +102,7 @@ public class Cliente implements Serializable {
                 "\nNombre: " + nombre +
                 "\nPrimer apellido: " + apellido1 +
                 "\nSegundo apellido: " + apellido2 +
-                "\nEdad: " + edad + "años" +
+                "\nEdad: " + edad + " años" +
                 "\nDNI: " + dni +
                 "\nTeléfono: " + telefono +
                 "\nEmail: " + email);

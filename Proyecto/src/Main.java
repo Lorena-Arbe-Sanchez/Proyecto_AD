@@ -324,7 +324,7 @@ public class Main {
         } while (opcionReservas != 5);
     }
 
-    public static void busquedas(Scanner sc) {
+    public static void busquedas(Scanner sc) throws IOException {
 
         int opcionBusquedas;
 
@@ -350,23 +350,23 @@ public class Main {
             switch (opcionBusquedas) {
 
                 case 1:
-                    System.out.println("Buscar cliente");
+                    buscarCliente(sc);
                     break;
 
                 case 2:
-                    System.out.println("Buscar viaje");
+                    buscarViaje(sc);
                     break;
 
                 case 3:
-                    System.out.println("Buscar destino");
+//                    buscarDestino(sc);
                     break;
 
                 case 4:
-                    System.out.println("Buscar hotel");
+//                    buscarHotel(sc);
                     break;
 
                 case 5:
-                    System.out.println("Buscar reserva");
+//                    buscarReserva(sc);
                     break;
 
                 case 6:
@@ -378,6 +378,172 @@ public class Main {
             }
 
         } while (opcionBusquedas != 6);
+    }
+
+    public static void buscarCliente(Scanner sc) throws IOException {
+
+        int opcionCliente;
+
+        do {
+            System.out.println("""
+                    
+                    ==========================
+                         BUSCAR CLIENTE
+                    ==========================
+                    
+                    1. Buscar por ID
+                    2. Buscar por DNI
+                    3. Buscar por email
+                    4. Volver
+                    
+                    Teclea el número correspondiente a la opción que deseas:""");
+
+            opcionCliente = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcionCliente) {
+                case 1:
+                    buscarClientePorId(sc);
+                    break;
+
+                case 2:
+                    buscarClientePorDni(sc);
+                    break;
+
+                case 3:
+                    buscarClientePorEmail(sc);
+                    break;
+
+                case 4:
+                    System.out.println("Volviendo al menú de búsquedas...");
+                    break;
+
+                default:
+                    System.out.println("Opción no válida.");
+            }
+        }
+        while (opcionCliente != 4);
+    }
+
+    public static void buscarClientePorId(Scanner sc) throws IOException {
+
+        // Preguntar por el ID
+        System.out.print("\nTeclea el ID: ");
+        int idCliente = sc.nextInt();
+
+        File fichero = new File("FicheroCliente.dat");
+        FileInputStream fiClientes = new FileInputStream(fichero);
+        ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Cliente cliente = (Cliente) oiClientes.readObject();
+
+                if (cliente != null && cliente.getId() == idCliente) {
+                    cliente.mostrarTodosDatos();
+                    encontrado = true;
+                    break;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiClientes.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ningún cliente con ese ID.");
+        }
+    }
+
+    public static void buscarClientePorDni(Scanner sc) {
+
+        // TODO: Buscar cliente por DNI
+
+    }
+
+    public static void buscarClientePorEmail(Scanner sc) {
+
+        // TODO: Buscar cliente por email
+
+    }
+
+    public static void buscarViaje(Scanner sc) {
+
+        int opcionViaje;
+
+        do {
+            System.out.println("""
+                    
+                    ==========================
+                          BUSCAR VIAJE
+                    ==========================
+                    
+                    1. Buscar por origen
+                    2. Buscar por destino
+                    3. Buscar por fecha
+                    4. Buscar por tipo de viaje
+                    5. Volver
+                    
+                    Teclea el número correspondiente a la opción que deseas:""");
+
+            opcionViaje = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcionViaje) {
+                case 1:
+                    buscarViajePorOrigen(sc);
+                    break;
+
+                case 2:
+                    buscarViajePorDestino(sc);
+                    break;
+
+                case 3:
+                    buscarViajePorFecha(sc);
+                    break;
+
+                case 4:
+                    buscarViajePorTipo(sc);
+                    break;
+
+                case 5:
+                    System.out.println("Volviendo al menú de búsquedas...");
+                    break;
+
+                default:
+                    System.out.println("Opción no válida.");
+            }
+
+        } while (opcionViaje != 5);
+    }
+
+    public static void buscarViajePorOrigen(Scanner sc) {
+
+        // TODO: Buscar viaje por origen
+
+    }
+
+    public static void buscarViajePorDestino(Scanner sc) {
+
+        // TODO: Buscar viaje por destino
+
+    }
+
+    public static void buscarViajePorFecha(Scanner sc) {
+
+        // TODO: Buscar viaje por fecha
+
+    }
+
+    public static void buscarViajePorTipo(Scanner sc) {
+
+        // TODO: Buscar viaje por tipo de viaje
+
     }
 
     public static void exportarXML(Scanner sc) {
