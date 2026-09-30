@@ -460,16 +460,75 @@ public class Main {
         }
     }
 
-    public static void buscarClientePorDni(Scanner sc) {
+    // TODO : PROBARLO
+    public static void buscarClientePorDni(Scanner sc) throws IOException {
 
-        // TODO: Buscar cliente por DNI
+        System.out.print("\nTeclea el DNI: ");
+        String dniCliente = sc.nextLine();
 
+        File fichero = new File("FicheroCliente.dat");
+        FileInputStream fiClientes = new FileInputStream(fichero);
+        ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Cliente cliente = (Cliente) oiClientes.readObject();
+
+                // "equalsIgnoreCase" permite comparar dos textos sin distinguir entre mayúsculas y minúsculas
+                if (cliente != null && cliente.getDni().equalsIgnoreCase(dniCliente)) {
+                    cliente.mostrarTodosDatos();
+                    encontrado = true;
+                    break;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiClientes.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ningún cliente con ese DNI.");
+        }
     }
 
-    public static void buscarClientePorEmail(Scanner sc) {
+    // TODO : PROBARLO
+    public static void buscarClientePorEmail(Scanner sc) throws IOException {
 
-        // TODO: Buscar cliente por email
+        System.out.print("\nTeclea el email: ");
+        String emailCliente = sc.nextLine();
 
+        File fichero = new File("FicheroCliente.dat");
+        FileInputStream fiClientes = new FileInputStream(fichero);
+        ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Cliente cliente = (Cliente) oiClientes.readObject();
+
+                if (cliente != null && cliente.getEmail().equalsIgnoreCase(emailCliente)) {
+                    cliente.mostrarTodosDatos();
+                    encontrado = true;
+                    break;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiClientes.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ningún cliente con ese email.");
+        }
     }
 
     public static void buscarViaje(Scanner sc) {
