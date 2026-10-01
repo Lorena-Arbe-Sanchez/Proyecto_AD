@@ -705,7 +705,7 @@ public class Main {
         }
     }
 
-    public static void gestionDestinos(Scanner sc) {
+    public static void gestionDestinos(Scanner sc) throws IOException, ClassNotFoundException {
 
         int opcionDestinos;
 
@@ -730,19 +730,19 @@ public class Main {
             switch (opcionDestinos) {
 
                 case 1:
-                    System.out.println("Mostrar destinos");
+                    mostrarDestinos();
                     break;
 
                 case 2:
-                    System.out.println("Añadir destino");
+                    anadirDestino(sc);
                     break;
 
                 case 3:
-                    System.out.println("Modificar destino");
+                    modificarDestino(sc);
                     break;
 
                 case 4:
-                    System.out.println("Eliminar destino");
+                    eliminarDestino(sc);
                     break;
 
                 case 5:
@@ -754,6 +754,202 @@ public class Main {
             }
 
         } while (opcionDestinos != 5);
+    }
+
+    public static void mostrarDestinos() throws IOException, ClassNotFoundException {
+
+        File fichero = new File("FicheroDestino.dat");
+        FileInputStream fiDestinos = new FileInputStream(fichero);
+        ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
+
+        try {
+            while (true) {
+                Destino destino = (Destino) oiDestinos.readObject();
+
+                if (destino != null) {
+                    destino.mostrarTodosDatos();
+                }
+            }
+        } catch (EOFException e) {
+            System.out.println("\nFin del fichero.");
+        }
+
+        oiDestinos.close();
+    }
+
+    // TODO : FALTA PROBAR
+    public static void anadirDestino(Scanner sc) throws IOException, ClassNotFoundException {
+
+        System.out.print("\nTeclea el ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Teclea la ciudad: ");
+        String ciudad = sc.nextLine();
+
+        System.out.print("Teclea el país: ");
+        String pais = sc.nextLine();
+
+        System.out.print("Teclea la descripción: ");
+        String descripcion = sc.nextLine();
+
+        System.out.print("Teclea el tipo de destino: ");
+        String tipoDestino = sc.nextLine();
+
+        System.out.print("Teclea el idioma: ");
+        String idioma = sc.nextLine();
+
+        System.out.print("Teclea la moneda: ");
+        String moneda = sc.nextLine();
+
+        System.out.print("Teclea la URL de la imagen: ");
+        String imagenUrl = sc.nextLine();
+
+        Destino nuevoDestino = new Destino(
+                id,
+                ciudad,
+                pais,
+                descripcion,
+                tipoDestino,
+                idioma,
+                moneda,
+                imagenUrl
+        );
+
+        File fichero = new File("FicheroDestino.dat");
+
+        FileOutputStream foDestinos = new FileOutputStream(fichero, true);
+        ObjectOutputStream ooDestinos = new ObjectOutputStream(foDestinos);
+
+        ooDestinos.writeObject(nuevoDestino);
+
+        ooDestinos.close();
+
+        System.out.println("\nDestino añadido correctamente.");
+    }
+
+    // TODO : FALTA PROBAR
+    public static void modificarDestino(Scanner sc) throws IOException, ClassNotFoundException {
+
+        System.out.print("\nTeclea el ID del destino que quieres modificar: ");
+        int idDestino = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroDestino.dat");
+        FileInputStream fiDestinos = new FileInputStream(fichero);
+        ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
+
+        ListaDestinos listaDestinos = new ListaDestinos();
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Destino destino = (Destino) oiDestinos.readObject();
+
+                if (destino != null) {
+
+                    if (destino.getId() == idDestino) {
+
+                        System.out.print("Nueva ciudad: ");
+                        destino.setCiudad(sc.nextLine());
+
+                        System.out.print("Nuevo país: ");
+                        destino.setPais(sc.nextLine());
+
+                        System.out.print("Nueva descripción: ");
+                        destino.setDescripcion(sc.nextLine());
+
+                        System.out.print("Nuevo tipo de destino: ");
+                        destino.setTipoDestino(sc.nextLine());
+
+                        System.out.print("Nuevo idioma: ");
+                        destino.setIdioma(sc.nextLine());
+
+                        System.out.print("Nueva moneda: ");
+                        destino.setMoneda(sc.nextLine());
+
+                        System.out.print("Nueva URL de imagen: ");
+                        destino.setImagenUrl(sc.nextLine());
+
+                        encontrado = true;
+                    }
+
+                    listaDestinos.anadir(destino);
+                }
+            }
+        } catch (EOFException e) {
+            // Fin del fichero
+        }
+
+        oiDestinos.close();
+
+        if (encontrado) {
+
+            FileOutputStream foDestinos = new FileOutputStream(fichero);
+            ObjectOutputStream ooDestinos = new ObjectOutputStream(foDestinos);
+
+            for (Destino destino : listaDestinos.getLista()) {
+                ooDestinos.writeObject(destino);
+            }
+
+            ooDestinos.close();
+
+            System.out.println("\nDestino modificado correctamente.");
+
+        } else {
+            System.out.println("\nNo se ha encontrado ningún destino con ese ID.");
+        }
+    }
+
+    // TODO : FALTA PROBAR
+    public static void eliminarDestino(Scanner sc) throws IOException, ClassNotFoundException {
+
+        System.out.print("\nTeclea el ID del destino que quieres eliminar: ");
+        int idDestino = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroDestino.dat");
+        FileInputStream fiDestinos = new FileInputStream(fichero);
+        ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
+
+        ListaDestinos listaDestinos = new ListaDestinos();
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Destino destino = (Destino) oiDestinos.readObject();
+
+                if (destino != null) {
+
+                    if (destino.getId() == idDestino) {
+                        encontrado = true;
+                    } else {
+                        listaDestinos.anadir(destino);
+                    }
+                }
+            }
+        } catch (EOFException e) {
+            // Fin del fichero
+        }
+
+        oiDestinos.close();
+
+        if (encontrado) {
+
+            FileOutputStream foDestinos = new FileOutputStream(fichero);
+            ObjectOutputStream ooDestinos = new ObjectOutputStream(foDestinos);
+
+            for (Destino destino : listaDestinos.getLista()) {
+                ooDestinos.writeObject(destino);
+            }
+
+            ooDestinos.close();
+
+            System.out.println("\nDestino eliminado correctamente.");
+
+        } else {
+            System.out.println("\nNo se ha encontrado ningún destino con ese ID.");
+        }
     }
 
     public static void gestionHoteles(Scanner sc) {
