@@ -1189,7 +1189,7 @@ public class Main {
         }
     }
 
-    public static void gestionReservas(Scanner sc) {
+    public static void gestionReservas(Scanner sc) throws IOException, ClassNotFoundException {
 
         int opcionReservas;
 
@@ -1214,19 +1214,19 @@ public class Main {
             switch (opcionReservas) {
 
                 case 1:
-                    System.out.println("Mostrar reservas");
+                    mostrarReservas();
                     break;
 
                 case 2:
-                    System.out.println("Añadir reserva");
+//                    anadirReserva(sc);
                     break;
 
                 case 3:
-                    System.out.println("Modificar reserva");
+//                    modificarReserva(sc);
                     break;
 
                 case 4:
-                    System.out.println("Eliminar reserva");
+//                    eliminarReserva(sc);
                     break;
 
                 case 5:
@@ -1239,6 +1239,35 @@ public class Main {
 
         } while (opcionReservas != 5);
     }
+
+    public static void mostrarReservas() throws IOException, ClassNotFoundException {
+
+        File fichero = new File("FicheroReserva.dat");
+        FileInputStream fiReservas = new FileInputStream(fichero);
+        ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
+
+        try {
+            while (true) {
+                Reserva reserva = (Reserva) oiReservas.readObject();
+
+                if (reserva != null) {
+                    reserva.mostrarTodosDatos();
+                }
+            }
+        } catch (EOFException e) {
+            System.out.println("\nFin del fichero.");
+        }
+
+        oiReservas.close();
+    }
+
+    // las otras 3 funciones
+
+    // TODO : FALTA PROBAR
+
+    // TODO : FALTA PROBAR
+
+    // TODO : FALTA PROBAR
 
     public static void busquedas(Scanner sc) throws IOException, ParseException {
 
