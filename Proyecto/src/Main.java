@@ -362,7 +362,7 @@ public class Main {
                     break;
 
                 case 3:
-//                    buscarDestino(sc);
+                    buscarDestino(sc);
                     break;
 
                 case 4:
@@ -735,6 +735,150 @@ public class Main {
 
         if (!encontrado) {
             System.out.println("\nNo se ha encontrado ningún viaje con ese tipo.");
+        }
+    }
+
+    public static void buscarDestino(Scanner sc) throws IOException {
+
+        int opcionDestino;
+
+        do {
+            System.out.println("""
+                    
+                    ==========================
+                    BUSCAR DESTINO
+                    ==========================
+                    
+                    1. Buscar por ciudad
+                    2. Buscar por país
+                    3. Buscar por tipo de destino
+                    4. Volver
+                    
+                    Teclea el número correspondiente a la opción que deseas:""");
+
+            opcionDestino = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcionDestino) {
+                case 1:
+                    buscarDestinoPorCiudad(sc);
+                    break;
+
+                case 2:
+                    buscarDestinoPorPais(sc);
+                    break;
+
+                case 3:
+                    buscarDestinoPorTipo(sc);
+                    break;
+
+                case 4:
+                    System.out.println("Volviendo al menú de búsquedas...");
+                    break;
+
+                default:
+                    System.out.println("Opción no válida.");
+            }
+
+        } while (opcionDestino != 4);
+    }
+
+    public static void buscarDestinoPorCiudad(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea la ciudad: ");
+        String ciudad = sc.nextLine();
+
+        File fichero = new File("FicheroDestino.dat");
+        FileInputStream fiDestinos = new FileInputStream(fichero);
+        ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Destino destino = (Destino) oiDestinos.readObject();
+
+                if (destino != null && destino.getCiudad().equalsIgnoreCase(ciudad)) {
+                    destino.mostrarTodosDatos();
+                    encontrado = true;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiDestinos.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ningún destino con esa ciudad.");
+        }
+    }
+
+    public static void buscarDestinoPorPais(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el país: ");
+        String pais = sc.nextLine();
+
+        File fichero = new File("FicheroDestino.dat");
+        FileInputStream fiDestinos = new FileInputStream(fichero);
+        ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Destino destino = (Destino) oiDestinos.readObject();
+
+                if (destino != null && destino.getPais().equalsIgnoreCase(pais)) {
+                    destino.mostrarTodosDatos();
+                    encontrado = true;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiDestinos.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ningún destino en ese país.");
+        }
+    }
+
+    public static void buscarDestinoPorTipo(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el tipo de destino: ");
+        String tipoDestino = sc.nextLine();
+
+        File fichero = new File("FicheroDestino.dat");
+        FileInputStream fiDestinos = new FileInputStream(fichero);
+        ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Destino destino = (Destino) oiDestinos.readObject();
+
+                if (destino != null && destino.getTipoDestino().equalsIgnoreCase(tipoDestino)) {
+                    destino.mostrarTodosDatos();
+                    encontrado = true;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiDestinos.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ningún destino de ese tipo.");
         }
     }
 
