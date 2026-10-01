@@ -952,7 +952,7 @@ public class Main {
         }
     }
 
-    public static void gestionHoteles(Scanner sc) {
+    public static void gestionHoteles(Scanner sc) throws IOException, ClassNotFoundException {
 
         int opcionHoteles;
 
@@ -977,19 +977,19 @@ public class Main {
             switch (opcionHoteles) {
 
                 case 1:
-                    System.out.println("Mostrar hoteles");
+                    mostrarHoteles();
                     break;
 
                 case 2:
-                    System.out.println("Añadir hotel");
+                    anadirHotel(sc);
                     break;
 
                 case 3:
-                    System.out.println("Modificar hotel");
+                    modificarHotel(sc);
                     break;
 
                 case 4:
-                    System.out.println("Eliminar hotel");
+                    eliminarHotel(sc);
                     break;
 
                 case 5:
@@ -1001,6 +1001,192 @@ public class Main {
             }
 
         } while (opcionHoteles != 5);
+    }
+
+    public static void mostrarHoteles() throws IOException, ClassNotFoundException {
+
+        File fichero = new File("FicheroHotel.dat");
+        FileInputStream fiHoteles = new FileInputStream(fichero);
+        ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
+
+        try {
+            while (true) {
+                Hotel hotel = (Hotel) oiHoteles.readObject();
+
+                if (hotel != null) {
+                    hotel.mostrarTodosDatos();
+                }
+            }
+        } catch (EOFException e) {
+            System.out.println("\nFin del fichero.");
+        }
+
+        oiHoteles.close();
+    }
+
+    // TODO : FALTA PROBAR
+    public static void anadirHotel(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Teclea el nombre: ");
+        String nombre = sc.nextLine();
+
+        System.out.print("Teclea el número de estrellas: ");
+        int estrellas = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Teclea la dirección: ");
+        String direccion = sc.nextLine();
+
+        System.out.print("Teclea el precio por noche: ");
+        double precioNoche = sc.nextDouble();
+        sc.nextLine();
+
+        System.out.print("Teclea los servicios: ");
+        String servicios = sc.nextLine();
+
+        Hotel nuevoHotel = new Hotel(
+                id,
+                nombre,
+                estrellas,
+                direccion,
+                precioNoche,
+                servicios
+        );
+
+        File fichero = new File("FicheroHotel.dat");
+
+        FileOutputStream foHoteles = new FileOutputStream(fichero, true);
+        ObjectOutputStream ooHoteles = new ObjectOutputStream(foHoteles);
+
+        ooHoteles.writeObject(nuevoHotel);
+
+        ooHoteles.close();
+
+        System.out.println("\nHotel añadido correctamente.");
+    }
+
+    // TODO : FALTA PROBAR
+    public static void modificarHotel(Scanner sc) throws IOException, ClassNotFoundException {
+
+        System.out.print("\nTeclea el ID del hotel que quieres modificar: ");
+        int idHotel = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroHotel.dat");
+        FileInputStream fiHoteles = new FileInputStream(fichero);
+        ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
+
+        ListaHoteles listaHoteles = new ListaHoteles();
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Hotel hotel = (Hotel) oiHoteles.readObject();
+
+                if (hotel != null) {
+
+                    if (hotel.getId() == idHotel) {
+
+                        System.out.print("Nuevo nombre: ");
+                        hotel.setNombre(sc.nextLine());
+
+                        System.out.print("Nuevo número de estrellas: ");
+                        hotel.setEstrellas(sc.nextInt());
+                        sc.nextLine();
+
+                        System.out.print("Nueva dirección: ");
+                        hotel.setDireccion(sc.nextLine());
+
+                        System.out.print("Nuevo precio por noche: ");
+                        hotel.setPrecioNoche(sc.nextDouble());
+                        sc.nextLine();
+
+                        System.out.print("Nuevos servicios: ");
+                        hotel.setServicios(sc.nextLine());
+
+                        encontrado = true;
+                    }
+
+                    listaHoteles.anadir(hotel);
+                }
+            }
+        } catch (EOFException e) {
+            // Fin del fichero
+        }
+
+        oiHoteles.close();
+
+        if (encontrado) {
+
+            FileOutputStream foHoteles = new FileOutputStream(fichero);
+            ObjectOutputStream ooHoteles = new ObjectOutputStream(foHoteles);
+
+            for (Hotel hotel : listaHoteles.getLista()) {
+                ooHoteles.writeObject(hotel);
+            }
+
+            ooHoteles.close();
+
+            System.out.println("\nHotel modificado correctamente.");
+
+        } else {
+            System.out.println("\nNo se ha encontrado ningún hotel con ese ID.");
+        }
+    }
+
+    // TODO : FALTA PROBAR
+    public static void eliminarHotel(Scanner sc) throws IOException, ClassNotFoundException {
+
+        System.out.print("\nTeclea el ID del hotel que quieres eliminar: ");
+        int idHotel = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroHotel.dat");
+        FileInputStream fiHoteles = new FileInputStream(fichero);
+        ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
+
+        ListaHoteles listaHoteles = new ListaHoteles();
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Hotel hotel = (Hotel) oiHoteles.readObject();
+
+                if (hotel != null) {
+
+                    if (hotel.getId() == idHotel) {
+                        encontrado = true;
+                    } else {
+                        listaHoteles.anadir(hotel);
+                    }
+                }
+            }
+        } catch (EOFException e) {
+            // Fin del fichero
+        }
+
+        oiHoteles.close();
+
+        if (encontrado) {
+
+            FileOutputStream foHoteles = new FileOutputStream(fichero);
+            ObjectOutputStream ooHoteles = new ObjectOutputStream(foHoteles);
+
+            for (Hotel hotel : listaHoteles.getLista()) {
+                ooHoteles.writeObject(hotel);
+            }
+
+            ooHoteles.close();
+
+            System.out.println("\nHotel eliminado correctamente.");
+
+        } else {
+            System.out.println("\nNo se ha encontrado ningún hotel con ese ID.");
+        }
     }
 
     public static void gestionReservas(Scanner sc) {
