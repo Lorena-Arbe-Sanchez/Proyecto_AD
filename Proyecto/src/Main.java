@@ -1,6 +1,7 @@
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -73,7 +74,7 @@ public class Main {
                 Teclea el número correspondiente a la opción que deseas:"""); // TODO : Poner control de error por si se escribe algo q no sea uno de esos números
     }
 
-    public static void gestionClientes(Scanner sc) {
+    public static void gestionClientes(Scanner sc) throws IOException {
 
         int opcionClientes;
 
@@ -98,19 +99,19 @@ public class Main {
             switch (opcionClientes) {
 
                 case 1:
-                    System.out.println("Mostrar clientes");
+                    mostrarClientes();
                     break;
 
                 case 2:
-                    System.out.println("Añadir cliente");
+                    anadirCliente(sc);
                     break;
 
                 case 3:
-                    System.out.println("Modificar cliente");
+                    modificarCliente(sc);
                     break;
 
                 case 4:
-                    System.out.println("Eliminar cliente");
+                    eliminarCliente(sc);
                     break;
 
                 case 5:
@@ -124,6 +125,246 @@ public class Main {
         } while (opcionClientes != 5);
     }
 
+    public static void mostrarClientes() throws IOException {
+
+        File fichero = new File("FicheroCliente.dat");
+        FileInputStream fiClientes = new FileInputStream(fichero);
+        ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
+
+        try {
+            while (true) {
+                Cliente cliente = (Cliente) oiClientes.readObject();
+
+                if (cliente != null) {
+                    cliente.mostrarTodosDatos();
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiClientes.close();
+    }
+
+    // TODO : FALTA PROBAR
+    public static void anadirCliente(Scanner sc) throws IOException {
+
+        // TODO : Ponerlo automático (que lo ponga como +1 del último q haya en registros)
+        System.out.print("\nTeclea el ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Teclea el nombre: ");
+        String nombre = sc.nextLine();
+
+        System.out.print("Teclea el primer apellido: ");
+        String apellido1 = sc.nextLine();
+
+        System.out.print("Teclea el segundo apellido: ");
+        String apellido2 = sc.nextLine();
+
+        System.out.print("Teclea la edad: ");
+        int edad = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Teclea el DNI: ");
+        String dni = sc.nextLine();
+
+        System.out.print("Teclea el teléfono: ");
+        String telefono = sc.nextLine();
+
+        System.out.print("Teclea el email: ");
+        String email = sc.nextLine();
+
+        Cliente nuevoCliente = new Cliente(
+                id,
+                nombre,
+                apellido1,
+                apellido2,
+                edad,
+                dni,
+                telefono,
+                email
+        );
+
+        File fichero = new File("FicheroCliente.dat");
+
+        ArrayList<Cliente> clientes = new ArrayList<>();
+
+        if (fichero.exists()) {
+
+            FileInputStream fiClientes = new FileInputStream(fichero);
+            ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
+
+            try {
+                while (true) {
+                    Cliente cliente = (Cliente) oiClientes.readObject();
+
+                    if (cliente != null) {
+                        clientes.add(cliente);
+                    }
+                }
+            } catch (EOFException e) {
+                // Se ha llegado al final del fichero
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            oiClientes.close();
+        }
+
+        clientes.add(nuevoCliente);
+
+        FileOutputStream foClientes = new FileOutputStream(fichero);
+        ObjectOutputStream ooClientes = new ObjectOutputStream(foClientes);
+
+        for (Cliente cliente : clientes) {
+            ooClientes.writeObject(cliente);
+        }
+
+        ooClientes.close();
+
+        System.out.println("\nCliente añadido correctamente.");
+    }
+
+    // TODO : FALTA PROBAR
+    // TODO : Mirar si en los apuntes se hacía así
+    public static void modificarCliente(Scanner sc) throws IOException {
+
+        // TODO : Mejor por DNI
+        System.out.print("\nTeclea el ID del cliente que quieres modificar: ");
+        int idCliente = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroCliente.dat");
+
+        ArrayList<Cliente> clientes = new ArrayList<>();
+
+        FileInputStream fiClientes = new FileInputStream(fichero);
+        ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Cliente cliente = (Cliente) oiClientes.readObject();
+
+                if (cliente != null) {
+
+                    if (cliente.getId() == idCliente) {
+
+                        System.out.print("Nuevo nombre: ");
+                        cliente.setNombre(sc.nextLine());
+
+                        System.out.print("Nuevo primer apellido: ");
+                        cliente.setApellido1(sc.nextLine());
+
+                        System.out.print("Nuevo segundo apellido: ");
+                        cliente.setApellido2(sc.nextLine());
+
+                        System.out.print("Nueva edad: ");
+                        cliente.setEdad(sc.nextInt());
+                        sc.nextLine();
+
+                        System.out.print("Nuevo DNI: ");
+                        cliente.setDni(sc.nextLine());
+
+                        System.out.print("Nuevo teléfono: ");
+                        cliente.setTelefono(sc.nextLine());
+
+                        System.out.print("Nuevo email: ");
+                        cliente.setEmail(sc.nextLine());
+
+                        encontrado = true;
+                    }
+
+                    clientes.add(cliente);
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiClientes.close();
+
+        if (encontrado) {
+
+            FileOutputStream foClientes = new FileOutputStream(fichero);
+            ObjectOutputStream ooClientes = new ObjectOutputStream(foClientes);
+
+            for (Cliente cliente : clientes) {
+                ooClientes.writeObject(cliente);
+            }
+
+            ooClientes.close();
+
+            System.out.println("\nCliente modificado correctamente.");
+
+        } else {
+            System.out.println("\nNo se ha encontrado ningún cliente con ese ID.");
+        }
+    }
+
+    // TODO : FALTA PROBAR
+    public static void eliminarCliente(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el ID del cliente que quieres eliminar: ");
+        int idCliente = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroCliente.dat");
+
+        ArrayList<Cliente> clientes = new ArrayList<>();
+
+        FileInputStream fiClientes = new FileInputStream(fichero);
+        ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Cliente cliente = (Cliente) oiClientes.readObject();
+
+                if (cliente != null) {
+
+                    if (cliente.getId() == idCliente) {
+                        encontrado = true;
+                    } else {
+                        clientes.add(cliente);
+                    }
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiClientes.close();
+
+        if (encontrado) {
+
+            FileOutputStream foClientes = new FileOutputStream(fichero);
+            ObjectOutputStream ooClientes = new ObjectOutputStream(foClientes);
+
+            for (Cliente cliente : clientes) {
+                ooClientes.writeObject(cliente);
+            }
+
+            ooClientes.close();
+
+            System.out.println("\nCliente eliminado correctamente.");
+
+        } else {
+            System.out.println("\nNo se ha encontrado ningún cliente con ese ID.");
+        }
+    }
+
+    // TODO : VOY POR AQUÍ
     public static void gestionViajes(Scanner sc) {
 
         int opcionViajes;
@@ -996,18 +1237,18 @@ public class Main {
 
         do {
             System.out.println("""
-                
-                ==========================
-                BUSCAR RESERVA
-                ==========================
-                
-                1. Buscar por ID
-                2. Buscar por cliente
-                3. Buscar por viaje
-                4. Buscar por estado
-                5. Volver
-                
-                Teclea el número correspondiente a la opción que deseas:""");
+                    
+                    ==========================
+                    BUSCAR RESERVA
+                    ==========================
+                    
+                    1. Buscar por ID
+                    2. Buscar por cliente
+                    3. Buscar por viaje
+                    4. Buscar por estado
+                    5. Volver
+                    
+                    Teclea el número correspondiente a la opción que deseas:""");
 
             opcionReserva = sc.nextInt();
             sc.nextLine();
