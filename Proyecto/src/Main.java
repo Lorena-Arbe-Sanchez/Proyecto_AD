@@ -366,7 +366,7 @@ public class Main {
                     break;
 
                 case 4:
-//                    buscarHotel(sc);
+                    buscarHotel(sc);
                     break;
 
                 case 5:
@@ -879,6 +879,114 @@ public class Main {
 
         if (!encontrado) {
             System.out.println("\nNo se ha encontrado ningún destino de ese tipo.");
+        }
+    }
+
+    public static void buscarHotel(Scanner sc) throws IOException {
+
+        int opcionHotel;
+
+        do {
+            System.out.println("""
+                    
+                    ==========================
+                    BUSCAR HOTEL
+                    ==========================
+                    
+                    1. Buscar por estrellas
+                    2. Buscar por precio máximo
+                    3. Volver
+                    
+                    Teclea el número correspondiente a la opción que deseas:""");
+
+            opcionHotel = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcionHotel) {
+                case 1:
+                    buscarHotelPorEstrellas(sc);
+                    break;
+
+                case 2:
+                    buscarHotelPorPrecio(sc);
+                    break;
+
+                case 3:
+                    System.out.println("Volviendo al menú de búsquedas...");
+                    break;
+
+                default:
+                    System.out.println("Opción no válida.");
+            }
+
+        } while (opcionHotel != 3);
+    }
+
+    public static void buscarHotelPorEstrellas(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el número de estrellas: ");
+        int estrellas = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroHotel.dat");
+        FileInputStream fiHoteles = new FileInputStream(fichero);
+        ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Hotel hotel = (Hotel) oiHoteles.readObject();
+
+                if (hotel != null && hotel.getEstrellas() == estrellas) {
+                    hotel.mostrarTodosDatos();
+                    encontrado = true;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiHoteles.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ningún hotel con ese número de estrellas.");
+        }
+    }
+
+    public static void buscarHotelPorPrecio(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el precio máximo por noche: ");
+        double precioMaximo = sc.nextDouble();
+        sc.nextLine();
+
+        File fichero = new File("FicheroHotel.dat");
+        FileInputStream fiHoteles = new FileInputStream(fichero);
+        ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Hotel hotel = (Hotel) oiHoteles.readObject();
+
+                if (hotel != null && hotel.getPrecioNoche() <= precioMaximo) {
+                    hotel.mostrarTodosDatos();
+                    encontrado = true;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiHoteles.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ningún hotel con ese precio máximo.");
         }
     }
 
