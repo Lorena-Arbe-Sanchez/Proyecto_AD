@@ -364,8 +364,7 @@ public class Main {
         }
     }
 
-    // TODO : VOY POR AQUÍ
-    public static void gestionViajes(Scanner sc) {
+    public static void gestionViajes(Scanner sc) throws IOException {
 
         int opcionViajes;
 
@@ -390,19 +389,19 @@ public class Main {
             switch (opcionViajes) {
 
                 case 1:
-                    System.out.println("Mostrar viajes");
+                    mostrarViajes();
                     break;
 
                 case 2:
-                    System.out.println("Añadir viaje");
+                    anadirViaje(sc);
                     break;
 
                 case 3:
-                    System.out.println("Modificar viaje");
+                    modificarViaje(sc);
                     break;
 
                 case 4:
-                    System.out.println("Eliminar viaje");
+                    eliminarViaje(sc);
                     break;
 
                 case 5:
@@ -414,6 +413,296 @@ public class Main {
             }
 
         } while (opcionViajes != 5);
+    }
+
+    public static void mostrarViajes() throws IOException {
+
+        File fichero = new File("FicheroViaje.dat");
+        FileInputStream fiViajes = new FileInputStream(fichero);
+        ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
+
+        try {
+            while (true) {
+                Viaje viaje = (Viaje) oiViajes.readObject();
+
+                if (viaje != null) {
+                    viaje.mostrarTodosDatos();
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiViajes.close();
+    }
+
+    // TODO : FALTA PROBAR
+    public static void anadirViaje(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el ID del viaje: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Teclea el ID del destino: ");
+        int idDestino = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Teclea el ID del hotel (0 si no hay hotel): ");
+        int idHotelIntroducido = sc.nextInt();
+        sc.nextLine();
+
+        Integer idHotel = null;
+
+        if (idHotelIntroducido != 0) {
+            idHotel = idHotelIntroducido;
+        }
+
+        System.out.print("Teclea el origen: ");
+        String origen = sc.nextLine();
+
+        System.out.print("Teclea la fecha de salida (dd/MM/yyyy): ");
+        String fechaSalidaTexto = sc.nextLine();
+
+        System.out.print("Teclea la fecha de regreso (dd/MM/yyyy): ");
+        String fechaRegresoTexto = sc.nextLine();
+
+        System.out.print("Teclea el precio: ");
+        double precio = sc.nextDouble();
+
+        System.out.print("Teclea el número de plazas totales: ");
+        int plazasTotales = sc.nextInt();
+
+        System.out.print("Teclea el número de plazas disponibles: ");
+        int plazasDisponibles = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Teclea el tipo de viaje: ");
+        String tipo = sc.nextLine();
+
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date fechaSalida;
+        Date fechaRegreso;
+
+        try {
+            fechaSalida = formatoFecha.parse(fechaSalidaTexto);
+            fechaRegreso = formatoFecha.parse(fechaRegresoTexto);
+        } catch (ParseException e) {
+            System.out.println("\nFormato de fecha incorrecto.");
+            return;
+        }
+
+        Viaje nuevoViaje = new Viaje(
+                id,
+                idDestino,
+                idHotel,
+                origen,
+                fechaSalida,
+                fechaRegreso,
+                precio,
+                plazasTotales,
+                plazasDisponibles,
+                tipo
+        );
+
+        File fichero = new File("FicheroViaje.dat");
+
+        ArrayList<Viaje> viajes = new ArrayList<>();
+
+        if (fichero.exists()) {
+
+            FileInputStream fiViajes = new FileInputStream(fichero);
+            ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
+
+            try {
+                while (true) {
+                    Viaje viaje = (Viaje) oiViajes.readObject();
+
+                    if (viaje != null) {
+                        viajes.add(viaje);
+                    }
+                }
+            } catch (EOFException e) {
+                // Se ha llegado al final del fichero
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            oiViajes.close();
+        }
+
+        viajes.add(nuevoViaje);
+
+        FileOutputStream foViajes = new FileOutputStream(fichero);
+        ObjectOutputStream ooViajes = new ObjectOutputStream(foViajes);
+
+        for (Viaje viaje : viajes) {
+            ooViajes.writeObject(viaje);
+        }
+
+        ooViajes.close();
+
+        System.out.println("\nViaje añadido correctamente.");
+    }
+
+    // TODO : FALTA PROBAR
+    public static void modificarViaje(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el ID del viaje que quieres modificar: ");
+        int idViaje = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroViaje.dat");
+
+        ArrayList<Viaje> viajes = new ArrayList<>();
+
+        FileInputStream fiViajes = new FileInputStream(fichero);
+        ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Viaje viaje = (Viaje) oiViajes.readObject();
+
+                if (viaje != null) {
+
+                    if (viaje.getId() == idViaje) {
+
+                        System.out.print("Nuevo ID del destino: ");
+                        viaje.setIdDestino(sc.nextInt());
+                        sc.nextLine();
+
+                        System.out.print("Nuevo ID del hotel (0 si no hay hotel): ");
+                        int idHotelIntroducido = sc.nextInt();
+                        sc.nextLine();
+
+                        if (idHotelIntroducido == 0) {
+                            viaje.setIdHotel(null);
+                        } else {
+                            viaje.setIdHotel(idHotelIntroducido);
+                        }
+
+                        System.out.print("Nuevo origen: ");
+                        viaje.setOrigen(sc.nextLine());
+
+                        System.out.print("Nueva fecha de salida (dd/MM/yyyy): ");
+                        String fechaSalidaTexto = sc.nextLine();
+
+                        System.out.print("Nueva fecha de regreso (dd/MM/yyyy): ");
+                        String fechaRegresoTexto = sc.nextLine();
+
+                        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+
+                        try {
+                            viaje.setFechaSalida(formatoFecha.parse(fechaSalidaTexto));
+                            viaje.setFechaRegreso(formatoFecha.parse(fechaRegresoTexto));
+                        } catch (ParseException e) {
+                            System.out.println("\nFormato de fecha incorrecto.");
+                            oiViajes.close();
+                            return;
+                        }
+
+                        System.out.print("Nuevo precio: ");
+                        viaje.setPrecio(sc.nextDouble());
+
+                        System.out.print("Nuevo número de plazas totales: ");
+                        viaje.setPlazasTotales(sc.nextInt());
+
+                        System.out.print("Nuevo número de plazas disponibles: ");
+                        viaje.setPlazasDisponibles(sc.nextInt());
+                        sc.nextLine();
+
+                        System.out.print("Nuevo tipo de viaje: ");
+                        viaje.setTipoViaje(sc.nextLine());
+
+                        encontrado = true;
+                    }
+
+                    viajes.add(viaje);
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiViajes.close();
+
+        if (encontrado) {
+
+            FileOutputStream foViajes = new FileOutputStream(fichero);
+            ObjectOutputStream ooViajes = new ObjectOutputStream(foViajes);
+
+            for (Viaje viaje : viajes) {
+                ooViajes.writeObject(viaje);
+            }
+
+            ooViajes.close();
+
+            System.out.println("\nViaje modificado correctamente.");
+
+        } else {
+            System.out.println("\nNo se ha encontrado ningún viaje con ese ID.");
+        }
+    }
+
+    // TODO : FALTA PROBAR
+    public static void eliminarViaje(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el ID del viaje que quieres eliminar: ");
+        int idViaje = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroViaje.dat");
+
+        ArrayList<Viaje> viajes = new ArrayList<>();
+
+        FileInputStream fiViajes = new FileInputStream(fichero);
+        ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Viaje viaje = (Viaje) oiViajes.readObject();
+
+                if (viaje != null) {
+
+                    if (viaje.getId() == idViaje) {
+                        encontrado = true;
+                    } else {
+                        viajes.add(viaje);
+                    }
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiViajes.close();
+
+        if (encontrado) {
+
+            FileOutputStream foViajes = new FileOutputStream(fichero);
+            ObjectOutputStream ooViajes = new ObjectOutputStream(foViajes);
+
+            for (Viaje viaje : viajes) {
+                ooViajes.writeObject(viaje);
+            }
+
+            ooViajes.close();
+
+            System.out.println("\nViaje eliminado correctamente.");
+
+        } else {
+            System.out.println("\nNo se ha encontrado ningún viaje con ese ID.");
+        }
     }
 
     public static void gestionDestinos(Scanner sc) {
