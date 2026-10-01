@@ -370,7 +370,7 @@ public class Main {
                     break;
 
                 case 5:
-//                    buscarReserva(sc);
+                    buscarReserva(sc);
                     break;
 
                 case 6:
@@ -987,6 +987,193 @@ public class Main {
 
         if (!encontrado) {
             System.out.println("\nNo se ha encontrado ningún hotel con ese precio máximo.");
+        }
+    }
+
+    public static void buscarReserva(Scanner sc) throws IOException {
+
+        int opcionReserva;
+
+        do {
+            System.out.println("""
+                
+                ==========================
+                BUSCAR RESERVA
+                ==========================
+                
+                1. Buscar por ID
+                2. Buscar por cliente
+                3. Buscar por viaje
+                4. Buscar por estado
+                5. Volver
+                
+                Teclea el número correspondiente a la opción que deseas:""");
+
+            opcionReserva = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcionReserva) {
+                case 1:
+                    buscarReservaPorId(sc);
+                    break;
+
+                case 2:
+                    buscarReservaPorCliente(sc);
+                    break;
+
+                case 3:
+                    buscarReservaPorViaje(sc);
+                    break;
+
+                case 4:
+                    buscarReservaPorEstado(sc);
+                    break;
+
+                case 5:
+                    System.out.println("Volviendo al menú de búsquedas...");
+                    break;
+
+                default:
+                    System.out.println("Opción no válida.");
+            }
+
+        } while (opcionReserva != 5);
+    }
+
+    public static void buscarReservaPorId(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el ID de la reserva: ");
+        int idReserva = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroReserva.dat");
+        FileInputStream fiReservas = new FileInputStream(fichero);
+        ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Reserva reserva = (Reserva) oiReservas.readObject();
+
+                if (reserva != null && reserva.getId() == idReserva) {
+                    reserva.mostrarTodosDatos();
+                    encontrado = true;
+                    break;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiReservas.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ninguna reserva con ese ID.");
+        }
+    }
+
+    // TODO : Hacerlo por el DNI del cliente (habrá que hacer doble búsqueda como cuando lo del destino del viaje)
+    public static void buscarReservaPorCliente(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el ID del cliente: ");
+        int idCliente = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroReserva.dat");
+        FileInputStream fiReservas = new FileInputStream(fichero);
+        ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Reserva reserva = (Reserva) oiReservas.readObject();
+
+                if (reserva != null && reserva.getIdCliente() == idCliente) {
+                    reserva.mostrarTodosDatos();
+                    encontrado = true;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiReservas.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ninguna reserva para ese cliente.");
+        }
+    }
+
+    public static void buscarReservaPorViaje(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el ID del viaje: ");
+        int idViaje = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroReserva.dat");
+        FileInputStream fiReservas = new FileInputStream(fichero);
+        ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Reserva reserva = (Reserva) oiReservas.readObject();
+
+                if (reserva != null && reserva.getIdViaje() == idViaje) {
+                    reserva.mostrarTodosDatos();
+                    encontrado = true;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiReservas.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ninguna reserva para ese viaje.");
+        }
+    }
+
+    public static void buscarReservaPorEstado(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el estado de la reserva: ");
+        String estado = sc.nextLine();
+
+        File fichero = new File("FicheroReserva.dat");
+        FileInputStream fiReservas = new FileInputStream(fichero);
+        ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Reserva reserva = (Reserva) oiReservas.readObject();
+
+                if (reserva != null && reserva.getEstado().equalsIgnoreCase(estado)) {
+                    reserva.mostrarTodosDatos();
+                    encontrado = true;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiReservas.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ninguna reserva con ese estado.");
         }
     }
 
