@@ -36,7 +36,7 @@ public class EscribirViajes {
         Date fechaSalida10 = formatoFecha.parse("15/12/2026");
         Date fechaRegreso10 = formatoFecha.parse("22/12/2026");
 
-        // TODO : Poner los datos correctos + Lo del "null" en hotel
+        // TODO : Poner los datos correctos + Lo del "null" en hotel + El precio que sea el sumatorio de las noches y días + Las fechas que sean en las q he estado
         Viaje viaje1 = new Viaje(1, 1, 1, "Vitoria-Gasteiz", fechaSalida1, fechaRegreso1, 250.00, 20, 20, "Escapada");
         Viaje viaje2 = new Viaje(2, 2, null, "Vitoria-Gasteiz", fechaSalida2, fechaRegreso2, 45.00, 30, 30, "Excursión de un día");
         Viaje viaje3 = new Viaje(3, 3, 6, "Vitoria-Gasteiz", fechaSalida3, fechaRegreso3, 320.00, 25, 25, "Escapada");

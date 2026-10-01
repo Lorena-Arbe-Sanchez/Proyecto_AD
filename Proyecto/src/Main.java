@@ -1,8 +1,11 @@
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, ParseException {
 
         // TODO : Poner funciones en todos los archivos para reutilizar código y/o que quede más limpio + Optimizar
 
@@ -39,6 +42,7 @@ public class Main {
                     exportarXML(sc);
                     break;
                 case 8:
+                    // TODO : Poner emojis en los sout o a la hora de hacer la interfaz, que se vea chula
                     System.out.println("Saliendo de EasyTravel...");
                     break;
                 default:
@@ -66,7 +70,7 @@ public class Main {
                 7. Exportar a XML
                 8. Salir
                 
-                Teclea el número correspondiente a la opción que deseas:""");
+                Teclea el número correspondiente a la opción que deseas:"""); // TODO : Poner control de error por si se escribe algo q no sea uno de esos números
     }
 
     public static void gestionClientes(Scanner sc) {
@@ -324,7 +328,7 @@ public class Main {
         } while (opcionReservas != 5);
     }
 
-    public static void busquedas(Scanner sc) throws IOException {
+    public static void busquedas(Scanner sc) throws IOException, ParseException {
 
         int opcionBusquedas;
 
@@ -460,7 +464,6 @@ public class Main {
         }
     }
 
-    // TODO : PROBARLO
     public static void buscarClientePorDni(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el DNI: ");
@@ -496,7 +499,6 @@ public class Main {
         }
     }
 
-    // TODO : PROBARLO
     public static void buscarClientePorEmail(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el email: ");
@@ -531,7 +533,7 @@ public class Main {
         }
     }
 
-    public static void buscarViaje(Scanner sc) {
+    public static void buscarViaje(Scanner sc) throws IOException, ParseException {
 
         int opcionViaje;
 
@@ -581,28 +583,159 @@ public class Main {
         } while (opcionViaje != 5);
     }
 
-    public static void buscarViajePorOrigen(Scanner sc) {
+    public static void buscarViajePorOrigen(Scanner sc) throws IOException {
 
-        // TODO: Buscar viaje por origen
+        System.out.print("\nTeclea el origen: ");
+        String origen = sc.nextLine();
 
+        File fichero = new File("FicheroViaje.dat");
+        FileInputStream fiViajes = new FileInputStream(fichero);
+        ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Viaje viaje = (Viaje) oiViajes.readObject();
+
+                if (viaje != null && viaje.getOrigen().equalsIgnoreCase(origen)) {
+                    viaje.mostrarTodosDatos();
+                    encontrado = true;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiViajes.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ningún viaje con ese origen.");
+        }
     }
 
-    public static void buscarViajePorDestino(Scanner sc) {
+    public static void buscarViajePorDestino(Scanner sc) throws IOException {
 
-        // TODO: Buscar viaje por destino
+        System.out.print("\nTeclea el destino: ");
+        String ciudad = sc.nextLine();
 
+        File fichero = new File("FicheroDestino.dat");
+        FileInputStream fiDestinos = new FileInputStream(fichero);
+        ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Destino destino = (Destino) oiDestinos.readObject();
+
+                if (destino != null && destino.getCiudad().equalsIgnoreCase(ciudad)) {
+                    int idDestino = destino.getId();
+
+                    FileInputStream fiViajes = new FileInputStream("FicheroViaje.dat");
+                    ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
+
+                    try {
+                        while (true) {
+                            Viaje viaje = (Viaje) oiViajes.readObject();
+
+                            if (viaje != null && viaje.getIdDestino() == idDestino) {
+                                viaje.mostrarTodosDatos();
+                                encontrado = true;
+                            }
+                        }
+                    } catch (EOFException e) {
+                        // Se ha llegado al final del fichero de viajes
+                    }
+
+                    oiViajes.close();
+
+                    // Salir del bucle porque ya se ha encontrado el destino y se han buscado sus viajes
+                    break;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero de destinos
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiDestinos.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ningún viaje con ese destino.");
+        }
     }
 
-    public static void buscarViajePorFecha(Scanner sc) {
+    // TODO : Control de error de fecha incorrecta o que no sigue el patrón + De texto no numérico
+    public static void buscarViajePorFecha(Scanner sc) throws IOException, ParseException {
 
-        // TODO: Buscar viaje por fecha
+        System.out.print("\nTeclea la fecha (dd/MM/yyyy): ");
+        String fechaTexto = sc.nextLine();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        Date fecha = formatoFecha.parse(fechaTexto);
 
+        File fichero = new File("FicheroViaje.dat");
+        FileInputStream fiViajes = new FileInputStream(fichero);
+        ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Viaje viaje = (Viaje) oiViajes.readObject();
+
+                if (viaje != null && viaje.getFechaSalida().equals(fecha)) {
+                    viaje.mostrarTodosDatos();
+                    encontrado = true;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiViajes.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ningún viaje con esa fecha.");
+        }
     }
 
-    public static void buscarViajePorTipo(Scanner sc) {
+    public static void buscarViajePorTipo(Scanner sc) throws IOException {
 
-        // TODO: Buscar viaje por tipo de viaje
+        System.out.print("\nTeclea el tipo de viaje: ");
+        String tipoViaje = sc.nextLine();
 
+        File fichero = new File("FicheroViaje.dat");
+        FileInputStream fiViajes = new FileInputStream(fichero);
+        ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
+
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Viaje viaje = (Viaje) oiViajes.readObject();
+
+                if (viaje != null && viaje.getTipoViaje().equalsIgnoreCase(tipoViaje)) {
+                    viaje.mostrarTodosDatos();
+                    encontrado = true;
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiViajes.close();
+
+        if (!encontrado) {
+            System.out.println("\nNo se ha encontrado ningún viaje con ese tipo.");
+        }
     }
 
     public static void exportarXML(Scanner sc) {
