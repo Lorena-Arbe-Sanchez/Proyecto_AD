@@ -1218,15 +1218,15 @@ public class Main {
                     break;
 
                 case 2:
-//                    anadirReserva(sc);
+                    anadirReserva(sc);
                     break;
 
                 case 3:
-//                    modificarReserva(sc);
+                    modificarReserva(sc);
                     break;
 
                 case 4:
-//                    eliminarReserva(sc);
+                    eliminarReserva(sc);
                     break;
 
                 case 5:
@@ -1261,13 +1261,196 @@ public class Main {
         oiReservas.close();
     }
 
-    // las otras 3 funciones
+    // TODO : FALTA PROBAR
+    public static void anadirReserva(Scanner sc) throws IOException {
+
+        System.out.print("\nTeclea el ID: ");
+        int id = sc.nextInt();
+
+        System.out.print("Teclea el ID del cliente: ");
+        int idCliente = sc.nextInt();
+
+        System.out.print("Teclea el ID del viaje: ");
+        int idViaje = sc.nextInt();
+
+        sc.nextLine();
+
+        System.out.print("Teclea la fecha de reserva (dd/MM/yyyy): ");
+        String fechaTexto = sc.nextLine();
+
+        Date fechaReserva;
+
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+            fechaReserva = formatoFecha.parse(fechaTexto);
+        } catch (ParseException e) {
+            System.out.println("Formato de fecha no válido.");
+            return;
+        }
+
+        System.out.print("Teclea el número de personas: ");
+        int numeroPersonas = sc.nextInt();
+
+        System.out.print("Teclea el precio total: ");
+        double precioTotal = sc.nextDouble();
+
+        sc.nextLine();
+
+        System.out.print("Teclea el estado de la reserva: ");
+        String estado = sc.nextLine();
+
+        Reserva nuevaReserva = new Reserva(
+                id,
+                idCliente,
+                idViaje,
+                fechaReserva,
+                numeroPersonas,
+                precioTotal,
+                estado
+        );
+
+        File fichero = new File("FicheroReserva.dat");
+
+        FileOutputStream foReservas = new FileOutputStream(fichero, true);
+        ObjectOutputStream ooReservas = new ObjectOutputStream(foReservas);
+
+        ooReservas.writeObject(nuevaReserva);
+
+        ooReservas.close();
+
+        System.out.println("\nReserva añadida correctamente.");
+    }
 
     // TODO : FALTA PROBAR
+    public static void modificarReserva(Scanner sc) throws IOException, ClassNotFoundException {
+
+        System.out.print("\nTeclea el ID de la reserva que quieres modificar: ");
+        int idReserva = sc.nextInt();
+
+        File fichero = new File("FicheroReserva.dat");
+        FileInputStream fiReservas = new FileInputStream(fichero);
+        ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
+
+        ListaReservas listaReservas = new ListaReservas();
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Reserva reserva = (Reserva) oiReservas.readObject();
+
+                if (reserva != null) {
+
+                    if (reserva.getId() == idReserva) {
+
+                        System.out.print("Nuevo ID del cliente: ");
+                        reserva.setIdCliente(sc.nextInt());
+
+                        System.out.print("Nuevo ID del viaje: ");
+                        reserva.setIdViaje(sc.nextInt());
+
+                        sc.nextLine();
+
+                        System.out.print("Nueva fecha de reserva (dd/MM/yyyy): ");
+                        String fechaTexto = sc.nextLine();
+
+                        try {
+                            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+                            reserva.setFechaReserva(formatoFecha.parse(fechaTexto));
+                        } catch (ParseException e) {
+                            System.out.println("Formato de fecha no válido.");
+                        }
+
+                        System.out.print("Nuevo número de personas: ");
+                        reserva.setNumeroPersonas(sc.nextInt());
+
+                        System.out.print("Nuevo precio total: ");
+                        reserva.setPrecioTotal(sc.nextDouble());
+
+                        sc.nextLine();
+
+                        System.out.print("Nuevo estado: ");
+                        reserva.setEstado(sc.nextLine());
+
+                        encontrado = true;
+                    }
+
+                    listaReservas.anadir(reserva);
+                }
+            }
+        } catch (EOFException e) {
+            // Fin del fichero
+        }
+
+        oiReservas.close();
+
+        if (encontrado) {
+
+            FileOutputStream foReservas = new FileOutputStream(fichero);
+            ObjectOutputStream ooReservas = new ObjectOutputStream(foReservas);
+
+            for (Reserva reserva : listaReservas.getLista()) {
+                ooReservas.writeObject(reserva);
+            }
+
+            ooReservas.close();
+
+            System.out.println("\nReserva modificada correctamente.");
+
+        } else {
+            System.out.println("\nNo se ha encontrado ninguna reserva con ese ID.");
+        }
+    }
 
     // TODO : FALTA PROBAR
+    public static void eliminarReserva(Scanner sc) throws IOException, ClassNotFoundException {
 
-    // TODO : FALTA PROBAR
+        System.out.print("\nTeclea el ID de la reserva que quieres eliminar: ");
+        int idReserva = sc.nextInt();
+        sc.nextLine();
+
+        File fichero = new File("FicheroReserva.dat");
+        FileInputStream fiReservas = new FileInputStream(fichero);
+        ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
+
+        ListaReservas listaReservas = new ListaReservas();
+        boolean encontrado = false;
+
+        try {
+            while (true) {
+                Reserva reserva = (Reserva) oiReservas.readObject();
+
+                if (reserva != null) {
+
+                    if (reserva.getId() == idReserva) {
+                        encontrado = true;
+                    } else {
+                        listaReservas.anadir(reserva);
+                    }
+                }
+            }
+        } catch (EOFException e) {
+            // Fin del fichero
+        }
+
+        oiReservas.close();
+
+        if (encontrado) {
+
+            FileOutputStream foReservas = new FileOutputStream(fichero);
+            ObjectOutputStream ooReservas = new ObjectOutputStream(foReservas);
+
+            for (Reserva reserva : listaReservas.getLista()) {
+                ooReservas.writeObject(reserva);
+            }
+
+            ooReservas.close();
+
+            System.out.println("\nReserva eliminada correctamente.");
+
+        } else {
+            System.out.println("\nNo se ha encontrado ninguna reserva con ese ID.");
+        }
+    }
 
     public static void busquedas(Scanner sc) throws IOException, ParseException {
 
