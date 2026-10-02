@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+import com.thoughtworks.xstream.XStream;
+
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException, ParseException {
 
@@ -2301,7 +2303,7 @@ public class Main {
         }
     }
 
-    public static void exportarXML(Scanner sc) {
+    public static void exportarXML(Scanner sc) throws IOException, ClassNotFoundException {
 
         int opcionXML;
 
@@ -2328,27 +2330,31 @@ public class Main {
             switch (opcionXML) {
 
                 case 1:
-                    System.out.println("Exportar clientes");
+                    exportarClientesXML();
                     break;
 
                 case 2:
-                    System.out.println("Exportar viajes");
+                    exportarViajesXML();
                     break;
 
                 case 3:
-                    System.out.println("Exportar destinos");
+                    exportarDestinosXML();
                     break;
 
                 case 4:
-                    System.out.println("Exportar hoteles");
+                    exportarHotelesXML();
                     break;
 
                 case 5:
-                    System.out.println("Exportar reservas");
+                    exportarReservasXML();
                     break;
 
                 case 6:
-                    System.out.println("Exportar todo");
+                    exportarClientesXML();
+                    exportarViajesXML();
+                    exportarDestinosXML();
+                    exportarHotelesXML();
+                    exportarReservasXML();
                     break;
 
                 case 7:
@@ -2360,5 +2366,76 @@ public class Main {
             }
 
         } while (opcionXML != 7);
+    }
+
+    public static void exportarClientesXML() throws IOException, ClassNotFoundException {
+
+        File ficheroClientes = new File("FicheroCliente.dat");
+
+        /* ----- Crear fichero '.xml' e insertarle los datos del fichero '.dat' ----- */
+
+        // Crear un objeto de la clase FileInputStream asociado al fichero físico
+        FileInputStream fiClientes = new FileInputStream(ficheroClientes);
+
+        // Crear un objeto de la clase ObjectInputStream asociado al objeto anterior
+        ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
+
+        // Crear objeto de Lista de Clientes
+        ListaClientes listaClientes = new ListaClientes();
+
+        // Leer los objetos 'Cliente' del fichero y añadirlos a la lista
+        try {
+            while (true) {
+                Cliente cliente = (Cliente) oiClientes.readObject();
+                listaClientes.anadir(cliente);
+            }
+        } catch (EOFException e) {
+            // El final se detecta cuando "readObject()" llega al final del fichero
+            System.out.println("Todo ha ido bien. Se ha llegado al final del fichero de clientes.");
+        }
+
+        // Cerrar stream de entrada
+        oiClientes.close();
+
+        // Después de obtener todos los clientes, se genera el fichero XML mediante XStream
+
+        try {
+            // Crear instancia de la clase XStream
+            XStream xstream = new XStream();
+
+            // Cambiar de nombre a las etiquetas XML
+            xstream.alias("ListaClientesTotales", ListaClientes.class);
+
+            // También darle un alias a la clase 'Cliente'
+            xstream.alias("DatosCliente", Cliente.class);
+
+            // Quitar etiqueta lista (atributo de la clase ListaClientes)
+            xstream.addImplicitCollection(ListaClientes.class, "lista");
+
+            // Generar el fichero XML con los datos de la lista de clientes
+            FileOutputStream filexml = new FileOutputStream("Clientes.xml");
+            xstream.toXML(listaClientes, filexml);
+            filexml.close();
+
+            System.out.println("Fichero XML creado.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void exportarViajesXML() {
+        System.out.println("Exportando viajes a XML...");
+    }
+
+    public static void exportarDestinosXML() {
+        System.out.println("Exportando destinos a XML...");
+    }
+
+    public static void exportarHotelesXML() {
+        System.out.println("Exportando hoteles a XML...");
+    }
+
+    public static void exportarReservasXML() {
+        System.out.println("Exportando reservas a XML...");
     }
 }
