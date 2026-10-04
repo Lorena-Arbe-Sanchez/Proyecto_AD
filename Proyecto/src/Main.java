@@ -2423,19 +2423,151 @@ public class Main {
         }
     }
 
-    public static void exportarViajesXML() {
-        System.out.println("Exportando viajes a XML...");
+    public static void exportarViajesXML() throws IOException, ClassNotFoundException {
+
+        File ficheroViajes = new File("FicheroViaje.dat");
+
+        FileInputStream fiViajes = new FileInputStream(ficheroViajes);
+        ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
+
+        ListaViajes listaViajes = new ListaViajes();
+
+        try {
+            while (true) {
+                Viaje viaje = (Viaje) oiViajes.readObject();
+                listaViajes.anadir(viaje);
+            }
+        } catch (EOFException e) {
+            System.out.println("Todo ha ido bien. Se ha llegado al final del fichero de viajes.");
+        }
+
+        oiViajes.close();
+
+        try {
+            XStream xstream = new XStream();
+
+            xstream.alias("ListaViajesTotales", ListaViajes.class);
+            xstream.alias("DatosViaje", Viaje.class);
+            xstream.addImplicitCollection(ListaViajes.class, "lista");
+
+            FileOutputStream filexml = new FileOutputStream("Viajes.xml");
+            xstream.toXML(listaViajes, filexml);
+            filexml.close();
+
+            System.out.println("Fichero XML creado.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void exportarDestinosXML() {
-        System.out.println("Exportando destinos a XML...");
+    public static void exportarDestinosXML() throws IOException, ClassNotFoundException {
+
+        File ficheroDestinos = new File("FicheroDestino.dat");
+
+        FileInputStream fiDestinos = new FileInputStream(ficheroDestinos);
+        ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
+
+        ListaDestinos listaDestinos = new ListaDestinos();
+
+        try {
+            while (true) {
+                Destino destino = (Destino) oiDestinos.readObject();
+                listaDestinos.anadir(destino);
+            }
+        } catch (EOFException e) {
+            System.out.println("Todo ha ido bien. Se ha llegado al final del fichero de destinos.");
+        }
+
+        oiDestinos.close();
+
+        try {
+            XStream xstream = new XStream();
+
+            xstream.alias("ListaDestinosTotales", ListaDestinos.class);
+            xstream.alias("DatosDestino", Destino.class);
+            xstream.addImplicitCollection(ListaDestinos.class, "lista");
+
+            FileOutputStream filexml = new FileOutputStream("Destinos.xml");
+            xstream.toXML(listaDestinos, filexml);
+            filexml.close();
+
+            System.out.println("Fichero XML creado.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void exportarHotelesXML() {
-        System.out.println("Exportando hoteles a XML...");
+    public static void exportarHotelesXML() throws IOException, ClassNotFoundException {
+
+        File ficheroHoteles = new File("FicheroHotel.dat");
+
+        FileInputStream fiHoteles = new FileInputStream(ficheroHoteles);
+        ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
+
+        ListaHoteles listaHoteles = new ListaHoteles();
+
+        try {
+            while (true) {
+                Hotel hotel = (Hotel) oiHoteles.readObject();
+                listaHoteles.anadir(hotel);
+            }
+        } catch (EOFException e) {
+            System.out.println("Todo ha ido bien. Se ha llegado al final del fichero de hoteles.");
+        }
+
+        oiHoteles.close();
+
+        try {
+            XStream xstream = new XStream();
+
+            xstream.alias("ListaHotelesTotales", ListaHoteles.class);
+            xstream.alias("DatosHotel", Hotel.class);
+            xstream.addImplicitCollection(ListaHoteles.class, "lista");
+
+            FileOutputStream filexml = new FileOutputStream("Hoteles.xml");
+            xstream.toXML(listaHoteles, filexml);
+            filexml.close();
+
+            System.out.println("Fichero XML creado.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void exportarReservasXML() {
-        System.out.println("Exportando reservas a XML...");
+    public static void exportarReservasXML() throws IOException, ClassNotFoundException {
+
+        File ficheroReservas = new File("FicheroReserva.dat");
+
+        FileInputStream fiReservas = new FileInputStream(ficheroReservas);
+        ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
+
+        ListaReservas listaReservas = new ListaReservas();
+
+        try {
+            while (true) {
+                Reserva reserva = (Reserva) oiReservas.readObject();
+                listaReservas.anadir(reserva);
+            }
+        } catch (EOFException e) {
+            System.out.println("Todo ha ido bien. Se ha llegado al final del fichero de reservas.");
+        }
+
+        oiReservas.close();
+
+        try {
+            XStream xstream = new XStream();
+
+            xstream.alias("ListaReservasTotales", ListaReservas.class);
+            xstream.alias("DatosReserva", Reserva.class);
+            xstream.addImplicitCollection(ListaReservas.class, "lista");
+
+            FileOutputStream filexml = new FileOutputStream("Reservas.xml");
+            xstream.toXML(listaReservas, filexml);
+            filexml.close();
+
+            System.out.println("Fichero XML creado.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

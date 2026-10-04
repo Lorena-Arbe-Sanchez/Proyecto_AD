@@ -52,37 +52,5 @@ public class EscribirHoteles {
         ooHoteles.writeObject(hotel19);
 
         ooHoteles.close();
-
-        FileInputStream fiHoteles = new FileInputStream(ficheroHoteles);
-        ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
-
-        ListaHoteles listaHoteles = new ListaHoteles();
-
-        try {
-            while (true) {
-                Hotel hotel = (Hotel) oiHoteles.readObject();
-                listaHoteles.anadir(hotel);
-            }
-        } catch (EOFException e) {
-            System.out.println("Todo ha ido bien. Se ha llegado al final del fichero de hoteles.");
-        }
-
-        oiHoteles.close();
-
-        try {
-            XStream xstream = new XStream();
-
-            xstream.alias("ListaHotelesTotales", ListaHoteles.class);
-            xstream.alias("DatosHotel", Hotel.class);
-            xstream.addImplicitCollection(ListaHoteles.class, "lista");
-
-            FileOutputStream filexml = new FileOutputStream("Hoteles.xml");
-            xstream.toXML(listaHoteles, filexml);
-            filexml.close();
-
-            System.out.println("Fichero XML creado.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

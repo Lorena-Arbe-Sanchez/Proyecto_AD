@@ -33,37 +33,5 @@ public class EscribirDestinos {
         ooDestinos.writeObject(destino10);
 
         ooDestinos.close();
-
-        FileInputStream fiDestinos = new FileInputStream(ficheroDestinos);
-        ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
-
-        ListaDestinos listaDestinos = new ListaDestinos();
-
-        try {
-            while (true) {
-                Destino destino = (Destino) oiDestinos.readObject();
-                listaDestinos.anadir(destino);
-            }
-        } catch (EOFException e) {
-            System.out.println("Todo ha ido bien. Se ha llegado al final del fichero de destinos.");
-        }
-
-        oiDestinos.close();
-
-        try {
-            XStream xstream = new XStream();
-
-            xstream.alias("ListaDestinosTotales", ListaDestinos.class);
-            xstream.alias("DatosDestino", Destino.class);
-            xstream.addImplicitCollection(ListaDestinos.class, "lista");
-
-            FileOutputStream filexml = new FileOutputStream("Destinos.xml");
-            xstream.toXML(listaDestinos, filexml);
-            filexml.close();
-
-            System.out.println("Fichero XML creado.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

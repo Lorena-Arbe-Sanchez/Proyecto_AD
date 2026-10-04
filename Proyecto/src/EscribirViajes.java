@@ -60,37 +60,5 @@ public class EscribirViajes {
         ooViajes.writeObject(viaje10);
 
         ooViajes.close();
-
-        FileInputStream fiViajes = new FileInputStream(ficheroViajes);
-        ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
-
-        ListaViajes listaViajes = new ListaViajes();
-
-        try {
-            while (true) {
-                Viaje viaje = (Viaje) oiViajes.readObject();
-                listaViajes.anadir(viaje);
-            }
-        } catch (EOFException e) {
-            System.out.println("Todo ha ido bien. Se ha llegado al final del fichero de viajes.");
-        }
-
-        oiViajes.close();
-
-        try {
-            XStream xstream = new XStream();
-
-            xstream.alias("ListaViajesTotales", ListaViajes.class);
-            xstream.alias("DatosViaje", Viaje.class);
-            xstream.addImplicitCollection(ListaViajes.class, "lista");
-
-            FileOutputStream filexml = new FileOutputStream("Viajes.xml");
-            xstream.toXML(listaViajes, filexml);
-            filexml.close();
-
-            System.out.println("Fichero XML creado.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -49,37 +49,5 @@ public class EscribirReservas {
         ooReservas.writeObject(reserva10);
 
         ooReservas.close();
-
-        FileInputStream fiReservas = new FileInputStream(ficheroReservas);
-        ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
-
-        ListaReservas listaReservas = new ListaReservas();
-
-        try {
-            while (true) {
-                Reserva reserva = (Reserva) oiReservas.readObject();
-                listaReservas.anadir(reserva);
-            }
-        } catch (EOFException e) {
-            System.out.println("Todo ha ido bien. Se ha llegado al final del fichero de reservas.");
-        }
-
-        oiReservas.close();
-
-        try {
-            XStream xstream = new XStream();
-
-            xstream.alias("ListaReservasTotales", ListaReservas.class);
-            xstream.alias("DatosReserva", Reserva.class);
-            xstream.addImplicitCollection(ListaReservas.class, "lista");
-
-            FileOutputStream filexml = new FileOutputStream("Reservas.xml");
-            xstream.toXML(listaReservas, filexml);
-            filexml.close();
-
-            System.out.println("Fichero XML creado.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
