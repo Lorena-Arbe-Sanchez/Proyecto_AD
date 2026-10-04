@@ -127,6 +127,7 @@ public class Main {
         } while (opcionClientes != 5);
     }
 
+    // TODO : En las funciones de "mostrar" -->  Poner un recuento de la cantidad de datos que hay como primera línea y luego ya lo demás
     public static void mostrarClientes() throws IOException {
 
         File fichero = new File("FicheroCliente.dat");
@@ -150,10 +151,9 @@ public class Main {
         oiClientes.close();
     }
 
-    // TODO : FALTA PROBAR
     public static void anadirCliente(Scanner sc) throws IOException {
 
-        // TODO : Ponerlo automático (que lo ponga como +1 del último q haya en registros)
+        // TODO : Ponerlo automático en todos (que lo ponga como +1 del último q haya en registros)
         System.out.print("\nTeclea el ID: ");
         int id = sc.nextInt();
         sc.nextLine();
@@ -231,8 +231,8 @@ public class Main {
         System.out.println("\nCliente añadido correctamente.");
     }
 
-    // TODO : FALTA PROBAR
-    // TODO : Mirar si en los apuntes se hacía así
+    // TODO : Mirar si en los apuntes se hacía así (y los demás a ver si aparecen tambn)
+    // TODO : A la hora de poner los datos a modificar --> Hacer que aparezcan los datos para poder cambiarles poco (que aparezcan ya al teclear "3")
     public static void modificarCliente(Scanner sc) throws IOException {
 
         // TODO : Mejor por DNI
@@ -311,9 +311,9 @@ public class Main {
         }
     }
 
-    // TODO : FALTA PROBAR
     public static void eliminarCliente(Scanner sc) throws IOException {
 
+        // TODO : Mejor por DNI
         System.out.print("\nTeclea el ID del cliente que quieres eliminar: ");
         int idCliente = sc.nextInt();
         sc.nextLine();
@@ -440,7 +440,6 @@ public class Main {
         oiViajes.close();
     }
 
-    // TODO : FALTA PROBAR
     public static void anadirViaje(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID del viaje: ");
@@ -492,6 +491,7 @@ public class Main {
             fechaSalida = formatoFecha.parse(fechaSalidaTexto);
             fechaRegreso = formatoFecha.parse(fechaRegresoTexto);
         } catch (ParseException e) {
+            // TODO : Que esto lo saque antes de llegar al final de las preguntas y que se pueda repetir (bucle)
             System.out.println("\nFormato de fecha incorrecto.");
             return;
         }
@@ -549,7 +549,6 @@ public class Main {
         System.out.println("\nViaje añadido correctamente.");
     }
 
-    // TODO : FALTA PROBAR
     public static void modificarViaje(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID del viaje que quieres modificar: ");
@@ -652,7 +651,6 @@ public class Main {
         }
     }
 
-    // TODO : FALTA PROBAR
     public static void eliminarViaje(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID del viaje que quieres eliminar: ");
@@ -779,7 +777,6 @@ public class Main {
         oiDestinos.close();
     }
 
-    // TODO : FALTA PROBAR
     public static void anadirDestino(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID: ");
@@ -820,17 +817,41 @@ public class Main {
 
         File fichero = new File("FicheroDestino.dat");
 
-        FileOutputStream foDestinos = new FileOutputStream(fichero, true);
+        ArrayList<Destino> destinos = new ArrayList<>();
+
+        FileInputStream fiDestinos = new FileInputStream(fichero);
+        ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
+
+        try {
+            while (true) {
+                Destino destino = (Destino) oiDestinos.readObject();
+
+                if (destino != null) {
+                    destinos.add(destino);
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiDestinos.close();
+
+        destinos.add(nuevoDestino);
+
+        FileOutputStream foDestinos = new FileOutputStream(fichero);
         ObjectOutputStream ooDestinos = new ObjectOutputStream(foDestinos);
 
-        ooDestinos.writeObject(nuevoDestino);
+        for (Destino destino : destinos) {
+            ooDestinos.writeObject(destino);
+        }
 
         ooDestinos.close();
 
         System.out.println("\nDestino añadido correctamente.");
     }
 
-    // TODO : FALTA PROBAR
     public static void modificarDestino(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID del destino que quieres modificar: ");
@@ -903,7 +924,6 @@ public class Main {
         }
     }
 
-    // TODO : FALTA PROBAR
     public static void eliminarDestino(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID del destino que quieres eliminar: ");
@@ -1026,7 +1046,6 @@ public class Main {
         oiHoteles.close();
     }
 
-    // TODO : FALTA PROBAR
     public static void anadirHotel(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID: ");
@@ -1061,17 +1080,41 @@ public class Main {
 
         File fichero = new File("FicheroHotel.dat");
 
-        FileOutputStream foHoteles = new FileOutputStream(fichero, true);
+        ArrayList<Hotel> hoteles = new ArrayList<>();
+
+        FileInputStream fiHoteles = new FileInputStream(fichero);
+        ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
+
+        try {
+            while (true) {
+                Hotel hotel = (Hotel) oiHoteles.readObject();
+
+                if (hotel != null) {
+                    hoteles.add(hotel);
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiHoteles.close();
+
+        hoteles.add(nuevoHotel);
+
+        FileOutputStream foHoteles = new FileOutputStream(fichero);
         ObjectOutputStream ooHoteles = new ObjectOutputStream(foHoteles);
 
-        ooHoteles.writeObject(nuevoHotel);
+        for (Hotel hotel : hoteles) {
+            ooHoteles.writeObject(hotel);
+        }
 
         ooHoteles.close();
 
         System.out.println("\nHotel añadido correctamente.");
     }
 
-    // TODO : FALTA PROBAR
     public static void modificarHotel(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID del hotel que quieres modificar: ");
@@ -1140,7 +1183,6 @@ public class Main {
         }
     }
 
-    // TODO : FALTA PROBAR
     public static void eliminarHotel(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID del hotel que quieres eliminar: ");
@@ -1263,7 +1305,6 @@ public class Main {
         oiReservas.close();
     }
 
-    // TODO : FALTA PROBAR
     public static void anadirReserva(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID: ");
@@ -1286,7 +1327,7 @@ public class Main {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
             fechaReserva = formatoFecha.parse(fechaTexto);
         } catch (ParseException e) {
-            System.out.println("Formato de fecha no válido.");
+            System.out.println("\nFormato de fecha no válido.");
             return;
         }
 
@@ -1298,6 +1339,7 @@ public class Main {
 
         sc.nextLine();
 
+        // TODO : Control de errores --> Que solo se pueda escribir una de las opciones y no texto aleatorio
         System.out.print("Teclea el estado de la reserva: ");
         String estado = sc.nextLine();
 
@@ -1313,17 +1355,41 @@ public class Main {
 
         File fichero = new File("FicheroReserva.dat");
 
-        FileOutputStream foReservas = new FileOutputStream(fichero, true);
+        ArrayList<Reserva> reservas = new ArrayList<>();
+
+        FileInputStream fiReservas = new FileInputStream(fichero);
+        ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
+
+        try {
+            while (true) {
+                Reserva reserva = (Reserva) oiReservas.readObject();
+
+                if (reserva != null) {
+                    reservas.add(reserva);
+                }
+            }
+        } catch (EOFException e) {
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        oiReservas.close();
+
+        reservas.add(nuevaReserva);
+
+        FileOutputStream foReservas = new FileOutputStream(fichero);
         ObjectOutputStream ooReservas = new ObjectOutputStream(foReservas);
 
-        ooReservas.writeObject(nuevaReserva);
+        for (Reserva reserva : reservas) {
+            ooReservas.writeObject(reserva);
+        }
 
         ooReservas.close();
 
         System.out.println("\nReserva añadida correctamente.");
     }
 
-    // TODO : FALTA PROBAR
     public static void modificarReserva(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID de la reserva que quieres modificar: ");
@@ -1359,7 +1425,7 @@ public class Main {
                             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
                             reserva.setFechaReserva(formatoFecha.parse(fechaTexto));
                         } catch (ParseException e) {
-                            System.out.println("Formato de fecha no válido.");
+                            System.out.println("\nFormato de fecha no válido.");
                         }
 
                         System.out.print("Nuevo número de personas: ");
@@ -1403,7 +1469,6 @@ public class Main {
         }
     }
 
-    // TODO : FALTA PROBAR
     public static void eliminarReserva(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID de la reserva que quieres eliminar: ");

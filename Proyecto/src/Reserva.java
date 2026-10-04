@@ -81,6 +81,7 @@ public class Reserva implements Serializable {
         this.estado = estado;
     }
 
+    // TODO : En esta función y las que tengas algo de fechas --> Que las saque solo como Date y con buen formato (no DateTime y largo)
     public void mostrarTodosDatos() {
         System.out.println("\nID: " + id +
                 "\nID del cliente: " + idCliente +
