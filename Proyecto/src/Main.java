@@ -2478,7 +2478,7 @@ public class Main {
             xstream.addImplicitCollection(ListaClientes.class, "lista");
 
             // Generar el fichero XML con los datos de la lista de clientes
-            FileOutputStream filexml = new FileOutputStream("Clientes.xml");
+            FileOutputStream filexml = new FileOutputStream("datos/xml/Clientes.xml");
             xstream.toXML(listaClientes, filexml);
             filexml.close();
 
@@ -2515,7 +2515,7 @@ public class Main {
             xstream.alias("DatosViaje", Viaje.class);
             xstream.addImplicitCollection(ListaViajes.class, "lista");
 
-            FileOutputStream filexml = new FileOutputStream("Viajes.xml");
+            FileOutputStream filexml = new FileOutputStream("datos/xml/Viajes.xml");
             xstream.toXML(listaViajes, filexml);
             filexml.close();
 
@@ -2552,7 +2552,7 @@ public class Main {
             xstream.alias("DatosDestino", Destino.class);
             xstream.addImplicitCollection(ListaDestinos.class, "lista");
 
-            FileOutputStream filexml = new FileOutputStream("Destinos.xml");
+            FileOutputStream filexml = new FileOutputStream("datos/xml/Destinos.xml");
             xstream.toXML(listaDestinos, filexml);
             filexml.close();
 
@@ -2589,7 +2589,7 @@ public class Main {
             xstream.alias("DatosHotel", Hotel.class);
             xstream.addImplicitCollection(ListaHoteles.class, "lista");
 
-            FileOutputStream filexml = new FileOutputStream("Hoteles.xml");
+            FileOutputStream filexml = new FileOutputStream("datos/xml/Hoteles.xml");
             xstream.toXML(listaHoteles, filexml);
             filexml.close();
 
@@ -2626,7 +2626,7 @@ public class Main {
             xstream.alias("DatosReserva", Reserva.class);
             xstream.addImplicitCollection(ListaReservas.class, "lista");
 
-            FileOutputStream filexml = new FileOutputStream("Reservas.xml");
+            FileOutputStream filexml = new FileOutputStream("datos/xml/Reservas.xml");
             xstream.toXML(listaReservas, filexml);
             filexml.close();
 
