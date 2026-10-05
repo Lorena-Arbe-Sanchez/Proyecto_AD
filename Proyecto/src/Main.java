@@ -19,8 +19,7 @@ public class Main {
             // Mostrar menú principal
             mostrarMenuPrincipal();
 
-            respuesta = sc.nextInt();
-            sc.nextLine();
+            respuesta = leerEntero(sc);
 
             switch (respuesta) {
                 case 1:
@@ -95,8 +94,7 @@ public class Main {
                     
                     Teclea el número correspondiente a la opción que deseas:""");
 
-            opcionClientes = sc.nextInt();
-            sc.nextLine();
+            opcionClientes = leerEntero(sc);
 
             switch (opcionClientes) {
 
@@ -131,6 +129,12 @@ public class Main {
     public static void mostrarClientes() throws IOException {
 
         File fichero = new File("datos/dat/FicheroCliente.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de clientes.");
+            return;
+        }
+
         FileInputStream fiClientes = new FileInputStream(fichero);
         ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
 
@@ -155,8 +159,7 @@ public class Main {
 
         // TODO : Ponerlo automático en todos (que lo ponga como +1 del último q haya en registros)
         System.out.print("\nTeclea el ID: ");
-        int id = sc.nextInt();
-        sc.nextLine();
+        int id = leerEntero(sc);
 
         System.out.print("Teclea el nombre: ");
         String nombre = sc.nextLine();
@@ -168,8 +171,7 @@ public class Main {
         String apellido2 = sc.nextLine();
 
         System.out.print("Teclea la edad: ");
-        int edad = sc.nextInt();
-        sc.nextLine();
+        int edad = leerEntero(sc);
 
         System.out.print("Teclea el DNI: ");
         String dni = sc.nextLine();
@@ -192,6 +194,11 @@ public class Main {
         );
 
         File fichero = new File("datos/dat/FicheroCliente.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de clientes.");
+            return;
+        }
 
         ArrayList<Cliente> clientes = new ArrayList<>();
 
@@ -237,10 +244,14 @@ public class Main {
 
         // TODO : Mejor por DNI
         System.out.print("\nTeclea el ID del cliente que quieres modificar: ");
-        int idCliente = sc.nextInt();
-        sc.nextLine();
+        int idCliente = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroCliente.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de clientes.");
+            return;
+        }
 
         ArrayList<Cliente> clientes = new ArrayList<>();
 
@@ -267,8 +278,8 @@ public class Main {
                         cliente.setApellido2(sc.nextLine());
 
                         System.out.print("Nueva edad: ");
-                        cliente.setEdad(sc.nextInt());
-                        sc.nextLine();
+                        int edad = leerEntero(sc);
+                        cliente.setEdad(edad);
 
                         System.out.print("Nuevo DNI: ");
                         cliente.setDni(sc.nextLine());
@@ -315,10 +326,14 @@ public class Main {
 
         // TODO : Mejor por DNI
         System.out.print("\nTeclea el ID del cliente que quieres eliminar: ");
-        int idCliente = sc.nextInt();
-        sc.nextLine();
+        int idCliente = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroCliente.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de clientes.");
+            return;
+        }
 
         ArrayList<Cliente> clientes = new ArrayList<>();
 
@@ -385,8 +400,7 @@ public class Main {
                     
                     Teclea el número correspondiente a la opción que deseas:""");
 
-            opcionViajes = sc.nextInt();
-            sc.nextLine();
+            opcionViajes = leerEntero(sc);
 
             switch (opcionViajes) {
 
@@ -420,6 +434,12 @@ public class Main {
     public static void mostrarViajes() throws IOException {
 
         File fichero = new File("datos/dat/FicheroViaje.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de viajes.");
+            return;
+        }
+
         FileInputStream fiViajes = new FileInputStream(fichero);
         ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
 
@@ -443,16 +463,13 @@ public class Main {
     public static void anadirViaje(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID del viaje: ");
-        int id = sc.nextInt();
-        sc.nextLine();
+        int id = leerEntero(sc);
 
         System.out.print("Teclea el ID del destino: ");
-        int idDestino = sc.nextInt();
-        sc.nextLine();
+        int idDestino = leerEntero(sc);
 
         System.out.print("Teclea el ID del hotel (0 si no hay hotel): ");
-        int idHotelIntroducido = sc.nextInt();
-        sc.nextLine();
+        int idHotelIntroducido = leerEntero(sc);
 
         Integer idHotel = null;
 
@@ -470,13 +487,13 @@ public class Main {
         String fechaRegresoTexto = sc.nextLine();
 
         System.out.print("Teclea el precio: ");
-        double precio = sc.nextDouble();
+        double precio = leerDouble(sc);
 
         System.out.print("Teclea el número de plazas totales: ");
-        int plazasTotales = sc.nextInt();
+        int plazasTotales = leerEntero(sc);
 
         System.out.print("Teclea el número de plazas disponibles: ");
-        int plazasDisponibles = sc.nextInt();
+        int plazasDisponibles = leerEntero(sc);
         sc.nextLine();
 
         System.out.print("Teclea el tipo de viaje: ");
@@ -510,6 +527,11 @@ public class Main {
         );
 
         File fichero = new File("datos/dat/FicheroViaje.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de viajes.");
+            return;
+        }
 
         ArrayList<Viaje> viajes = new ArrayList<>();
 
@@ -552,10 +574,14 @@ public class Main {
     public static void modificarViaje(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID del viaje que quieres modificar: ");
-        int idViaje = sc.nextInt();
-        sc.nextLine();
+        int idViaje = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroViaje.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de viajes.");
+            return;
+        }
 
         ArrayList<Viaje> viajes = new ArrayList<>();
 
@@ -573,12 +599,11 @@ public class Main {
                     if (viaje.getId() == idViaje) {
 
                         System.out.print("Nuevo ID del destino: ");
-                        viaje.setIdDestino(sc.nextInt());
-                        sc.nextLine();
+                        int idDestino = leerEntero(sc);
+                        viaje.setIdDestino(idDestino);
 
                         System.out.print("Nuevo ID del hotel (0 si no hay hotel): ");
-                        int idHotelIntroducido = sc.nextInt();
-                        sc.nextLine();
+                        int idHotelIntroducido = leerEntero(sc);
 
                         if (idHotelIntroducido == 0) {
                             viaje.setIdHotel(null);
@@ -607,14 +632,16 @@ public class Main {
                         }
 
                         System.out.print("Nuevo precio: ");
-                        viaje.setPrecio(sc.nextDouble());
+                        double precio = leerDouble(sc);
+                        viaje.setPrecio(precio);
 
                         System.out.print("Nuevo número de plazas totales: ");
-                        viaje.setPlazasTotales(sc.nextInt());
+                        int plazasTotales = leerEntero(sc);
+                        viaje.setPlazasTotales(plazasTotales);
 
                         System.out.print("Nuevo número de plazas disponibles: ");
-                        viaje.setPlazasDisponibles(sc.nextInt());
-                        sc.nextLine();
+                        int plazasDisponibles = leerEntero(sc);
+                        viaje.setPlazasDisponibles(plazasDisponibles);
 
                         System.out.print("Nuevo tipo de viaje: ");
                         viaje.setTipoViaje(sc.nextLine());
@@ -654,10 +681,14 @@ public class Main {
     public static void eliminarViaje(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID del viaje que quieres eliminar: ");
-        int idViaje = sc.nextInt();
-        sc.nextLine();
+        int idViaje = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroViaje.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de viajes.");
+            return;
+        }
 
         ArrayList<Viaje> viajes = new ArrayList<>();
 
@@ -724,8 +755,7 @@ public class Main {
                     
                     Teclea el número correspondiente a la opción que deseas:""");
 
-            opcionDestinos = sc.nextInt();
-            sc.nextLine();
+            opcionDestinos = leerEntero(sc);
 
             switch (opcionDestinos) {
 
@@ -759,6 +789,12 @@ public class Main {
     public static void mostrarDestinos() throws IOException, ClassNotFoundException {
 
         File fichero = new File("datos/dat/FicheroDestino.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de destinos.");
+            return;
+        }
+
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -780,8 +816,7 @@ public class Main {
     public static void anadirDestino(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID: ");
-        int id = sc.nextInt();
-        sc.nextLine();
+        int id = leerEntero(sc);
 
         System.out.print("Teclea la ciudad: ");
         String ciudad = sc.nextLine();
@@ -816,6 +851,11 @@ public class Main {
         );
 
         File fichero = new File("datos/dat/FicheroDestino.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de destinos.");
+            return;
+        }
 
         ArrayList<Destino> destinos = new ArrayList<>();
 
@@ -855,10 +895,15 @@ public class Main {
     public static void modificarDestino(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID del destino que quieres modificar: ");
-        int idDestino = sc.nextInt();
-        sc.nextLine();
+        int idDestino = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroDestino.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de destinos.");
+            return;
+        }
+
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -927,10 +972,15 @@ public class Main {
     public static void eliminarDestino(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID del destino que quieres eliminar: ");
-        int idDestino = sc.nextInt();
-        sc.nextLine();
+        int idDestino = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroDestino.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de destinos.");
+            return;
+        }
+
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -993,8 +1043,7 @@ public class Main {
                     
                     Teclea el número correspondiente a la opción que deseas:""");
 
-            opcionHoteles = sc.nextInt();
-            sc.nextLine();
+            opcionHoteles = leerEntero(sc);
 
             switch (opcionHoteles) {
 
@@ -1028,6 +1077,12 @@ public class Main {
     public static void mostrarHoteles() throws IOException, ClassNotFoundException {
 
         File fichero = new File("datos/dat/FicheroHotel.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de hoteles.");
+            return;
+        }
+
         FileInputStream fiHoteles = new FileInputStream(fichero);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -1049,22 +1104,19 @@ public class Main {
     public static void anadirHotel(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID: ");
-        int id = sc.nextInt();
-        sc.nextLine();
+        int id = leerEntero(sc);
 
         System.out.print("Teclea el nombre: ");
         String nombre = sc.nextLine();
 
         System.out.print("Teclea el número de estrellas: ");
-        int estrellas = sc.nextInt();
-        sc.nextLine();
+        int estrellas = leerEntero(sc);
 
         System.out.print("Teclea la dirección: ");
         String direccion = sc.nextLine();
 
         System.out.print("Teclea el precio por noche: ");
-        double precioNoche = sc.nextDouble();
-        sc.nextLine();
+        double precioNoche = leerDouble(sc);
 
         System.out.print("Teclea los servicios: ");
         String servicios = sc.nextLine();
@@ -1079,6 +1131,11 @@ public class Main {
         );
 
         File fichero = new File("datos/dat/FicheroHotel.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de hoteles.");
+            return;
+        }
 
         ArrayList<Hotel> hoteles = new ArrayList<>();
 
@@ -1118,10 +1175,15 @@ public class Main {
     public static void modificarHotel(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID del hotel que quieres modificar: ");
-        int idHotel = sc.nextInt();
-        sc.nextLine();
+        int idHotel = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroHotel.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de hoteles.");
+            return;
+        }
+
         FileInputStream fiHoteles = new FileInputStream(fichero);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -1140,15 +1202,15 @@ public class Main {
                         hotel.setNombre(sc.nextLine());
 
                         System.out.print("Nuevo número de estrellas: ");
-                        hotel.setEstrellas(sc.nextInt());
-                        sc.nextLine();
+                        int estrellas = leerEntero(sc);
+                        hotel.setEstrellas(estrellas);
 
                         System.out.print("Nueva dirección: ");
                         hotel.setDireccion(sc.nextLine());
 
                         System.out.print("Nuevo precio por noche: ");
-                        hotel.setPrecioNoche(sc.nextDouble());
-                        sc.nextLine();
+                        double precio = leerDouble(sc);
+                        hotel.setPrecioNoche(precio);
 
                         System.out.print("Nuevos servicios: ");
                         hotel.setServicios(sc.nextLine());
@@ -1186,10 +1248,15 @@ public class Main {
     public static void eliminarHotel(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID del hotel que quieres eliminar: ");
-        int idHotel = sc.nextInt();
-        sc.nextLine();
+        int idHotel = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroHotel.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de hoteles.");
+            return;
+        }
+
         FileInputStream fiHoteles = new FileInputStream(fichero);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -1252,8 +1319,7 @@ public class Main {
                     
                     Teclea el número correspondiente a la opción que deseas:""");
 
-            opcionReservas = sc.nextInt();
-            sc.nextLine();
+            opcionReservas = leerEntero(sc);
 
             switch (opcionReservas) {
 
@@ -1287,6 +1353,12 @@ public class Main {
     public static void mostrarReservas() throws IOException, ClassNotFoundException {
 
         File fichero = new File("datos/dat/FicheroReserva.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de reservas.");
+            return;
+        }
+
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -1308,13 +1380,13 @@ public class Main {
     public static void anadirReserva(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID: ");
-        int id = sc.nextInt();
+        int id = leerEntero(sc);
 
         System.out.print("Teclea el ID del cliente: ");
-        int idCliente = sc.nextInt();
+        int idCliente = leerEntero(sc);
 
         System.out.print("Teclea el ID del viaje: ");
-        int idViaje = sc.nextInt();
+        int idViaje = leerEntero(sc);
 
         sc.nextLine();
 
@@ -1332,10 +1404,10 @@ public class Main {
         }
 
         System.out.print("Teclea el número de personas: ");
-        int numeroPersonas = sc.nextInt();
+        int numeroPersonas = leerEntero(sc);
 
         System.out.print("Teclea el precio total: ");
-        double precioTotal = sc.nextDouble();
+        double precioTotal = leerDouble(sc);
 
         sc.nextLine();
 
@@ -1354,6 +1426,11 @@ public class Main {
         );
 
         File fichero = new File("datos/dat/FicheroReserva.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de reservas.");
+            return;
+        }
 
         ArrayList<Reserva> reservas = new ArrayList<>();
 
@@ -1393,9 +1470,15 @@ public class Main {
     public static void modificarReserva(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID de la reserva que quieres modificar: ");
-        int idReserva = sc.nextInt();
+        int idReserva = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroReserva.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de reservas.");
+            return;
+        }
+
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -1411,10 +1494,12 @@ public class Main {
                     if (reserva.getId() == idReserva) {
 
                         System.out.print("Nuevo ID del cliente: ");
-                        reserva.setIdCliente(sc.nextInt());
+                        int idCliente = leerEntero(sc);
+                        reserva.setIdCliente(idCliente);
 
                         System.out.print("Nuevo ID del viaje: ");
-                        reserva.setIdViaje(sc.nextInt());
+                        int idViaje = leerEntero(sc);
+                        reserva.setIdViaje(idViaje);
 
                         sc.nextLine();
 
@@ -1429,10 +1514,12 @@ public class Main {
                         }
 
                         System.out.print("Nuevo número de personas: ");
-                        reserva.setNumeroPersonas(sc.nextInt());
+                        int numero = leerEntero(sc);
+                        reserva.setNumeroPersonas(numero);
 
                         System.out.print("Nuevo precio total: ");
-                        reserva.setPrecioTotal(sc.nextDouble());
+                        double precio = leerDouble(sc);
+                        reserva.setPrecioTotal(precio);
 
                         sc.nextLine();
 
@@ -1472,10 +1559,15 @@ public class Main {
     public static void eliminarReserva(Scanner sc) throws IOException, ClassNotFoundException {
 
         System.out.print("\nTeclea el ID de la reserva que quieres eliminar: ");
-        int idReserva = sc.nextInt();
-        sc.nextLine();
+        int idReserva = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroReserva.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de reservas.");
+            return;
+        }
+
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -1539,8 +1631,7 @@ public class Main {
                     
                     Teclea el número correspondiente a la opción que deseas:""");
 
-            opcionBusquedas = sc.nextInt();
-            sc.nextLine();
+            opcionBusquedas = leerEntero(sc);
 
             switch (opcionBusquedas) {
 
@@ -1593,8 +1684,7 @@ public class Main {
                     
                     Teclea el número correspondiente a la opción que deseas:""");
 
-            opcionCliente = sc.nextInt();
-            sc.nextLine();
+            opcionCliente = leerEntero(sc);
 
             switch (opcionCliente) {
                 case 1:
@@ -1624,9 +1714,15 @@ public class Main {
 
         // Preguntar por el ID
         System.out.print("\nTeclea el ID: ");
-        int idCliente = sc.nextInt();
+        int idCliente = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroCliente.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de clientes.");
+            return;
+        }
+
         FileInputStream fiClientes = new FileInputStream(fichero);
         ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
 
@@ -1661,6 +1757,12 @@ public class Main {
         String dniCliente = sc.nextLine();
 
         File fichero = new File("datos/dat/FicheroCliente.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de clientes.");
+            return;
+        }
+
         FileInputStream fiClientes = new FileInputStream(fichero);
         ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
 
@@ -1696,6 +1798,12 @@ public class Main {
         String emailCliente = sc.nextLine();
 
         File fichero = new File("datos/dat/FicheroCliente.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de clientes.");
+            return;
+        }
+
         FileInputStream fiClientes = new FileInputStream(fichero);
         ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
 
@@ -1743,8 +1851,7 @@ public class Main {
                     
                     Teclea el número correspondiente a la opción que deseas:""");
 
-            opcionViaje = sc.nextInt();
-            sc.nextLine();
+            opcionViaje = leerEntero(sc);
 
             switch (opcionViaje) {
                 case 1:
@@ -1780,6 +1887,12 @@ public class Main {
         String origen = sc.nextLine();
 
         File fichero = new File("datos/dat/FicheroViaje.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de viajes.");
+            return;
+        }
+
         FileInputStream fiViajes = new FileInputStream(fichero);
         ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
 
@@ -1813,6 +1926,12 @@ public class Main {
         String ciudad = sc.nextLine();
 
         File fichero = new File("datos/dat/FicheroDestino.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de destinos.");
+            return;
+        }
+
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -1825,7 +1944,14 @@ public class Main {
                 if (destino != null && destino.getCiudad().equalsIgnoreCase(ciudad)) {
                     int idDestino = destino.getId();
 
-                    FileInputStream fiViajes = new FileInputStream("datos/dat/FicheroViaje.dat");
+                    File ficheroViaje = new File("datos/dat/FicheroViaje.dat");
+
+                    if (!ficheroViaje.exists()) {
+                        System.out.println("\nNo existe el fichero de viajes.");
+                        return;
+                    }
+
+                    FileInputStream fiViajes = new FileInputStream(ficheroViaje);
                     ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
 
                     try {
@@ -1869,6 +1995,12 @@ public class Main {
         Date fecha = formatoFecha.parse(fechaTexto);
 
         File fichero = new File("datos/dat/FicheroViaje.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de viajes.");
+            return;
+        }
+
         FileInputStream fiViajes = new FileInputStream(fichero);
         ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
 
@@ -1902,6 +2034,12 @@ public class Main {
         String tipoViaje = sc.nextLine();
 
         File fichero = new File("datos/dat/FicheroViaje.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de viajes.");
+            return;
+        }
+
         FileInputStream fiViajes = new FileInputStream(fichero);
         ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
 
@@ -1947,8 +2085,7 @@ public class Main {
                     
                     Teclea el número correspondiente a la opción que deseas:""");
 
-            opcionDestino = sc.nextInt();
-            sc.nextLine();
+            opcionDestino = leerEntero(sc);
 
             switch (opcionDestino) {
                 case 1:
@@ -1980,6 +2117,12 @@ public class Main {
         String ciudad = sc.nextLine();
 
         File fichero = new File("datos/dat/FicheroDestino.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de destinos.");
+            return;
+        }
+
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -2013,6 +2156,12 @@ public class Main {
         String pais = sc.nextLine();
 
         File fichero = new File("datos/dat/FicheroDestino.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de destinos.");
+            return;
+        }
+
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -2046,6 +2195,12 @@ public class Main {
         String tipoDestino = sc.nextLine();
 
         File fichero = new File("datos/dat/FicheroDestino.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de destinos.");
+            return;
+        }
+
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -2090,8 +2245,7 @@ public class Main {
                     
                     Teclea el número correspondiente a la opción que deseas:""");
 
-            opcionHotel = sc.nextInt();
-            sc.nextLine();
+            opcionHotel = leerEntero(sc);
 
             switch (opcionHotel) {
                 case 1:
@@ -2116,10 +2270,15 @@ public class Main {
     public static void buscarHotelPorEstrellas(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el número de estrellas: ");
-        int estrellas = sc.nextInt();
-        sc.nextLine();
+        int estrellas = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroHotel.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de hoteles.");
+            return;
+        }
+
         FileInputStream fiHoteles = new FileInputStream(fichero);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -2150,10 +2309,15 @@ public class Main {
     public static void buscarHotelPorPrecio(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el precio máximo por noche: ");
-        double precioMaximo = sc.nextDouble();
-        sc.nextLine();
+        double precioMaximo = leerDouble(sc);
 
         File fichero = new File("datos/dat/FicheroHotel.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de hoteles.");
+            return;
+        }
+
         FileInputStream fiHoteles = new FileInputStream(fichero);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -2200,8 +2364,7 @@ public class Main {
                     
                     Teclea el número correspondiente a la opción que deseas:""");
 
-            opcionReserva = sc.nextInt();
-            sc.nextLine();
+            opcionReserva = leerEntero(sc);
 
             switch (opcionReserva) {
                 case 1:
@@ -2234,10 +2397,15 @@ public class Main {
     public static void buscarReservaPorId(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID de la reserva: ");
-        int idReserva = sc.nextInt();
-        sc.nextLine();
+        int idReserva = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroReserva.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de reservas.");
+            return;
+        }
+
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -2270,10 +2438,15 @@ public class Main {
     public static void buscarReservaPorCliente(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID del cliente: ");
-        int idCliente = sc.nextInt();
-        sc.nextLine();
+        int idCliente = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroReserva.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de reservas.");
+            return;
+        }
+
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -2304,10 +2477,15 @@ public class Main {
     public static void buscarReservaPorViaje(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID del viaje: ");
-        int idViaje = sc.nextInt();
-        sc.nextLine();
+        int idViaje = leerEntero(sc);
 
         File fichero = new File("datos/dat/FicheroReserva.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de reservas.");
+            return;
+        }
+
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -2341,6 +2519,12 @@ public class Main {
         String estado = sc.nextLine();
 
         File fichero = new File("datos/dat/FicheroReserva.dat");
+
+        if (!fichero.exists()) {
+            System.out.println("\nNo existe el fichero de reservas.");
+            return;
+        }
+
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -2389,8 +2573,7 @@ public class Main {
                     
                     Teclea el número correspondiente a la opción que deseas:""");
 
-            opcionXML = sc.nextInt();
-            sc.nextLine();
+            opcionXML = leerEntero(sc);
 
             switch (opcionXML) {
 
@@ -2436,6 +2619,11 @@ public class Main {
     public static void exportarClientesXML() throws IOException, ClassNotFoundException {
 
         File ficheroClientes = new File("datos/dat/FicheroCliente.dat");
+
+        if (!ficheroClientes.exists()) {
+            System.out.println("\nNo existe el fichero de clientes.");
+            return;
+        }
 
         /* ----- Crear fichero '.xml' e insertarle los datos del fichero '.dat' ----- */
 
@@ -2492,6 +2680,11 @@ public class Main {
 
         File ficheroViajes = new File("datos/dat/FicheroViaje.dat");
 
+        if (!ficheroViajes.exists()) {
+            System.out.println("\nNo existe el fichero de viajes.");
+            return;
+        }
+
         FileInputStream fiViajes = new FileInputStream(ficheroViajes);
         ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
 
@@ -2528,6 +2721,11 @@ public class Main {
     public static void exportarDestinosXML() throws IOException, ClassNotFoundException {
 
         File ficheroDestinos = new File("datos/dat/FicheroDestino.dat");
+
+        if (!ficheroDestinos.exists()) {
+            System.out.println("\nNo existe el fichero de destinos.");
+            return;
+        }
 
         FileInputStream fiDestinos = new FileInputStream(ficheroDestinos);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
@@ -2566,6 +2764,11 @@ public class Main {
 
         File ficheroHoteles = new File("datos/dat/FicheroHotel.dat");
 
+        if (!ficheroHoteles.exists()) {
+            System.out.println("\nNo existe el fichero de hoteles.");
+            return;
+        }
+
         FileInputStream fiHoteles = new FileInputStream(ficheroHoteles);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -2603,6 +2806,11 @@ public class Main {
 
         File ficheroReservas = new File("datos/dat/FicheroReserva.dat");
 
+        if (!ficheroReservas.exists()) {
+            System.out.println("\nNo existe el fichero de reservas.");
+            return;
+        }
+
         FileInputStream fiReservas = new FileInputStream(ficheroReservas);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -2634,5 +2842,31 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static int leerEntero(Scanner sc) {
+
+        while (!sc.hasNextInt()) {
+            System.out.println("Error: debes introducir un número.");
+            sc.nextLine();
+        }
+
+        int numero = sc.nextInt();
+        sc.nextLine();
+
+        return numero;
+    }
+
+    public static double leerDouble(Scanner sc) {
+
+        while (!sc.hasNextDouble()) {
+            System.out.println("Error: debes introducir un número.");
+            sc.nextLine();
+        }
+
+        double numero = sc.nextDouble();
+        sc.nextLine();
+
+        return numero;
     }
 }
