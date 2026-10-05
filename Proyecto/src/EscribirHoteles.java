@@ -5,7 +5,7 @@ import java.io.*;
 public class EscribirHoteles {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-        File ficheroHoteles = new File("FicheroHotel.dat");
+        File ficheroHoteles = new File("datos/dat/FicheroHotel.dat");
 
         FileOutputStream foHoteles = new FileOutputStream(ficheroHoteles);
         ObjectOutputStream ooHoteles = new ObjectOutputStream(foHoteles);

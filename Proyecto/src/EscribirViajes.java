@@ -8,7 +8,7 @@ import java.util.Date;
 public class EscribirViajes {
     public static void main(String[] args) throws IOException, ClassNotFoundException, ParseException {
 
-        File ficheroViajes = new File("FicheroViaje.dat");
+        File ficheroViajes = new File("datos/dat/FicheroViaje.dat");
 
         FileOutputStream foViajes = new FileOutputStream(ficheroViajes);
         ObjectOutputStream ooViajes = new ObjectOutputStream(foViajes);

@@ -130,7 +130,7 @@ public class Main {
     // TODO : En las funciones de "mostrar" -->  Poner un recuento de la cantidad de datos que hay como primera línea y luego ya lo demás
     public static void mostrarClientes() throws IOException {
 
-        File fichero = new File("FicheroCliente.dat");
+        File fichero = new File("datos/dat/FicheroCliente.dat");
         FileInputStream fiClientes = new FileInputStream(fichero);
         ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
 
@@ -191,7 +191,7 @@ public class Main {
                 email
         );
 
-        File fichero = new File("FicheroCliente.dat");
+        File fichero = new File("datos/dat/FicheroCliente.dat");
 
         ArrayList<Cliente> clientes = new ArrayList<>();
 
@@ -240,7 +240,7 @@ public class Main {
         int idCliente = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroCliente.dat");
+        File fichero = new File("datos/dat/FicheroCliente.dat");
 
         ArrayList<Cliente> clientes = new ArrayList<>();
 
@@ -318,7 +318,7 @@ public class Main {
         int idCliente = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroCliente.dat");
+        File fichero = new File("datos/dat/FicheroCliente.dat");
 
         ArrayList<Cliente> clientes = new ArrayList<>();
 
@@ -419,7 +419,7 @@ public class Main {
 
     public static void mostrarViajes() throws IOException {
 
-        File fichero = new File("FicheroViaje.dat");
+        File fichero = new File("datos/dat/FicheroViaje.dat");
         FileInputStream fiViajes = new FileInputStream(fichero);
         ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
 
@@ -509,7 +509,7 @@ public class Main {
                 tipo
         );
 
-        File fichero = new File("FicheroViaje.dat");
+        File fichero = new File("datos/dat/FicheroViaje.dat");
 
         ArrayList<Viaje> viajes = new ArrayList<>();
 
@@ -555,7 +555,7 @@ public class Main {
         int idViaje = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroViaje.dat");
+        File fichero = new File("datos/dat/FicheroViaje.dat");
 
         ArrayList<Viaje> viajes = new ArrayList<>();
 
@@ -657,7 +657,7 @@ public class Main {
         int idViaje = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroViaje.dat");
+        File fichero = new File("datos/dat/FicheroViaje.dat");
 
         ArrayList<Viaje> viajes = new ArrayList<>();
 
@@ -758,7 +758,7 @@ public class Main {
 
     public static void mostrarDestinos() throws IOException, ClassNotFoundException {
 
-        File fichero = new File("FicheroDestino.dat");
+        File fichero = new File("datos/dat/FicheroDestino.dat");
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -815,7 +815,7 @@ public class Main {
                 imagenUrl
         );
 
-        File fichero = new File("FicheroDestino.dat");
+        File fichero = new File("datos/dat/FicheroDestino.dat");
 
         ArrayList<Destino> destinos = new ArrayList<>();
 
@@ -858,7 +858,7 @@ public class Main {
         int idDestino = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroDestino.dat");
+        File fichero = new File("datos/dat/FicheroDestino.dat");
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -930,7 +930,7 @@ public class Main {
         int idDestino = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroDestino.dat");
+        File fichero = new File("datos/dat/FicheroDestino.dat");
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -1027,7 +1027,7 @@ public class Main {
 
     public static void mostrarHoteles() throws IOException, ClassNotFoundException {
 
-        File fichero = new File("FicheroHotel.dat");
+        File fichero = new File("datos/dat/FicheroHotel.dat");
         FileInputStream fiHoteles = new FileInputStream(fichero);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -1078,7 +1078,7 @@ public class Main {
                 servicios
         );
 
-        File fichero = new File("FicheroHotel.dat");
+        File fichero = new File("datos/dat/FicheroHotel.dat");
 
         ArrayList<Hotel> hoteles = new ArrayList<>();
 
@@ -1121,7 +1121,7 @@ public class Main {
         int idHotel = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroHotel.dat");
+        File fichero = new File("datos/dat/FicheroHotel.dat");
         FileInputStream fiHoteles = new FileInputStream(fichero);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -1189,7 +1189,7 @@ public class Main {
         int idHotel = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroHotel.dat");
+        File fichero = new File("datos/dat/FicheroHotel.dat");
         FileInputStream fiHoteles = new FileInputStream(fichero);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -1286,7 +1286,7 @@ public class Main {
 
     public static void mostrarReservas() throws IOException, ClassNotFoundException {
 
-        File fichero = new File("FicheroReserva.dat");
+        File fichero = new File("datos/dat/FicheroReserva.dat");
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -1353,7 +1353,7 @@ public class Main {
                 estado
         );
 
-        File fichero = new File("FicheroReserva.dat");
+        File fichero = new File("datos/dat/FicheroReserva.dat");
 
         ArrayList<Reserva> reservas = new ArrayList<>();
 
@@ -1395,7 +1395,7 @@ public class Main {
         System.out.print("\nTeclea el ID de la reserva que quieres modificar: ");
         int idReserva = sc.nextInt();
 
-        File fichero = new File("FicheroReserva.dat");
+        File fichero = new File("datos/dat/FicheroReserva.dat");
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -1475,7 +1475,7 @@ public class Main {
         int idReserva = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroReserva.dat");
+        File fichero = new File("datos/dat/FicheroReserva.dat");
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -1626,7 +1626,7 @@ public class Main {
         System.out.print("\nTeclea el ID: ");
         int idCliente = sc.nextInt();
 
-        File fichero = new File("FicheroCliente.dat");
+        File fichero = new File("datos/dat/FicheroCliente.dat");
         FileInputStream fiClientes = new FileInputStream(fichero);
         ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
 
@@ -1660,7 +1660,7 @@ public class Main {
         System.out.print("\nTeclea el DNI: ");
         String dniCliente = sc.nextLine();
 
-        File fichero = new File("FicheroCliente.dat");
+        File fichero = new File("datos/dat/FicheroCliente.dat");
         FileInputStream fiClientes = new FileInputStream(fichero);
         ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
 
@@ -1695,7 +1695,7 @@ public class Main {
         System.out.print("\nTeclea el email: ");
         String emailCliente = sc.nextLine();
 
-        File fichero = new File("FicheroCliente.dat");
+        File fichero = new File("datos/dat/FicheroCliente.dat");
         FileInputStream fiClientes = new FileInputStream(fichero);
         ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
 
@@ -1779,7 +1779,7 @@ public class Main {
         System.out.print("\nTeclea el origen: ");
         String origen = sc.nextLine();
 
-        File fichero = new File("FicheroViaje.dat");
+        File fichero = new File("datos/dat/FicheroViaje.dat");
         FileInputStream fiViajes = new FileInputStream(fichero);
         ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
 
@@ -1812,7 +1812,7 @@ public class Main {
         System.out.print("\nTeclea el destino: ");
         String ciudad = sc.nextLine();
 
-        File fichero = new File("FicheroDestino.dat");
+        File fichero = new File("datos/dat/FicheroDestino.dat");
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -1825,7 +1825,7 @@ public class Main {
                 if (destino != null && destino.getCiudad().equalsIgnoreCase(ciudad)) {
                     int idDestino = destino.getId();
 
-                    FileInputStream fiViajes = new FileInputStream("FicheroViaje.dat");
+                    FileInputStream fiViajes = new FileInputStream("datos/dat/FicheroViaje.dat");
                     ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
 
                     try {
@@ -1868,7 +1868,7 @@ public class Main {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         Date fecha = formatoFecha.parse(fechaTexto);
 
-        File fichero = new File("FicheroViaje.dat");
+        File fichero = new File("datos/dat/FicheroViaje.dat");
         FileInputStream fiViajes = new FileInputStream(fichero);
         ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
 
@@ -1901,7 +1901,7 @@ public class Main {
         System.out.print("\nTeclea el tipo de viaje: ");
         String tipoViaje = sc.nextLine();
 
-        File fichero = new File("FicheroViaje.dat");
+        File fichero = new File("datos/dat/FicheroViaje.dat");
         FileInputStream fiViajes = new FileInputStream(fichero);
         ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
 
@@ -1979,7 +1979,7 @@ public class Main {
         System.out.print("\nTeclea la ciudad: ");
         String ciudad = sc.nextLine();
 
-        File fichero = new File("FicheroDestino.dat");
+        File fichero = new File("datos/dat/FicheroDestino.dat");
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -2012,7 +2012,7 @@ public class Main {
         System.out.print("\nTeclea el país: ");
         String pais = sc.nextLine();
 
-        File fichero = new File("FicheroDestino.dat");
+        File fichero = new File("datos/dat/FicheroDestino.dat");
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -2045,7 +2045,7 @@ public class Main {
         System.out.print("\nTeclea el tipo de destino: ");
         String tipoDestino = sc.nextLine();
 
-        File fichero = new File("FicheroDestino.dat");
+        File fichero = new File("datos/dat/FicheroDestino.dat");
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -2119,7 +2119,7 @@ public class Main {
         int estrellas = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroHotel.dat");
+        File fichero = new File("datos/dat/FicheroHotel.dat");
         FileInputStream fiHoteles = new FileInputStream(fichero);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -2153,7 +2153,7 @@ public class Main {
         double precioMaximo = sc.nextDouble();
         sc.nextLine();
 
-        File fichero = new File("FicheroHotel.dat");
+        File fichero = new File("datos/dat/FicheroHotel.dat");
         FileInputStream fiHoteles = new FileInputStream(fichero);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -2237,7 +2237,7 @@ public class Main {
         int idReserva = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroReserva.dat");
+        File fichero = new File("datos/dat/FicheroReserva.dat");
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -2273,7 +2273,7 @@ public class Main {
         int idCliente = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroReserva.dat");
+        File fichero = new File("datos/dat/FicheroReserva.dat");
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -2307,7 +2307,7 @@ public class Main {
         int idViaje = sc.nextInt();
         sc.nextLine();
 
-        File fichero = new File("FicheroReserva.dat");
+        File fichero = new File("datos/dat/FicheroReserva.dat");
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -2340,7 +2340,7 @@ public class Main {
         System.out.print("\nTeclea el estado de la reserva: ");
         String estado = sc.nextLine();
 
-        File fichero = new File("FicheroReserva.dat");
+        File fichero = new File("datos/dat/FicheroReserva.dat");
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -2435,7 +2435,7 @@ public class Main {
 
     public static void exportarClientesXML() throws IOException, ClassNotFoundException {
 
-        File ficheroClientes = new File("FicheroCliente.dat");
+        File ficheroClientes = new File("datos/dat/FicheroCliente.dat");
 
         /* ----- Crear fichero '.xml' e insertarle los datos del fichero '.dat' ----- */
 
@@ -2490,7 +2490,7 @@ public class Main {
 
     public static void exportarViajesXML() throws IOException, ClassNotFoundException {
 
-        File ficheroViajes = new File("FicheroViaje.dat");
+        File ficheroViajes = new File("datos/dat/FicheroViaje.dat");
 
         FileInputStream fiViajes = new FileInputStream(ficheroViajes);
         ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
@@ -2527,7 +2527,7 @@ public class Main {
 
     public static void exportarDestinosXML() throws IOException, ClassNotFoundException {
 
-        File ficheroDestinos = new File("FicheroDestino.dat");
+        File ficheroDestinos = new File("datos/dat/FicheroDestino.dat");
 
         FileInputStream fiDestinos = new FileInputStream(ficheroDestinos);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
@@ -2564,7 +2564,7 @@ public class Main {
 
     public static void exportarHotelesXML() throws IOException, ClassNotFoundException {
 
-        File ficheroHoteles = new File("FicheroHotel.dat");
+        File ficheroHoteles = new File("datos/dat/FicheroHotel.dat");
 
         FileInputStream fiHoteles = new FileInputStream(ficheroHoteles);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
@@ -2601,7 +2601,7 @@ public class Main {
 
     public static void exportarReservasXML() throws IOException, ClassNotFoundException {
 
-        File ficheroReservas = new File("FicheroReserva.dat");
+        File ficheroReservas = new File("datos/dat/FicheroReserva.dat");
 
         FileInputStream fiReservas = new FileInputStream(ficheroReservas);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);

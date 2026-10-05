@@ -8,7 +8,7 @@ public class EscribirClientes {
         /* ----- Crear fichero '.dat' e insertarle datos ----- */
 
         // Crear un fichero físico para almacenar la información de los clientes
-        File ficheroClientes = new File("FicheroCliente.dat");
+        File ficheroClientes = new File("datos/dat/FicheroCliente.dat");
 
         // Crear un objeto de la clase FileOutputStream asociado al fichero físico
         FileOutputStream foClientes = new FileOutputStream(ficheroClientes);
