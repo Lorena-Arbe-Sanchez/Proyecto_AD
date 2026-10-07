@@ -104,6 +104,8 @@ public class Main {
                     break;
 
                 case 3:
+                    System.out.println("\nLos datos registrados ya aparecerán." +
+                            "\nPara mantenerlos deberás pulsar Enter, y para modificarlos escribir a partir / detrás de ellos.");
                     modificarCliente(sc);
                     break;
 
@@ -2844,7 +2846,7 @@ public class Main {
         String texto;
 
         do {
-            System.out.print("Teclea " + mensaje + ": ");
+            System.out.print("Teclea " + mensaje);
             texto = sc.nextLine();
 
             if (texto.trim().isEmpty()) {
@@ -3533,7 +3535,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            throw new RuntimeException(e);
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             System.out.println("\nError al leer las reservas.");
         }
@@ -3554,7 +3556,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            throw new RuntimeException(e);
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             System.out.println("\nError al leer las reservas.");
         }
@@ -3575,7 +3577,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            throw new RuntimeException(e);
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             System.out.println("\nError al leer los viajes.");
         }
@@ -3596,7 +3598,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            throw new RuntimeException(e);
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             System.out.println("\nError al leer los viajes.");
         }
