@@ -44,7 +44,6 @@ public class Main {
                     exportarXML(sc);
                     break;
                 case 8:
-                    // TODO : Poner emojis en los sout o a la hora de hacer la interfaz, que se vea chula
                     System.out.println("Saliendo de EasyTravel...");
                     break;
                 default:
@@ -241,7 +240,6 @@ public class Main {
         System.out.println("\nEl ID asignado al nuevo cliente es: " + id);
     }
 
-    // TODO : A la hora de poner los datos a modificar --> Hacer que aparezcan los datos para poder cambiarles poco (que aparezcan ya al teclear "3")
     public static void modificarCliente(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID del cliente que quieres modificar: ");
@@ -332,6 +330,11 @@ public class Main {
 
         if (!fichero.exists()) {
             System.out.println("\nNo existe el fichero de clientes.");
+            return;
+        }
+
+        if (existeReservaConCliente(idCliente)) {
+            System.out.println("\nNo se puede eliminar el cliente porque tiene reservas asociadas.");
             return;
         }
 
@@ -697,6 +700,11 @@ public class Main {
             return;
         }
 
+        if (existeReservaConViaje(idViaje)) {
+            System.out.println("\nNo se puede eliminar el viaje porque tiene reservas asociadas.");
+            return;
+        }
+
         ArrayList<Viaje> viajes = new ArrayList<>();
 
         FileInputStream fiViajes = new FileInputStream(fichero);
@@ -991,6 +999,11 @@ public class Main {
             return;
         }
 
+        if (existeViajeConDestino(idDestino)) {
+            System.out.println("\nNo se puede eliminar el destino porque tiene viajes asociados.");
+            return;
+        }
+
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -1274,6 +1287,11 @@ public class Main {
             return;
         }
 
+        if (existeViajeConHotel(idHotel)) {
+            System.out.println("\nNo se puede eliminar el hotel porque tiene viajes asociados.");
+            return;
+        }
+
         FileInputStream fiHoteles = new FileInputStream(fichero);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -1512,31 +1530,16 @@ public class Main {
                 if (reserva != null) {
 
                     if (reserva.getId() == idReserva) {
-
-                        System.out.print("Nuevo ID del cliente: ");
-                        int idCliente = leerInt(sc);
-                        // TODO : Hacer "existeCliente" antes de guardarlo
+                        int idCliente = leerIdClienteModificar(sc, reserva.getIdCliente());
                         reserva.setIdCliente(idCliente);
 
-                        System.out.print("Nuevo ID del viaje: ");
-                        int idViaje = leerInt(sc);
-                        // TODO : Hacer "existeViaje" antes de guardarlo
+                        int idViaje = leerIdViajeModificar(sc, reserva.getIdViaje());
                         reserva.setIdViaje(idViaje);
 
-                        Date fechaReserva = leerFecha(sc, " de reserva");
-                        reserva.setFechaReserva(fechaReserva);
-
-                        System.out.print("Nuevo número de personas: ");
-                        int numero = leerInt(sc);
-                        reserva.setNumeroPersonas(numero);
-
-                        System.out.print("Nuevo precio total: ");
-                        double precio = leerDouble(sc);
-                        reserva.setPrecioTotal(precio);
-
-                        String estado = leerTexto(sc, "el nuevo estado");
-                        reserva.setEstado(estado);
-
+                        reserva.setFechaReserva(leerFechaModificar(sc, "la nueva fecha de reserva", reserva.getFechaReserva()));
+                        reserva.setNumeroPersonas(leerIntModificar(sc, "el nuevo número de personas", reserva.getNumeroPersonas()));
+                        reserva.setPrecioTotal(leerDoubleModificar(sc, "el nuevo precio total", reserva.getPrecioTotal()));
+                        reserva.setEstado(leerEstadoReservaModificar(sc, reserva.getEstado()));
                         encontrado = true;
                     }
 
@@ -3035,6 +3038,204 @@ public class Main {
         return texto;
     }
 
+
+    public static int leerIntModificar(Scanner sc, String mensaje, int valorActual) {
+        while (true) {
+            System.out.print("Teclea " + mensaje + ": " + valorActual);
+            String texto = sc.nextLine();
+            if (texto.isEmpty()) return valorActual;
+            try {
+                return Integer.parseInt(texto);
+            } catch (NumberFormatException e) {
+                System.out.println("Debes introducir un número entero.");
+            }
+        }
+    }
+
+    public static double leerDoubleModificar(Scanner sc, String mensaje, double valorActual) {
+        while (true) {
+            System.out.print("Teclea " + mensaje + ": " + valorActual);
+            String texto = sc.nextLine();
+            if (texto.isEmpty()) return valorActual;
+            try {
+                return Double.parseDouble(texto);
+            } catch (NumberFormatException e) {
+                System.out.println("Debes introducir un número.");
+            }
+        }
+    }
+
+    public static int leerEstrellasModificar(Scanner sc, int valorActual) {
+        while (true) {
+            System.out.print("Teclea el nuevo número de estrellas: " + valorActual);
+            String texto = sc.nextLine();
+            if (texto.isEmpty()) return valorActual;
+            try {
+                int estrellas = Integer.parseInt(texto);
+                if (estrellas >= 1 && estrellas <= 5) return estrellas;
+                System.out.println("Las estrellas deben estar entre 1 y 5.");
+            } catch (NumberFormatException e) {
+                System.out.println("Debes introducir un número entero.");
+            }
+        }
+    }
+
+    public static Date leerFechaModificar(Scanner sc, String mensaje, Date valorActual) {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        formatoFecha.setLenient(false);
+        while (true) {
+            System.out.print("Teclea " + mensaje + ": " + formatoFecha.format(valorActual));
+            String texto = sc.nextLine();
+            if (texto.isEmpty()) return valorActual;
+            try {
+                return formatoFecha.parse(texto);
+            } catch (ParseException e) {
+                System.out.println("\nFormato de fecha incorrecto. Utiliza dd/MM/yyyy.");
+            }
+        }
+    }
+
+    public static String leerDniModificar(Scanner sc, String valorActual) {
+        while (true) {
+            System.out.print("Teclea el nuevo DNI: " + valorActual);
+            String dni = sc.nextLine().toUpperCase();
+            if (dni.isEmpty()) return valorActual;
+            if (dni.matches("\\d{8}[A-Z]")) return dni;
+            System.out.println("DNI incorrecto. Debe tener 8 números y una letra.");
+        }
+    }
+
+    public static String leerEmailModificar(Scanner sc, String valorActual) {
+        while (true) {
+            System.out.print("Teclea el nuevo email: " + valorActual);
+            String email = sc.nextLine();
+            if (email.isEmpty()) return valorActual;
+            if (email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) return email;
+            System.out.println("Email incorrecto.");
+        }
+    }
+
+    public static String leerTelefonoModificar(Scanner sc, String valorActual) {
+        while (true) {
+            System.out.print("Teclea el nuevo teléfono: " + valorActual);
+            String telefono = sc.nextLine();
+            if (telefono.isEmpty()) return valorActual;
+            if (telefono.matches("\\d{9}")) return telefono;
+            System.out.println("El teléfono debe tener 9 números.");
+        }
+    }
+
+    public static String leerTipoViajeModificar(Scanner sc, String valorActual) {
+        while (true) {
+            System.out.print("Teclea el nuevo tipo de viaje: " + valorActual);
+            String texto = sc.nextLine().trim();
+            if (texto.isEmpty()) return valorActual;
+            switch (texto.toLowerCase()) {
+                case "1":
+                    return "Escapada";
+                case "2":
+                    return "Excursión de un día";
+                case "3":
+                    return "Naturaleza";
+                case "4":
+                    return "Playa";
+                case "5":
+                    return "Vacaciones";
+                case "6":
+                    return "Cultural";
+                case "7":
+                    return "Internacional";
+                default:
+                    System.out.println("Tipo de viaje no válido. Introduce un número del 1 al 7.");
+            }
+        }
+    }
+
+    public static String leerTipoDestinoModificar(Scanner sc, String valorActual) {
+        while (true) {
+            System.out.print("Teclea el nuevo tipo de destino: " + valorActual);
+            String texto = sc.nextLine().trim();
+            if (texto.isEmpty()) return valorActual;
+            switch (texto.toLowerCase()) {
+                case "1":
+                    return "Costa";
+                case "2":
+                    return "Playa";
+                case "3":
+                    return "Urbano";
+                case "4":
+                    return "Naturaleza";
+                case "5":
+                    return "Cultural";
+                default:
+                    System.out.println("Tipo de destino no válido. Introduce un número del 1 al 5.");
+            }
+        }
+    }
+
+    public static String leerEstadoReservaModificar(Scanner sc, String valorActual) {
+        while (true) {
+            System.out.print("Teclea el nuevo estado de la reserva: " + valorActual);
+            String texto = sc.nextLine().trim();
+            if (texto.isEmpty()) return valorActual;
+            switch (texto.toLowerCase()) {
+                case "1":
+                    return "Pendiente";
+                case "2":
+                    return "Confirmada";
+                case "3":
+                    return "Cancelada";
+                default:
+                    System.out.println("Estado no válido. Introduce 1, 2 o 3.");
+            }
+        }
+    }
+
+    public static int leerIdDestinoModificar(Scanner sc, int valorActual) throws IOException {
+        while (true) {
+            System.out.print("Teclea el nuevo ID del destino: " + valorActual);
+            String texto = sc.nextLine().trim();
+            if (texto.isEmpty()) return valorActual;
+            try {
+                int id = Integer.parseInt(texto);
+                if (existeDestino(id)) return id;
+                System.out.println("\nError: no existe ese destino. Vuelve a introducir el ID.");
+            } catch (NumberFormatException e) {
+                System.out.println("Debes introducir un número entero.");
+            }
+        }
+    }
+
+    public static int leerIdClienteModificar(Scanner sc, int valorActual) throws IOException {
+        while (true) {
+            System.out.print("Teclea el nuevo ID del cliente: " + valorActual);
+            String texto = sc.nextLine().trim();
+            if (texto.isEmpty()) return valorActual;
+            try {
+                int id = Integer.parseInt(texto);
+                if (existeCliente(id)) return id;
+                System.out.println("\nError: no existe ese cliente. Vuelve a introducir el ID.");
+            } catch (NumberFormatException e) {
+                System.out.println("Debes introducir un número entero.");
+            }
+        }
+    }
+
+    public static int leerIdViajeModificar(Scanner sc, int valorActual) throws IOException {
+        while (true) {
+            System.out.print("Teclea el nuevo ID del viaje: " + valorActual);
+            String texto = sc.nextLine().trim();
+            if (texto.isEmpty()) return valorActual;
+            try {
+                int id = Integer.parseInt(texto);
+                if (existeViaje(id)) return id;
+                System.out.println("\nError: no existe ese viaje. Vuelve a introducir el ID.");
+            } catch (NumberFormatException e) {
+                System.out.println("Debes introducir un número entero.");
+            }
+        }
+    }
+
     public static String leerDni(Scanner sc) {
 
         while (true) {
@@ -3373,4 +3574,85 @@ public class Main {
 
         return false;
     }
+
+    public static boolean existeReservaConCliente(int idCliente) throws IOException {
+        File fichero = new File("datos/dat/FicheroReserva.dat");
+        if (!fichero.exists()) return false;
+        ObjectInputStream oi = new ObjectInputStream(new FileInputStream(fichero));
+        try {
+            while (true) {
+                Reserva r = (Reserva) oi.readObject();
+                if (r != null && r.getIdCliente() == idCliente) {
+                    oi.close();
+                    return true;
+                }
+            }
+        } catch (EOFException e) {
+        } catch (ClassNotFoundException e) {
+            System.out.println("\nError al leer las reservas.");
+        }
+        oi.close();
+        return false;
+    }
+
+    public static boolean existeReservaConViaje(int idViaje) throws IOException {
+        File fichero = new File("datos/dat/FicheroReserva.dat");
+        if (!fichero.exists()) return false;
+        ObjectInputStream oi = new ObjectInputStream(new FileInputStream(fichero));
+        try {
+            while (true) {
+                Reserva r = (Reserva) oi.readObject();
+                if (r != null && r.getIdViaje() == idViaje) {
+                    oi.close();
+                    return true;
+                }
+            }
+        } catch (EOFException e) {
+        } catch (ClassNotFoundException e) {
+            System.out.println("\nError al leer las reservas.");
+        }
+        oi.close();
+        return false;
+    }
+
+    public static boolean existeViajeConDestino(int idDestino) throws IOException {
+        File fichero = new File("datos/dat/FicheroViaje.dat");
+        if (!fichero.exists()) return false;
+        ObjectInputStream oi = new ObjectInputStream(new FileInputStream(fichero));
+        try {
+            while (true) {
+                Viaje v = (Viaje) oi.readObject();
+                if (v != null && v.getIdDestino() == idDestino) {
+                    oi.close();
+                    return true;
+                }
+            }
+        } catch (EOFException e) {
+        } catch (ClassNotFoundException e) {
+            System.out.println("\nError al leer los viajes.");
+        }
+        oi.close();
+        return false;
+    }
+
+    public static boolean existeViajeConHotel(int idHotel) throws IOException {
+        File fichero = new File("datos/dat/FicheroViaje.dat");
+        if (!fichero.exists()) return false;
+        ObjectInputStream oi = new ObjectInputStream(new FileInputStream(fichero));
+        try {
+            while (true) {
+                Viaje v = (Viaje) oi.readObject();
+                if (v != null && v.getIdHotel() != null && v.getIdHotel() == idHotel) {
+                    oi.close();
+                    return true;
+                }
+            }
+        } catch (EOFException e) {
+        } catch (ClassNotFoundException e) {
+            System.out.println("\nError al leer los viajes.");
+        }
+        oi.close();
+        return false;
+    }
+
 }
