@@ -1,9 +1,7 @@
-import com.thoughtworks.xstream.XStream;
-
 import java.io.*;
 
 public class EscribirClientes {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException {
 
         /* ----- Crear fichero '.dat' e insertarle datos ----- */
 

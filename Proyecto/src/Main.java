@@ -10,8 +10,6 @@ import com.thoughtworks.xstream.XStream;
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException, ParseException {
 
-        // TODO : Poner funciones en todos los archivos para reutilizar código y/o que quede más limpio + Optimizar
-
         Scanner sc = new Scanner(System.in);
         int respuesta;
 
@@ -768,7 +766,7 @@ public class Main {
         } while (opcionDestinos != 5);
     }
 
-    public static void mostrarDestinos() throws IOException, ClassNotFoundException {
+    public static void mostrarDestinos() throws IOException {
 
         File fichero = new File("datos/dat/FicheroDestino.dat");
 
@@ -805,7 +803,7 @@ public class Main {
         }
     }
 
-    public static void anadirDestino(Scanner sc) throws IOException, ClassNotFoundException {
+    public static void anadirDestino(Scanner sc) throws IOException {
 
         int id = obtenerUltimoIdDestino() + 1;
 
@@ -1051,7 +1049,7 @@ public class Main {
         } while (opcionHoteles != 5);
     }
 
-    public static void mostrarHoteles() throws IOException, ClassNotFoundException {
+    public static void mostrarHoteles() throws IOException {
 
         File fichero = new File("datos/dat/FicheroHotel.dat");
 
@@ -1328,7 +1326,7 @@ public class Main {
         } while (opcionReservas != 5);
     }
 
-    public static void mostrarReservas() throws IOException, ClassNotFoundException {
+    public static void mostrarReservas() throws IOException {
 
         File fichero = new File("datos/dat/FicheroReserva.dat");
 
@@ -1787,7 +1785,7 @@ public class Main {
         }
     }
 
-    public static void buscarViaje(Scanner sc) throws IOException, ParseException {
+    public static void buscarViaje(Scanner sc) throws IOException {
 
         int opcionViaje;
 
@@ -1943,7 +1941,7 @@ public class Main {
         }
     }
 
-    public static void buscarViajePorFecha(Scanner sc) throws IOException, ParseException {
+    public static void buscarViajePorFecha(Scanner sc) throws IOException {
 
         Date fecha = leerFecha(sc, " de salida");
 
@@ -3535,6 +3533,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
+            throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             System.out.println("\nError al leer las reservas.");
         }
@@ -3555,6 +3554,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
+            throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             System.out.println("\nError al leer las reservas.");
         }
@@ -3575,6 +3575,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
+            throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             System.out.println("\nError al leer los viajes.");
         }
@@ -3595,6 +3596,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
+            throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             System.out.println("\nError al leer los viajes.");
         }

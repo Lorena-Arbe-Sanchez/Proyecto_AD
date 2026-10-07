@@ -9,9 +9,6 @@ public class Hotel implements Serializable {
     private double precioNoche;
     private String servicios;
 
-    public Hotel() {
-    }
-
     public Hotel(int id, String nombre, int estrellas, String direccion, double precioNoche, String servicios) {
         this.id = id;
         this.nombre = nombre;

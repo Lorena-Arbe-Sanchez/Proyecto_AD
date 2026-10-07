@@ -1,12 +1,10 @@
-import com.thoughtworks.xstream.XStream;
-
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EscribirReservas {
-    public static void main(String[] args) throws IOException, ClassNotFoundException, ParseException {
+    public static void main(String[] args) throws IOException, ParseException {
 
         File ficheroReservas = new File("datos/dat/FicheroReserva.dat");
 

@@ -1,9 +1,7 @@
-import com.thoughtworks.xstream.XStream;
-
 import java.io.*;
 
 public class EscribirDestinos {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException {
 
         File ficheroDestinos = new File("datos/dat/FicheroDestino.dat");
 

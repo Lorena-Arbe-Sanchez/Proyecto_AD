@@ -3,7 +3,7 @@ import java.util.List;
 
 public class ListaReservas {
 
-    private List<Reserva> lista;
+    private final List<Reserva> lista;
 
     public ListaReservas() {
         lista = new ArrayList<>();
@@ -15,9 +15,5 @@ public class ListaReservas {
 
     public List<Reserva> getLista() {
         return lista;
-    }
-
-    public void setLista(List<Reserva> lista) {
-        this.lista = lista;
     }
 }

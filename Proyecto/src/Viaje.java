@@ -15,9 +15,6 @@ public class Viaje implements Serializable {
     private int plazasDisponibles;
     private String tipoViaje;
 
-    public Viaje() {
-    }
-
     public Viaje(int id, int idDestino, Integer idHotel, String origen, Date fechaSalida, Date fechaRegreso,
                  double precio, int plazasTotales, int plazasDisponibles, String tipoViaje) {
         this.id = id;

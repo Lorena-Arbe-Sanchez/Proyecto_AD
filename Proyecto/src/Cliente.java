@@ -13,10 +13,6 @@ public class Cliente implements Serializable {
     private String telefono;
     private String email;
 
-    // Constructor vacío
-    public Cliente() {
-    }
-
     // Constructor con todos los atributos de la clase
     public Cliente(int id, String nombre, String apellido1, String apellido2, int edad, String dni,
                    String telefono, String email) {

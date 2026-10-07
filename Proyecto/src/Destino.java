@@ -11,9 +11,6 @@ public class Destino implements Serializable {
     private String moneda;
     private String imagenUrl;
 
-    public Destino() {
-    }
-
     public Destino(int id, String ciudad, String pais, String descripcion, String tipoDestino, String idioma,
                    String moneda, String imagenUrl) {
         this.id = id;
