@@ -267,27 +267,17 @@ public class Main {
 
                     if (cliente.getId() == idCliente) {
 
-                        String nombre = leerTexto(sc, "el nuevo nombre");
-                        cliente.setNombre(nombre);
-
-                        String primerApellido = leerTexto(sc, "el nuevo primer apellido");
-                        cliente.setApellido1(primerApellido);
-
-                        String segundoApellido = leerTexto(sc, "el nuevo segundo apellido");
-                        cliente.setApellido2(segundoApellido);
-
-                        System.out.print("Nueva edad: ");
-                        int edad = leerInt(sc);
-                        cliente.setEdad(edad);
-
-                        String dni = leerDni(sc);
-                        cliente.setDni(dni);
-
-                        String telefono = leerTexto(sc, "el nuevo teléfono");
-                        cliente.setTelefono(telefono);
-
-                        String email = leerEmail(sc);
-                        cliente.setEmail(email);
+                        /*
+                        En las funciones de modificar, se mostrará el dato que hay registrado y ese
+                        dato se podrá mantener pulsando Enter, o cambiarlo y después pulsar Enter.
+                         */
+                        cliente.setNombre(leerTextoModificar(sc, "el nuevo nombre", cliente.getNombre()));
+                        cliente.setApellido1(leerTextoModificar(sc, "el nuevo primer apellido", cliente.getApellido1()));
+                        cliente.setApellido2(leerTextoModificar(sc, "el nuevo segundo apellido", cliente.getApellido2()));
+                        cliente.setEdad(leerIntModificar(sc, "la nueva edad", cliente.getEdad()));
+                        cliente.setDni(leerDniModificar(sc, cliente.getDni()));
+                        cliente.setTelefono(leerTelefonoModificar(sc, cliente.getTelefono()));
+                        cliente.setEmail(leerEmailModificar(sc, cliente.getEmail()));
 
                         encontrado = true;
                     }
@@ -602,59 +592,36 @@ public class Main {
 
                     if (viaje.getId() == idViaje) {
 
-                        System.out.print("Nuevo ID del destino: ");
-                        int idDestino = leerInt(sc);
-
-                        // TODO : Hacer bien "existeDestino" antes de guardarlo (con bucle como abajo en "existeHotel")
-                        if (!existeDestino(idDestino)) {
-                            System.out.println("\nError: no existe ese destino.");
-                            return;
-                        }
-
+                        int idDestino = leerIdDestinoModificar(sc, viaje.getIdDestino());
                         viaje.setIdDestino(idDestino);
 
-                        int idHotel;
+                        Integer hotelActual = viaje.getIdHotel();
+                        System.out.print("Teclea el nuevo ID del hotel (0 si no hay alojamiento): " + (hotelActual == null ? 0 : hotelActual));
+                        String textoHotel = sc.nextLine();
 
-                        while (true) {
-                            System.out.print("Nuevo ID del hotel (0 si no hay alojamiento): ");
-                            idHotel = leerInt(sc);
+                        if (!textoHotel.isEmpty()) {
+                            try {
+                                int idHotel = Integer.parseInt(textoHotel);
 
-                            if (idHotel == 0) {
-                                viaje.setIdHotel(null);
-                            } else {
-                                if (existeHotel(idHotel)) {
-                                    break;
+                                if (idHotel == 0) {
+                                    viaje.setIdHotel(null);
+                                } else if (existeHotel(idHotel)) {
+                                    viaje.setIdHotel(idHotel);
+                                } else {
+                                    System.out.println("\nError: no existe ese hotel. Se mantiene el hotel actual.");
                                 }
-
-                                System.out.println("\nError: no existe ese hotel. Vuelve a introducir el ID.");
+                            } catch (NumberFormatException e) {
+                                System.out.println("\nDebes introducir un número entero. Se mantiene el hotel actual.");
                             }
                         }
 
-                        viaje.setIdHotel(idHotel);
-
-                        String origen = leerTexto(sc, "el nuevo origen");
-                        viaje.setOrigen(origen);
-
-                        Date fechaSalida = leerFecha(sc, " de salida");
-                        viaje.setFechaSalida(fechaSalida);
-
-                        Date fechaRegreso = leerFecha(sc, " de regreso");
-                        viaje.setFechaRegreso(fechaRegreso);
-
-                        System.out.print("Nuevo precio: ");
-                        double precio = leerDouble(sc);
-                        viaje.setPrecio(precio);
-
-                        System.out.print("Nuevo número de plazas totales: ");
-                        int plazasTotales = leerInt(sc);
-                        viaje.setPlazasTotales(plazasTotales);
-
-                        System.out.print("Nuevo número de plazas disponibles: ");
-                        int plazasDisponibles = leerInt(sc);
-                        viaje.setPlazasDisponibles(plazasDisponibles);
-
-                        String tipo = leerTipoViaje(sc);
-                        viaje.setTipoViaje(tipo);
+                        viaje.setOrigen(leerTextoModificar(sc, "el nuevo origen", viaje.getOrigen()));
+                        viaje.setFechaSalida(leerFechaModificar(sc, "la nueva fecha de salida", viaje.getFechaSalida()));
+                        viaje.setFechaRegreso(leerFechaModificar(sc, "la nueva fecha de regreso", viaje.getFechaRegreso()));
+                        viaje.setPrecio(leerDoubleModificar(sc, "el nuevo precio", viaje.getPrecio()));
+                        viaje.setPlazasTotales(leerIntModificar(sc, "el nuevo número de plazas totales", viaje.getPlazasTotales()));
+                        viaje.setPlazasDisponibles(leerIntModificar(sc, "el nuevo número de plazas disponibles", viaje.getPlazasDisponibles()));
+                        viaje.setTipoViaje(leerTipoViajeModificar(sc, viaje.getTipoViaje()));
 
                         encontrado = true;
                     }
@@ -936,26 +903,13 @@ public class Main {
 
                     if (destino.getId() == idDestino) {
 
-                        String ciudad = leerTexto(sc, "la nueva ciudad");
-                        destino.setCiudad(ciudad);
-
-                        String pais = leerTexto(sc, "el nuevo país");
-                        destino.setPais(pais);
-
-                        String descripcion = leerTexto(sc, "la nueva descripción");
-                        destino.setDescripcion(descripcion);
-
-                        String tipo = leerTipoDestino(sc);
-                        destino.setTipoDestino(tipo);
-
-                        String idioma = leerTexto(sc, "el nuevo idioma");
-                        destino.setIdioma(idioma);
-
-                        String moneda = leerTexto(sc, "la nueva moneda");
-                        destino.setMoneda(moneda);
-
-                        String url = leerTexto(sc, "la nueva URL de imagen");
-                        destino.setImagenUrl(url);
+                        destino.setCiudad(leerTextoModificar(sc, "la nueva ciudad", destino.getCiudad()));
+                        destino.setPais(leerTextoModificar(sc, "el nuevo país", destino.getPais()));
+                        destino.setDescripcion(leerTextoModificar(sc, "la nueva descripción", destino.getDescripcion()));
+                        destino.setTipoDestino(leerTipoDestinoModificar(sc, destino.getTipoDestino()));
+                        destino.setIdioma(leerTextoModificar(sc, "el nuevo idioma", destino.getIdioma()));
+                        destino.setMoneda(leerTextoModificar(sc, "la nueva moneda", destino.getMoneda()));
+                        destino.setImagenUrl(leerTextoModificar(sc, "la nueva URL de imagen", destino.getImagenUrl()));
 
                         encontrado = true;
                     }
@@ -1228,22 +1182,11 @@ public class Main {
 
                     if (hotel.getId() == idHotel) {
 
-                        String nombre = leerTexto(sc, "el nuevo nombre");
-                        hotel.setNombre(nombre);
-
-                        System.out.print("Nuevo número de estrellas: ");
-                        int estrellas = leerEstrellas(sc);
-                        hotel.setEstrellas(estrellas);
-
-                        String direccion = leerTexto(sc, "la nueva dirección");
-                        hotel.setDireccion(direccion);
-
-                        System.out.print("Nuevo precio por noche: ");
-                        double precio = leerDouble(sc);
-                        hotel.setPrecioNoche(precio);
-
-                        String servicios = leerTexto(sc, "los nuevos servicios");
-                        hotel.setServicios(servicios);
+                        hotel.setNombre(leerTextoModificar(sc, "el nuevo nombre", hotel.getNombre()));
+                        hotel.setEstrellas(leerEstrellasModificar(sc, hotel.getEstrellas()));
+                        hotel.setDireccion(leerTextoModificar(sc, "la nueva dirección", hotel.getDireccion()));
+                        hotel.setPrecioNoche(leerDoubleModificar(sc, "el nuevo precio por noche", hotel.getPrecioNoche()));
+                        hotel.setServicios(leerTextoModificar(sc, "los nuevos servicios", hotel.getServicios()));
 
                         encontrado = true;
                     }
@@ -1931,7 +1874,9 @@ public class Main {
         }
     }
 
-    // TODO : Poner de comentario q en esta función primero se busca el id del nombre del destino y luego se buscan sus viajes
+    // Primero se busca el destino por su nombre para obtener su ID.
+    // Después se buscan en FicheroViaje.dat los viajes que tengan ese ID de destino.
+    // De esta manera el usuario no tiene que poner el ID del destino y la experiencia de navegación es más cómoda
     public static void buscarViajePorDestino(Scanner sc) throws IOException {
 
         String ciudad = leerTexto(sc, "el destino: ");
@@ -1959,6 +1904,7 @@ public class Main {
 
                     if (!ficheroViaje.exists()) {
                         System.out.println("\nNo existe el fichero de viajes.");
+                        oiDestinos.close();
                         return;
                     }
 
@@ -2877,6 +2823,7 @@ public class Main {
     public static Date leerFecha(Scanner sc, String texto) {
 
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        // "setLenient(false)" obliga a introducir fechas válidas, por ejemplo, no acepta 31/02/2026
         formatoFecha.setLenient(false);
 
         while (true) {
