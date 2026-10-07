@@ -22,11 +22,11 @@ La aplicación utilizará ficheros para almacenar y gestionar la información de
 
 Como posibles mejoras se plantea añadir:
 
+- Mejoras en las búsquedas y gestión de datos.
+- Imágenes asociadas a los destinos.
 - Lectura de ficheros XML.
 - Generación y lectura de ficheros JSON.
-- Mejoras en las búsquedas y gestión de datos.
 - Interfaz gráfica.
-- Imágenes asociadas a los destinos.
 
 ## Tecnologías
 
@@ -45,7 +45,7 @@ El proyecto contará inicialmente con las siguientes clases principales:
 - `Viaje`
 - `Reserva`
 
-Posteriormente se podrán añadir otras clases como:
+Posteriormente se añadirán otras clases como:
 
 - `Destino`
 - `Hotel`
@@ -62,17 +62,11 @@ Ficheros previstos inicialmente:
 
 También se podrán añadir ficheros para destinos y hoteles.
 
-## Estado del proyecto
-
-Proyecto en desarrollo.
-
-Actualmente se encuentran creadas las clases iniciales `Cliente`, `Viaje` y `Reserva`.
-
 ## Puesta en marcha
 
-1. Clonar el repositorio.
-2. Abrir el proyecto con IntelliJ IDEA.
+1. Clonar el repositorio en la terminal mediante el comando `git clone https://github.com/Lorena-Arbe-Sanchez/Proyecto_AD.git`.
+2. Abrir el proyecto (la carpeta `Proyecto` dentro del repositorio `Proyecto_AD`) con IntelliJ IDEA.
 3. Comprobar las dependencias necesarias.
-4. Ejecutar la clase principal de la aplicación.
+4. Ejecutar la clase principal (`Main`) de la aplicación.
 
 Las instrucciones de instalación y ejecución se completarán cuando el proyecto esté finalizado.

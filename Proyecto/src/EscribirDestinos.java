@@ -10,6 +10,7 @@ public class EscribirDestinos {
         FileOutputStream foDestinos = new FileOutputStream(ficheroDestinos);
         ObjectOutputStream ooDestinos = new ObjectOutputStream(foDestinos);
 
+        // En el caso de crear una interfaz, se podrían poner imágenes de los destinos (para ello estará la columna "imagenUrl")
         Destino destino1 = new Destino(1, "Hondarribi", "España", "Ciudad costera de Gipuzkoa conocida por su casco histórico, puerto y playas.", "Costa", "Español", "Euro", "https://drive.google.com/file/d/1-LZFONW7yx8Wd3luLYvK9Vp-0MErubqK/view?usp=drive_link");
         Destino destino2 = new Destino(2, "Donosti", "España", "Ciudad costera conocida por la playa de La Concha, su gastronomía y su casco antiguo.", "Costa", "Español", "Euro", "https://drive.google.com/file/d/1CIJsXi46hwn2KY1qSayibvLEV0zL2uX9/view?usp=drive_link");
         Destino destino3 = new Destino(3, "Málaga", "España", "Ciudad andaluza con playas, patrimonio histórico, museos y una amplia oferta cultural.", "Playa", "Español", "Euro", "https://drive.google.com/file/d/1SkWqIgIPyzy7q3SPmJ8O10Tr4lWYkZlZ/view?usp=drive_link");

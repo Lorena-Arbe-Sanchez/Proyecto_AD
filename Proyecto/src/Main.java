@@ -72,7 +72,7 @@ public class Main {
                 7. Exportar a XML
                 8. Salir
                 
-                Teclea el número correspondiente a la opción que deseas:"""); // TODO : Poner control de error por si se escribe algo q no sea uno de esos números
+                Teclea el número correspondiente a la opción que deseas:""");
     }
 
     public static void gestionClientes(Scanner sc) throws IOException {
@@ -125,7 +125,6 @@ public class Main {
         } while (opcionClientes != 5);
     }
 
-    // TODO : En las funciones de "mostrar" -->  Poner un recuento de la cantidad de datos que hay como primera línea y luego ya lo demás
     public static void mostrarClientes() throws IOException {
 
         File fichero = new File("datos/dat/FicheroCliente.dat");
@@ -135,6 +134,8 @@ public class Main {
             return;
         }
 
+        ArrayList<Cliente> clientes = new ArrayList<>();
+
         FileInputStream fiClientes = new FileInputStream(fichero);
         ObjectInputStream oiClientes = new ObjectInputStream(fiClientes);
 
@@ -143,16 +144,22 @@ public class Main {
                 Cliente cliente = (Cliente) oiClientes.readObject();
 
                 if (cliente != null) {
-                    cliente.mostrarTodosDatos();
+                    clientes.add(cliente);
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("\nError al leer los clientes.");
         }
 
         oiClientes.close();
+
+        System.out.println("\nNúmero de clientes: " + clientes.size());
+
+        for (Cliente cliente : clientes) {
+            cliente.mostrarTodosDatos();
+        }
     }
 
     public static void anadirCliente(Scanner sc) throws IOException {
@@ -211,7 +218,7 @@ public class Main {
                     }
                 }
             } catch (EOFException e) {
-                // Se ha llegado al final del fichero
+                // Fin del fichero
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -234,11 +241,9 @@ public class Main {
         System.out.println("\nEl ID asignado al nuevo cliente es: " + id);
     }
 
-    // TODO : Mirar si en los apuntes se hacía así (y los demás a ver si aparecen tambn)
     // TODO : A la hora de poner los datos a modificar --> Hacer que aparezcan los datos para poder cambiarles poco (que aparezcan ya al teclear "3")
     public static void modificarCliente(Scanner sc) throws IOException {
 
-        // TODO : Mejor por DNI
         System.out.print("\nTeclea el ID del cliente que quieres modificar: ");
         int idCliente = leerInt(sc);
 
@@ -293,7 +298,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -320,7 +325,6 @@ public class Main {
 
     public static void eliminarCliente(Scanner sc) throws IOException {
 
-        // TODO : Mejor por DNI
         System.out.print("\nTeclea el ID del cliente que quieres eliminar: ");
         int idCliente = leerInt(sc);
 
@@ -352,7 +356,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -436,6 +440,8 @@ public class Main {
             return;
         }
 
+        ArrayList<Viaje> viajes = new ArrayList<>();
+
         FileInputStream fiViajes = new FileInputStream(fichero);
         ObjectInputStream oiViajes = new ObjectInputStream(fiViajes);
 
@@ -444,16 +450,22 @@ public class Main {
                 Viaje viaje = (Viaje) oiViajes.readObject();
 
                 if (viaje != null) {
-                    viaje.mostrarTodosDatos();
+                    viajes.add(viaje);
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("\nError al leer los viajes.");
         }
 
         oiViajes.close();
+
+        System.out.println("\nNúmero de viajes: " + viajes.size());
+
+        for (Viaje viaje : viajes) {
+            viaje.mostrarTodosDatos();
+        }
     }
 
     public static void anadirViaje(Scanner sc) throws IOException {
@@ -490,7 +502,6 @@ public class Main {
 
         Date fechaRegreso = leerFecha(sc, " de regreso");
 
-        // TODO : Para lo de "leerDouble" debería hacer tambn q haga la pregunta en la función ??? + "leerInt"
         System.out.print("Teclea el precio: ");
         double precio = leerDouble(sc);
 
@@ -500,7 +511,7 @@ public class Main {
         System.out.print("Teclea el número de plazas disponibles: ");
         int plazasDisponibles = leerInt(sc);
 
-        String tipo = leerTexto(sc, "el tipo de viaje: ");
+        String tipoViaje = leerTipoViaje(sc);
 
         Viaje nuevoViaje = new Viaje(
                 id,
@@ -512,7 +523,7 @@ public class Main {
                 precio,
                 plazasTotales,
                 plazasDisponibles,
-                tipo
+                tipoViaje
         );
 
         File fichero = new File("datos/dat/FicheroViaje.dat");
@@ -538,7 +549,7 @@ public class Main {
                     }
                 }
             } catch (EOFException e) {
-                // Se ha llegado al final del fichero
+                // Fin del fichero
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -591,6 +602,7 @@ public class Main {
                         System.out.print("Nuevo ID del destino: ");
                         int idDestino = leerInt(sc);
 
+                        // TODO : Hacer bien "existeDestino" antes de guardarlo (con bucle como abajo en "existeHotel")
                         if (!existeDestino(idDestino)) {
                             System.out.println("\nError: no existe ese destino.");
                             return;
@@ -598,15 +610,24 @@ public class Main {
 
                         viaje.setIdDestino(idDestino);
 
-                        System.out.print("Nuevo ID del hotel (0 si no hay alojamiento): ");
-                        int idHotel = leerInt(sc);
+                        int idHotel;
 
-                        if (idHotel == 0) {
-                            viaje.setIdHotel(null);
-                        } else {
-                            // TODO : Hacer "existeHotel" antes de guardarlo
-                            viaje.setIdHotel(idHotel);
+                        while (true) {
+                            System.out.print("Nuevo ID del hotel (0 si no hay alojamiento): ");
+                            idHotel = leerInt(sc);
+
+                            if (idHotel == 0) {
+                                viaje.setIdHotel(null);
+                            } else {
+                                if (existeHotel(idHotel)) {
+                                    break;
+                                }
+
+                                System.out.println("\nError: no existe ese hotel. Vuelve a introducir el ID.");
+                            }
                         }
+
+                        viaje.setIdHotel(idHotel);
 
                         String origen = leerTexto(sc, "el nuevo origen");
                         viaje.setOrigen(origen);
@@ -629,7 +650,7 @@ public class Main {
                         int plazasDisponibles = leerInt(sc);
                         viaje.setPlazasDisponibles(plazasDisponibles);
 
-                        String tipo = leerTexto(sc, "el nuevo tipo de viaje");
+                        String tipo = leerTipoViaje(sc);
                         viaje.setTipoViaje(tipo);
 
                         encontrado = true;
@@ -639,7 +660,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -781,6 +802,8 @@ public class Main {
             return;
         }
 
+        ArrayList<Destino> destinos = new ArrayList<>();
+
         FileInputStream fiDestinos = new FileInputStream(fichero);
         ObjectInputStream oiDestinos = new ObjectInputStream(fiDestinos);
 
@@ -789,14 +812,22 @@ public class Main {
                 Destino destino = (Destino) oiDestinos.readObject();
 
                 if (destino != null) {
-                    destino.mostrarTodosDatos();
+                    destinos.add(destino);
                 }
             }
         } catch (EOFException e) {
-            System.out.println("\nFin del fichero.");
+            // Se ha llegado al final del fichero
+        } catch (ClassNotFoundException e) {
+            System.out.println("\nError al leer los destinos.");
         }
 
         oiDestinos.close();
+
+        System.out.println("\nNúmero de destinos: " + destinos.size());
+
+        for (Destino destino : destinos) {
+            destino.mostrarTodosDatos();
+        }
     }
 
     public static void anadirDestino(Scanner sc) throws IOException, ClassNotFoundException {
@@ -809,7 +840,7 @@ public class Main {
 
         String descripcion = leerTexto(sc, "la descripción: ");
 
-        String tipoDestino = leerTexto(sc, "el tipo de destino: ");
+        String tipoDestino = leerTipoDestino(sc);
 
         String idioma = leerTexto(sc, "el idioma: ");
 
@@ -906,7 +937,7 @@ public class Main {
                         String descripcion = leerTexto(sc, "la nueva descripción");
                         destino.setDescripcion(descripcion);
 
-                        String tipo = leerTexto(sc, "el nuevo tipo de destino");
+                        String tipo = leerTipoDestino(sc);
                         destino.setTipoDestino(tipo);
 
                         String idioma = leerTexto(sc, "el nuevo idioma");
@@ -1062,6 +1093,8 @@ public class Main {
             return;
         }
 
+        ArrayList<Hotel> hoteles = new ArrayList<>();
+
         FileInputStream fiHoteles = new FileInputStream(fichero);
         ObjectInputStream oiHoteles = new ObjectInputStream(fiHoteles);
 
@@ -1070,14 +1103,22 @@ public class Main {
                 Hotel hotel = (Hotel) oiHoteles.readObject();
 
                 if (hotel != null) {
-                    hotel.mostrarTodosDatos();
+                    hoteles.add(hotel);
                 }
             }
         } catch (EOFException e) {
-            System.out.println("\nFin del fichero.");
+            // Fin del fichero
+        } catch (ClassNotFoundException e) {
+            System.out.println("\nError al leer los hoteles.");
         }
 
         oiHoteles.close();
+
+        System.out.println("\nNúmero de hoteles: " + hoteles.size());
+
+        for (Hotel hotel : hoteles) {
+            hotel.mostrarTodosDatos();
+        }
     }
 
     public static void anadirHotel(Scanner sc) throws IOException {
@@ -1087,7 +1128,7 @@ public class Main {
         String nombre = leerTexto(sc, "el nombre: ");
 
         System.out.print("Teclea el número de estrellas: ");
-        int estrellas = leerInt(sc);
+        int estrellas = leerEstrellas(sc);
 
         String direccion = leerTexto(sc, "la dirección: ");
 
@@ -1126,7 +1167,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -1178,7 +1219,7 @@ public class Main {
                         hotel.setNombre(nombre);
 
                         System.out.print("Nuevo número de estrellas: ");
-                        int estrellas = leerInt(sc);
+                        int estrellas = leerEstrellas(sc);
                         hotel.setEstrellas(estrellas);
 
                         String direccion = leerTexto(sc, "la nueva dirección");
@@ -1335,6 +1376,8 @@ public class Main {
             return;
         }
 
+        ArrayList<Reserva> reservas = new ArrayList<>();
+
         FileInputStream fiReservas = new FileInputStream(fichero);
         ObjectInputStream oiReservas = new ObjectInputStream(fiReservas);
 
@@ -1343,14 +1386,22 @@ public class Main {
                 Reserva reserva = (Reserva) oiReservas.readObject();
 
                 if (reserva != null) {
-                    reserva.mostrarTodosDatos();
+                    reservas.add(reserva);
                 }
             }
         } catch (EOFException e) {
-            System.out.println("\nFin del fichero.");
+            // Fin del fichero
+        } catch (ClassNotFoundException e) {
+            System.out.println("\nError al leer las reservas.");
         }
 
         oiReservas.close();
+
+        System.out.println("\nNúmero de reservas: " + reservas.size());
+
+        for (Reserva reserva : reservas) {
+            reserva.mostrarTodosDatos();
+        }
     }
 
     public static void anadirReserva(Scanner sc) throws IOException {
@@ -1381,8 +1432,7 @@ public class Main {
         System.out.print("Teclea el precio total: ");
         double precioTotal = leerDouble(sc);
 
-        // TODO : Control de errores --> Que solo se pueda escribir una de las opciones y no texto aleatorio (al igual q con el tipo de destino y demás)
-        String estado = leerTexto(sc, "el estado de la reserva: ");
+        String estado = leerEstadoReserva(sc);
 
         Reserva nuevaReserva = new Reserva(
                 id,
@@ -1415,7 +1465,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -1700,7 +1750,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -1740,7 +1790,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -1779,7 +1829,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -1866,7 +1916,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -1878,6 +1928,7 @@ public class Main {
         }
     }
 
+    // TODO : Poner de comentario q en esta función primero se busca el id del nombre del destino y luego se buscan sus viajes
     public static void buscarViajePorDestino(Scanner sc) throws IOException {
 
         String ciudad = leerTexto(sc, "el destino: ");
@@ -1969,7 +2020,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -1983,7 +2034,7 @@ public class Main {
 
     public static void buscarViajePorTipo(Scanner sc) throws IOException {
 
-        String tipoViaje = leerTexto(sc, "el tipo de viaje: ");
+        String tipoViaje = leerTipoViaje(sc);
 
         File fichero = new File("datos/dat/FicheroViaje.dat");
 
@@ -2007,7 +2058,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -2089,7 +2140,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -2127,7 +2178,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -2141,7 +2192,7 @@ public class Main {
 
     public static void buscarDestinoPorTipo(Scanner sc) throws IOException {
 
-        String tipoDestino = leerTexto(sc, "el tipo de destino: ");
+        String tipoDestino = leerTipoDestino(sc);
 
         File fichero = new File("datos/dat/FicheroDestino.dat");
 
@@ -2165,7 +2216,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -2219,7 +2270,7 @@ public class Main {
     public static void buscarHotelPorEstrellas(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el número de estrellas: ");
-        int estrellas = leerInt(sc);
+        int estrellas = leerEstrellas(sc);
 
         File fichero = new File("datos/dat/FicheroHotel.dat");
 
@@ -2243,7 +2294,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -2282,7 +2333,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -2371,7 +2422,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -2383,7 +2434,6 @@ public class Main {
         }
     }
 
-    // TODO : Hacerlo por el DNI del cliente (habrá que hacer doble búsqueda como cuando lo del destino del viaje)
     public static void buscarReservaPorCliente(Scanner sc) throws IOException {
 
         System.out.print("\nTeclea el ID del cliente: ");
@@ -2411,7 +2461,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -2450,7 +2500,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -2488,7 +2538,7 @@ public class Main {
                 }
             }
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -2858,6 +2908,133 @@ public class Main {
         return texto;
     }
 
+    public static String leerEstadoReserva(Scanner sc) {
+
+        while (true) {
+            System.out.println("1. Pendiente");
+            System.out.println("2. Confirmada");
+            System.out.println("3. Cancelada");
+
+            System.out.print("Teclea el número del estado de la reserva (1-3): ");
+            String estado = sc.nextLine();
+
+            switch (estado.toLowerCase()) {
+                case "1":
+                    return "Pendiente";
+
+                case "2":
+                    return "Confirmada";
+
+                case "3":
+                    return "Cancelada";
+
+                default:
+                    System.out.println("Estado no válido. Elige '1. Pendiente', '2. Confirmada' o '3. Cancelada'.");
+            }
+        }
+    }
+
+    public static String leerTipoViaje(Scanner sc) {
+
+        while (true) {
+            System.out.println("1. Escapada");
+            System.out.println("2. Excursión de un día");
+            System.out.println("3. Naturaleza");
+            System.out.println("4. Playa");
+            System.out.println("5. Vacaciones");
+            System.out.println("6. Cultural");
+            System.out.println("7. Internacional");
+
+            System.out.print("Teclea el número del tipo de viaje (1-7): ");
+            String tipo = sc.nextLine().trim();
+
+            switch (tipo.toLowerCase()) {
+                case "1":
+                    return "Escapada";
+
+                case "2":
+                    return "Excursión de un día";
+
+                case "3":
+                    return "Naturaleza";
+
+                case "4":
+                    return "Playa";
+
+                case "5":
+                    return "Vacaciones";
+
+                case "6":
+                    return "Cultural";
+
+                case "7":
+                    return "Internacional";
+
+                default:
+                    System.out.println("Tipo de viaje no válido.");
+            }
+        }
+    }
+
+    public static String leerTipoDestino(Scanner sc) {
+
+        while (true) {
+            System.out.println("1. Costa");
+            System.out.println("2. Playa");
+            System.out.println("3. Urbano");
+            System.out.println("4. Naturaleza");
+            System.out.println("5. Cultural");
+
+            System.out.print("Teclea el número del tipo de destino (1-5): ");
+            String tipo = sc.nextLine().trim();
+
+            switch (tipo.toLowerCase()) {
+                case "1":
+                    return "Costa";
+
+                case "2":
+                    return "Playa";
+
+                case "3":
+                    return "Urbano";
+
+                case "4":
+                    return "Naturaleza";
+
+                case "5":
+                    return "Cultural";
+
+                default:
+                    System.out.println("Tipo de destino no válido.");
+            }
+        }
+    }
+
+    public static int leerEstrellas(Scanner sc) {
+
+        while (true) {
+            int estrellas = leerInt(sc);
+
+            if (estrellas >= 1 && estrellas <= 5) {
+                return estrellas;
+            }
+
+            System.out.println("Las estrellas deben estar entre 1 y 5.");
+        }
+    }
+
+    public static String leerTextoModificar(Scanner sc, String mensaje, String valorActual) {
+
+        System.out.print("Teclea " + mensaje + ": " + valorActual);
+        String texto = sc.nextLine();
+
+        if (texto.isEmpty()) {
+            return valorActual;
+        }
+
+        return texto;
+    }
+
     public static String leerDni(Scanner sc) {
 
         while (true) {
@@ -2930,7 +3107,7 @@ public class Main {
             }
 
         } catch (EOFException e) {
-            // Se ha llegado al final del fichero.
+            // Fin del fichero
         } catch (ClassNotFoundException e) {
             System.out.println("\nError al leer los clientes.");
         }
